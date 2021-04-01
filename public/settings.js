@@ -12,16 +12,15 @@ class Settings extends HTMLElement {
 
 		const style = $('style', shadow);
 		style.innerText = `
-			/*:host {
-				all: initial;
-				contain: content;
-			}*/
 			form {
 				font-size: 6vw;
 			}
-			label input {
+			input {
 				display: block;
 				width: 100%;
+			}
+			output {
+				display: block;
 			}
 		`;
 
@@ -38,6 +37,7 @@ class Settings extends HTMLElement {
 					min="10"
 					max="99999"
 					value="${this.numberOfSprites}" />
+				<output id="numberOfSpritesOutput">${this.numberOfSprites}</output>
 			</label>
 			<label>
 				ratio of collectibles
@@ -48,19 +48,26 @@ class Settings extends HTMLElement {
 					max="0.5"
 					step="0.001"
 					value="${this.ratioOfCollectibles}" />
+				<output id="ratioOfCollectiblesOutput">${this.ratioOfCollectibles}</output>
 			</label>
-			<input type="submit" />
+			<input type="submit" value="Play!" />
 		</form>`;
 		const formClone = formTemplate.content.cloneNode(true);
 
+		this.numberOfSpritesOutput = formClone.getElementById('numberOfSpritesOutput');
+
 		formClone.getElementById('numberOfSprites').onchange = (event) => {
-			console.log(`🧚‍♀️ number of sprites changed`, event.target.value);
+			console.log(`🧚‍♀️ number of sprites changed`, this.numberOfSprites, event.target.value);
 			this.numberOfSprites = event.target.value;
+			this.numberOfSpritesOutput.innerText = this.numberOfSprites;
 		};
 
+		this.ratioOfCollectiblesOutput = formClone.getElementById('ratioOfCollectiblesOutput');
+
 		formClone.getElementById('ratioOfCollectibles').onchange = (event) => {
-			console.log(`🧜‍♀️ ratio changed`, event.target.value);
+			console.log(`🧜‍♀️ ratio changed`, this.ratioOfCollectibles, event.target.value);
 			this.ratioOfCollectibles = event.target.value;
+			this.ratioOfCollectiblesOutput.innerText = this.ratioOfCollectibles;
 		};
 
 		formClone.querySelector('input[type=submit]').onclick = (event) => {
