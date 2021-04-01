@@ -79,6 +79,11 @@ class Scroller extends HTMLElement {
 		for (let i = 0, n = sprites.length; i < n; i++) {
 			const el = document.createElement('div');
 			el.innerText = sprites[i].kind;
+			if(sprites[i].isCollectible) {
+				el.addEventListener('click', () => {
+					alert('you found me!');
+				});
+			}
 			shadow.appendChild(el);
 		}
 
