@@ -10,7 +10,8 @@
 			* {
 				box-sizing: border-box;
 			}
-			*::before, *::after {
+			*::before,
+			*::after {
 				box-sizing: inherit;
 			}
 			body {
@@ -22,12 +23,11 @@
 	</head>
 	<body>
 		<h1>scroller</h1>
-		<h2>Find 🎅 and 🤶</h2>
 		<noscript>This site requires JavaScript</noscript>
 		<script type="module">
-			import Scroller from './scroller.js';
-			customElements.define('main-scroller', Scroller);
+			import Settings from './settings.js';
+			customElements.define('aside-settings', Settings);
 		</script>
-		<main-scroller foo="1"></main-scroller>
+		<aside-settings></aside-settings>
 	</body>
 </html>
