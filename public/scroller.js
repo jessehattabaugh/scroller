@@ -19,13 +19,13 @@ class Scroller extends HTMLElement {
 				all: initial;
 				contain: content;
 				display: grid;
-				grid-template-columns: repeat(10, 1fr);
+				grid-template-columns: repeat(7, 1fr);
 			}
 
 			div {
 				justify-self: center;
-				margin: 1em;
-				font-size: 3vw;
+				margin: .5em;
+				font-size: 5vw;
 			}
 		`;
 		shadow.appendChild(style);
