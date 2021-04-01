@@ -25,53 +25,61 @@ class Settings extends HTMLElement {
 			}
 		`;
 
-		const form = $('form', shadow);
-
 		this.numberOfSprites = 10000;
+		this.ratioOfCollectibles = 0.02;
 
-		const numberOfSpritesLabel = $('label', form);
-		numberOfSpritesLabel.innerText = 'number of sprites';
+		const formTemplate = document.createElement('template');
+		formTemplate.innerHTML = `<form>
+			<label>
+				number of sprites
+				<input
+					id="numberOfSprites"
+					type="range"
+					min="10"
+					max="99999"
+					value="${this.numberOfSprites}" />
+			</label>
+			<label>
+				ratio of collectibles
+				<input
+					id="ratioOfCollectibles"
+					type="range"
+					min="0.001"
+					max="0.5"
+					step="0.001"
+					value="${this.ratioOfCollectibles}" />
+			</label>
+			<input type="submit" />
+		</form>`;
+		const formClone = formTemplate.content.cloneNode(true);
 
-		const numberOfSpritesInput = $('input', numberOfSpritesLabel);
-		numberOfSpritesInput.type = 'range';
-		numberOfSpritesInput.min = 10;
-		numberOfSpritesInput.max = 99999;
-		numberOfSpritesInput.value = this.numberOfSprites;
-		numberOfSpritesInput.onchange = (event) => {
+		formClone.getElementById('numberOfSprites').onchange = (event) => {
 			console.log(`🧚‍♀️ number of sprites changed`, event.target.value);
 			this.numberOfSprites = event.target.value;
 		};
 
-		this.ratioOfCollectibles = 0.02;
-
-		const ratioOfCollectiblesLabel = $('label', form);
-		ratioOfCollectiblesLabel.innerText = 'ratio of collectibles';
-
-		const ratioOfCollectiblesInput = $('input', ratioOfCollectiblesLabel);
-		ratioOfCollectiblesInput.type = 'range';
-		ratioOfCollectiblesInput.min = 0.001;
-		ratioOfCollectiblesInput.max = 0.5;
-		ratioOfCollectiblesInput.step = 0.001;
-		ratioOfCollectiblesInput.value = this.ratioOfCollectibles;
-		ratioOfCollectiblesInput.onchange = (event) => {
+		formClone.getElementById('ratioOfCollectibles').onchange = (event) => {
 			console.log(`🧜‍♀️ ratio changed`, event.target.value);
 			this.ratioOfCollectibles = event.target.value;
 		};
 
-		const submit = $('input', form);
-		submit.type = 'submit';
-		submit.onclick = (event) => {
+		formClone.querySelector('input[type=submit]').onclick = (event) => {
 			console.log('🎲', this.numberOfCollectibles);
 			event.preventDefault();
 
 			const scroller = document.createElement('scroller-modal');
 			scroller.setAttribute('numberOfSprites', this.numberOfSprites);
-			scroller.setAttribute('ratioOfCollectibles', this.ratioOfCollectibles);
+			scroller.setAttribute(
+				'ratioOfCollectibles',
+				this.ratioOfCollectibles,
+			);
 			shadow.appendChild(scroller);
 			// TODO delete any existing scrollers before adding a new one
 
 			return false;
 		};
+
+		shadow.appendChild(formClone);
 	}
 }
 
