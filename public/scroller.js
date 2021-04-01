@@ -2,24 +2,34 @@ import shuffle from 'https://cdn.skypack.dev/shuffle-array';
 
 console.log('🥾');
 
+import { creappend as $ } from './creappend.js';
+
 class Scroller extends HTMLElement {
-	static get observedAttributes() {
+
+	/*static get observedAttributes() {
 		return ['foo', 'bar'];
-	}
+	}*/
 
 	constructor() {
 		super();
-		console.log('🚧');
+		console.log('🚧 constructed Scroller');
 
-		const shadow = this.attachShadow({ mode: 'open' });
+		this.shadow = this.attachShadow({ mode: 'open' });
 
-		const style = document.createElement('style');
+		const style = $('style', this.shadow);
 		style.innerText = `
 			:host {
 				all: initial;
+				background: black;
 				contain: content;
 				display: grid;
 				grid-template-columns: repeat(7, 1fr);
+				height: 100%;
+				left: 0;
+				position: absolute;
+				top: 0;
+				width: 100%;
+				overflow: scroll;
 			}
 
 			div {
@@ -28,20 +38,30 @@ class Scroller extends HTMLElement {
 				font-size: 5vw;
 			}
 		`;
-		shadow.appendChild(style);
+	}
+
+	handleScroll() {
+		console.log('📜', window.scrollY);
+	}
+
+	connectedCallback() {
+		console.log('🥌 Scroller connected');
+		this.addEventListener('scroll', this.handleScroll);
+		const numberOfSprites = this.getAttribute('numberOfSprites');
+		const ratioOfCollectibles = this.getAttribute('ratioOfCollectibles');
 
 		const sprites = [];
 
 		// create some number of collectible sprites
-		const someNumber = 10;
+		const numberOfCollectibles = numberOfSprites * ratioOfCollectibles;
 		const collectibleKinds = [`🎅`, `🤶`];
-		for (let i = 0; i < someNumber; i++) {
+		for (let i = 0; i < numberOfCollectibles; i++) {
 			sprites.push({ kind: shuffle.pick(collectibleKinds), isCollectible: true});
 		}
 
 		// create some other number of uncollectible sprites
-		const someOtherNumber = 1000;
-		const otherKinds = [
+		const numberOfUncollectibles = numberOfSprites - numberOfCollectibles;
+		const uncollectibleKinds = [
 			`👩`,
 			`👨`,
 			`🧑`,
@@ -70,8 +90,8 @@ class Scroller extends HTMLElement {
 			`🧔`,
 			`👼`,
 		];
-		for (let i = 0; i < someOtherNumber; i++) {
-			sprites.push({kind: shuffle.pick(otherKinds), isCollectible: false});
+		for (let i = 0; i < numberOfUncollectibles; i++) {
+			sprites.push({kind: shuffle.pick(uncollectibleKinds), isCollectible: false});
 		}
 
 		// randomize them and add them to the shadow root
@@ -84,32 +104,22 @@ class Scroller extends HTMLElement {
 					alert('you found me!');
 				});
 			}
-			shadow.appendChild(el);
+			this.shadow.appendChild(el);
 		}
-
-	}
-
-	handleScroll() {
-		console.log('📜', window.scrollY);
-	}
-
-	connectedCallback() {
-		console.log('🍾');
-		document.addEventListener('scroll', this.handleScroll);
 	}
 
 	disconnectedCallback() {
 		console.log('🔌');
-		document.removeEventListener('scroll', this.handleScroll);
+		this.removeEventListener('scroll', this.handleScroll);
 	}
 
-	adoptedCallback() {
+	/*adoptedCallback() {
 		console.log('🤱');
-	}
+	}*/
 
-	attributeChangedCallback(name, oldValue, newValue) {
+	/*attributeChangedCallback(name, oldValue, newValue) {
 		console.log('📶', name, oldValue, newValue);
-	}
+	}*/
 }
 
 export default Scroller;
