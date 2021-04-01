@@ -1,7 +1,8 @@
+import shuffle from 'https://cdn.skypack.dev/shuffle-array';
+
 console.log('🥾');
 
 class Scroller extends HTMLElement {
-
 	static get observedAttributes() {
 		return ['foo', 'bar'];
 	}
@@ -10,13 +11,77 @@ class Scroller extends HTMLElement {
 		super();
 		console.log('🚧');
 
-		const shadow = this.attachShadow({mode: 'open'});
+		const shadow = this.attachShadow({ mode: 'open' });
 
-		for (let i = 0; i < 1000; i++) {
-			const div = document.createElement('div');
-			div.innerText = '👋';
-			shadow.appendChild(div);
+		const style = document.createElement('style');
+		style.innerText = `
+			:host {
+				all: initial;
+				contain: content;
+				display: grid;
+				grid-template-columns: repeat(10, 1fr);
+			}
+
+			div {
+				justify-self: center;
+				margin: 1em;
+				font-size: 3vw;
+			}
+		`;
+		shadow.appendChild(style);
+
+		const sprites = [];
+
+		// create some number of collectible sprites
+		const someNumber = 10;
+		const collectibleKinds = [`🎅`, `🤶`];
+		for (let i = 0; i < someNumber; i++) {
+			sprites.push({ kind: shuffle.pick(collectibleKinds), isCollectible: true});
 		}
+
+		// create some other number of uncollectible sprites
+		const someOtherNumber = 1000;
+		const otherKinds = [
+			`👩`,
+			`👨`,
+			`🧑`,
+			`👧`,
+			`👦`,
+			`🧒`,
+			`👶`,
+			`👵`,
+			`👴`,
+			`🧓`,
+			`👩‍🦰`,
+			`👨‍🦰`,
+			`👩‍🦱`,
+			`👨‍🦱`,
+			`👩‍🦲`,
+			`👨‍🦲`,
+			`👩‍🦳`,
+			`👨‍🦳`,
+			`👱‍♀️`,
+			`👱‍♂️`,
+			`👸`,
+			`🤴`,
+			`👳‍♀️`,
+			`👳‍♂️`,
+			`👲`,
+			`🧔`,
+			`👼`,
+		];
+		for (let i = 0; i < someOtherNumber; i++) {
+			sprites.push({kind: shuffle.pick(otherKinds), isCollectible: false});
+		}
+
+		// randomize them and add them to the shadow root
+		shuffle(sprites);
+		for (let i = 0, n = sprites.length; i < n; i++) {
+			const el = document.createElement('div');
+			el.innerText = sprites[i].kind;
+			shadow.appendChild(el);
+		}
+
 	}
 
 	handleScroll() {
