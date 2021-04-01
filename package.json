@@ -1,0 +1,23 @@
+{
+	"author": "Jesse Hattabaugh<arkanciscan@gmail.com>",
+	"bugs": {
+		"url": "https://github.com/jessehattabaugh/scroller/issues"
+	},
+	"description": "a game about scrolling",
+	"devDependencies": {
+		"serve": "^11.3.2"
+	},
+	"homepage": "https://github.com/jessehattabaugh/scroller#readme",
+	"license": "GPL-3.0-or-later",
+	"name": "scroller",
+	"private": "true",
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/jessehattabaugh/scroller.git"
+	},
+	"scripts": {
+		"start": "serve public",
+		"test": "npx cowsay no tests yet, sorry!"
+	},
+	"version": "0.0.0"
+}
