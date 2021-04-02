@@ -21,7 +21,7 @@ class Scroller extends HTMLElement {
 				background: black;
 				contain: content;
 				display: grid;
-				grid-template-columns: repeat(7, 1fr);
+				grid-template-columns: repeat(5, 1fr);
 				height: 100%;
 				left: 0;
 				position: absolute;
@@ -32,8 +32,8 @@ class Scroller extends HTMLElement {
 
 			div {
 				justify-self: center;
-				margin: .5em;
-				font-size: 5vw;
+				margin: 1vw;
+				font-size: 13vw;
 			}
 		`;
 	}

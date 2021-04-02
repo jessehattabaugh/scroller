@@ -24,8 +24,8 @@ class Settings extends HTMLElement {
 			}
 		`;
 
-		this.numberOfSprites = 10000;
-		this.ratioOfCollectibles = 0.02;
+		this.numberOfSprites = 500;
+		this.ratioOfCollectibles = 0.025;
 
 		const formTemplate = document.createElement('template');
 		formTemplate.innerHTML = `<form>
@@ -35,7 +35,7 @@ class Settings extends HTMLElement {
 					id="numberOfSprites"
 					type="range"
 					min="10"
-					max="99999"
+					max="9999"
 					value="${this.numberOfSprites}" />
 				<output id="numberOfSpritesOutput">${this.numberOfSprites}</output>
 			</label>
@@ -45,7 +45,7 @@ class Settings extends HTMLElement {
 					id="ratioOfCollectibles"
 					type="range"
 					min="0.001"
-					max="0.5"
+					max="0.1"
 					step="0.001"
 					value="${this.ratioOfCollectibles}" />
 				<output id="ratioOfCollectiblesOutput">${this.ratioOfCollectibles}</output>
