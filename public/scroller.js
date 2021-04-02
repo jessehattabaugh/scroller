@@ -34,6 +34,9 @@ class Scroller extends HTMLElement {
 				justify-self: center;
 				margin: 1vw;
 			}
+			.collected {
+				background: red;
+			}
 		`;
 	}
 
@@ -106,19 +109,56 @@ class Scroller extends HTMLElement {
 		shuffle(sprites);
 		const container = $('div', this.shadow);
 		container.className = 'container';
+
+		const intersected = [];
+		const collected = [];
+
+		this.observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					console.log(
+						'👀 collectible came into view',
+						entry.target.innerText,
+					);
+					intersected.push(entry.target);
+				} else {
+					console.log(
+						'🙈 collectible became hidden',
+						entry.target.innerText,
+					);
+					delete intersected[intersected.indexOf(entry.target)];
+				}
+			});
+		});
+
 		for (let i = 0, n = sprites.length; i < n; i++) {
-			const el = $('div', container);
-			el.innerText = sprites[i].kind;
-			el.className = 'sprite';
-			if (sprites[i].isCollectible) {
-				el.addEventListener('click', () => {
+			const sprite = sprites[i];
+			const spriteElement = $('div', container);
+			spriteElement.innerText = sprite.kind;
+			spriteElement.className = 'sprite';
+			if (sprite.isCollectible) {
+				spriteElement.addEventListener('click', () => {
 					alert('you found me!');
 				});
+				this.observer.observe(spriteElement);
 			}
 		}
 
+		// clicking anywhere on the sprite container collects all the collectible sprites in the view port
+		container.onclick = (event) => {
+			for (let sprite of intersected) {
+				if (sprite && !collected.includes(sprite)) {
+					console.log(sprite, typeof sprite);
+					collected.push(sprite);
+					sprite.classList.add('collected');
+				}
+			}
 
-
+			console.log(
+				'📸 collecting all the sprites that intersect the viewport',
+				collected.length,
+			);
+		};
 	}
 
 	disconnectedCallback() {
