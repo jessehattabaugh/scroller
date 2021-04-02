@@ -8,9 +8,9 @@ class Settings extends HTMLElement {
 		super();
 		console.log('💠');
 
-		const shadow = this.attachShadow({ mode: 'open' });
+		this.shadow = this.attachShadow({ mode: 'open' });
 
-		const style = $('style', shadow);
+		const style = $('style', this.shadow);
 		style.innerText = `
 			form {
 				font-size: 6vw;
@@ -54,18 +54,30 @@ class Settings extends HTMLElement {
 		</form>`;
 		const formClone = formTemplate.content.cloneNode(true);
 
-		this.numberOfSpritesOutput = formClone.getElementById('numberOfSpritesOutput');
+		this.numberOfSpritesOutput = formClone.getElementById(
+			'numberOfSpritesOutput',
+		);
 
 		formClone.getElementById('numberOfSprites').onchange = (event) => {
-			console.log(`🧚‍♀️ number of sprites changed`, this.numberOfSprites, event.target.value);
+			console.log(
+				`🧚‍♀️ number of sprites changed`,
+				this.numberOfSprites,
+				event.target.value,
+			);
 			this.numberOfSprites = event.target.value;
 			this.numberOfSpritesOutput.innerText = this.numberOfSprites;
 		};
 
-		this.ratioOfCollectiblesOutput = formClone.getElementById('ratioOfCollectiblesOutput');
+		this.ratioOfCollectiblesOutput = formClone.getElementById(
+			'ratioOfCollectiblesOutput',
+		);
 
 		formClone.getElementById('ratioOfCollectibles').onchange = (event) => {
-			console.log(`🧜‍♀️ ratio changed`, this.ratioOfCollectibles, event.target.value);
+			console.log(
+				`🧜‍♀️ ratio changed`,
+				this.ratioOfCollectibles,
+				event.target.value,
+			);
 			this.ratioOfCollectibles = event.target.value;
 			this.ratioOfCollectiblesOutput.innerText = this.ratioOfCollectibles;
 		};
@@ -80,13 +92,36 @@ class Settings extends HTMLElement {
 				'ratioOfCollectibles',
 				this.ratioOfCollectibles,
 			);
-			shadow.appendChild(scroller);
+			this.shadow.appendChild(scroller);
 			// TODO delete any existing scrollers before adding a new one
+
+			const url = new URL(window.location);
+			url.searchParams.set('numberOfSprites', this.numberOfSprites);
+			url.searchParams.set(
+				'ratioOfCollectibles',
+				this.ratioOfCollectibles,
+			);
+			window.history.pushState({}, '', url);
 
 			return false;
 		};
 
-		shadow.appendChild(formClone);
+		this.shadow.appendChild(formClone);
+	}
+
+	popstateHandler(event) {
+		console.log('🍿 state is popping');
+		this.shadow.querySelector('scroller-modal').remove();
+	}
+
+	connectedCallback() {
+		console.log('🧮 Settings Connected');
+		window.addEventListener('popstate', this.popstateHandler.bind(this));
+	}
+
+	disconnectedCallback() {
+		console.log('🛑 Settings Disconnected');
+		window.removeEventListener('popstate', this.popstateHandler);
 	}
 }
 

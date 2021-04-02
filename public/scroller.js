@@ -1,7 +1,5 @@
 import shuffle from 'https://cdn.skypack.dev/shuffle-array';
 
-console.log('🥾');
-
 import { creappend as $ } from './creappend.js';
 
 class Scroller extends HTMLElement {
