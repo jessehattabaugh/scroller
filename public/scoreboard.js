@@ -14,13 +14,10 @@ class ScoreBoard extends HTMLElement {
 		const style = $('style', this.shadow);
 		style.innerText = `
 			:host {
-				background: red;
-				border-radius: 1em;
-				left: 1vw;
-				position: fixed;
-				top: 1vw;
+				background: white;
+				color: black;
+				padding: 1em;
 				width: 100%;
-				color: white;
 			}
 		`;
 

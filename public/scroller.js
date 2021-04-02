@@ -15,23 +15,24 @@ class Scroller extends HTMLElement {
 		const style = $('style', this.shadow);
 		style.innerText = `
 			:host {
-				all: initial;
-				background: black;
-				contain: content;
-				display: grid;
-				grid-template-columns: repeat(5, 1fr);
-				height: 100%;
-				left: 0;
+				display: flex;
+				flex-direction: column;
 				position: absolute;
 				top: 0;
+				left: 0;
 				width: 100%;
+				height: 100%;
+			}
+			.container {
+				background: black;
+				display: grid;
+				grid-template-columns: repeat(5, 1fr);
 				overflow: scroll;
 			}
-
-			div {
+			.sprite {
+				font-size: 13vw;
 				justify-self: center;
 				margin: 1vw;
-				font-size: 13vw;
 			}
 		`;
 	}
@@ -97,22 +98,26 @@ class Scroller extends HTMLElement {
 			});
 		}
 
-		// randomize the sprites and add them to the shadow root
+		// create a scoreboard
+		this.scoreboard = $('score-board', this.shadow);
+		this.scoreboard.setAttribute('score', JSON.stringify(this.kindTotals));
+
+		// randomize the sprites and add them to a .container
 		shuffle(sprites);
+		const container = $('div', this.shadow);
+		container.className = 'container';
 		for (let i = 0, n = sprites.length; i < n; i++) {
-			const el = document.createElement('div');
+			const el = $('div', container);
 			el.innerText = sprites[i].kind;
+			el.className = 'sprite';
 			if (sprites[i].isCollectible) {
 				el.addEventListener('click', () => {
 					alert('you found me!');
 				});
 			}
-			this.shadow.appendChild(el);
 		}
 
-		// create a scoreboard
-		this.scoreboard = $('score-board', this.shadow);
-		this.scoreboard.setAttribute('score', JSON.stringify(this.kindTotals));
+
 
 	}
 
