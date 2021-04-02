@@ -20,7 +20,7 @@ class ScoreBoard extends HTMLElement {
 				width: 100%;
 			}
 		`;
-
+		$('span', this.shadow).innerText = 'Find these:';
 		this.scoreOutput = $('output', this.shadow);
 	}
 
