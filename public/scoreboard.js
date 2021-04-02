@@ -14,14 +14,28 @@ class ScoreBoard extends HTMLElement {
 		const style = $('style', this.shadow);
 		style.innerText = `
 			:host {
-				background: white;
-				color: black;
-				padding: 1em;
-				width: 100%;
+				background: black;
+				color: white;
+				display: flex;
+				justify-content: space-around;
+				padding: .5em;
 			}
 		`;
 		$('span', this.shadow).innerText = 'Find these:';
 		this.scoreOutput = $('output', this.shadow);
+
+		const timer = $('span', this.shadow);
+		timer.id = 'timer';
+		timer.innerText = '00:00';
+		this.timerStart = new Date().getTime();
+
+		this.timerInterval = setInterval(() => {
+			const now = new Date().getTime();
+			const distance = now - this.timerStart;
+			const seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
+			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
+			timer.innerText = `${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`;
+		}, 1000);
 	}
 
 	updateScore(score) {
