@@ -34,11 +34,18 @@ class Scroller extends HTMLElement {
 				justify-self: center;
 				margin: 1vw;
 			}
+			.collected {
+				background: red;
+			}
 		`;
 	}
 
 	handleScroll() {
 		console.log('📜', window.scrollY);
+	}
+
+	updateScore() {
+		this.scoreboard.setAttribute('score', JSON.stringify(this.kindTotals));
 	}
 
 	connectedCallback() {
@@ -100,25 +107,61 @@ class Scroller extends HTMLElement {
 
 		// create a scoreboard
 		this.scoreboard = $('score-board', this.shadow);
-		this.scoreboard.setAttribute('score', JSON.stringify(this.kindTotals));
+		this.updateScore();
 
 		// randomize the sprites and add them to a .container
 		shuffle(sprites);
 		const container = $('div', this.shadow);
 		container.className = 'container';
+
+		const intersected = [];
+		const collected = [];
+
+		this.observer = new IntersectionObserver((entries, observer) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					console.log(
+						'👀 collectible came into view',
+						entry.target.innerText,
+					);
+					intersected.push(entry.target);
+				} else {
+					console.log(
+						'🙈 collectible became hidden',
+						entry.target.innerText,
+					);
+					delete intersected[intersected.indexOf(entry.target)];
+				}
+			});
+		});
+
 		for (let i = 0, n = sprites.length; i < n; i++) {
-			const el = $('div', container);
-			el.innerText = sprites[i].kind;
-			el.className = 'sprite';
-			if (sprites[i].isCollectible) {
-				el.addEventListener('click', () => {
+			const sprite = sprites[i];
+			const spriteElement = $('div', container);
+			spriteElement.innerText = sprite.kind;
+			spriteElement.className = 'sprite';
+			if (sprite.isCollectible) {
+				spriteElement.addEventListener('click', () => {
 					alert('you found me!');
 				});
+				this.observer.observe(spriteElement);
 			}
 		}
 
+		// clicking anywhere on the sprite container collects all the collectible sprites in the view port
+		container.onclick = (event) => {
+			for (let sprite of intersected) {
+				if (sprite && !collected.includes(sprite)) {
+					console.log(sprite, typeof sprite);
+					collected.push(sprite);
+					sprite.classList.add('collected');
+					this.kindTotals[sprite.innerText]--;
+					this.updateScore();
+				}
+			}
 
-
+			console.log(`📸 collecting ${collected.length}`);
+		};
 	}
 
 	disconnectedCallback() {
