@@ -2,12 +2,10 @@ import shuffle from 'https://cdn.skypack.dev/shuffle-array';
 
 import { creappend as $ } from './creappend.js';
 
+import ScoreBoard from './scoreboard.js';
+customElements.define('score-board', ScoreBoard);
+
 class Scroller extends HTMLElement {
-
-	/*static get observedAttributes() {
-		return ['foo', 'bar'];
-	}*/
-
 	constructor() {
 		super();
 		console.log('🚧 constructed Scroller');
@@ -53,9 +51,13 @@ class Scroller extends HTMLElement {
 		// create some number of collectible sprites
 		const numberOfCollectibles = numberOfSprites * ratioOfCollectibles;
 		const collectibleKinds = [`🎅`, `🤶`];
+		this.kindTotals = {};
 		for (let i = 0; i < numberOfCollectibles; i++) {
-			sprites.push({ kind: shuffle.pick(collectibleKinds), isCollectible: true});
+			const kind = shuffle.pick(collectibleKinds);
+			sprites.push({ kind: kind, isCollectible: true });
+			this.kindTotals[kind] = (this.kindTotals[kind] || 0) + 1;
 		}
+		console.log('👨‍👩‍👧‍👧 kindTotals: ', this.kindTotals);
 
 		// create some other number of uncollectible sprites
 		const numberOfUncollectibles = numberOfSprites - numberOfCollectibles;
@@ -89,35 +91,35 @@ class Scroller extends HTMLElement {
 			`👼`,
 		];
 		for (let i = 0; i < numberOfUncollectibles; i++) {
-			sprites.push({kind: shuffle.pick(uncollectibleKinds), isCollectible: false});
+			sprites.push({
+				kind: shuffle.pick(uncollectibleKinds),
+				isCollectible: false,
+			});
 		}
 
-		// randomize them and add them to the shadow root
+		// randomize the sprites and add them to the shadow root
 		shuffle(sprites);
 		for (let i = 0, n = sprites.length; i < n; i++) {
 			const el = document.createElement('div');
 			el.innerText = sprites[i].kind;
-			if(sprites[i].isCollectible) {
+			if (sprites[i].isCollectible) {
 				el.addEventListener('click', () => {
 					alert('you found me!');
 				});
 			}
 			this.shadow.appendChild(el);
 		}
+
+		// create a scoreboard
+		this.scoreboard = $('score-board', this.shadow);
+		this.scoreboard.setAttribute('score', JSON.stringify(this.kindTotals));
+
 	}
 
 	disconnectedCallback() {
 		console.log('🔌');
 		this.removeEventListener('scroll', this.handleScroll);
 	}
-
-	/*adoptedCallback() {
-		console.log('🤱');
-	}*/
-
-	/*attributeChangedCallback(name, oldValue, newValue) {
-		console.log('📶', name, oldValue, newValue);
-	}*/
 }
 
 export default Scroller;
