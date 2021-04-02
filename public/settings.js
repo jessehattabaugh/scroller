@@ -27,6 +27,7 @@ class Settings extends HTMLElement {
 		this.numberOfSprites = 500;
 		this.ratioOfCollectibles = 0.025;
 
+		// cloning the settings form from a template to save the pain of building it piece by piece
 		const formTemplate = document.createElement('template');
 		formTemplate.innerHTML = `<form>
 			<label>
@@ -54,6 +55,7 @@ class Settings extends HTMLElement {
 		</form>`;
 		const formClone = formTemplate.content.cloneNode(true);
 
+		// need to store a reference to this because the formClone seems to go stale
 		this.numberOfSpritesOutput = formClone.getElementById(
 			'numberOfSpritesOutput',
 		);
@@ -68,6 +70,7 @@ class Settings extends HTMLElement {
 			this.numberOfSpritesOutput.innerText = this.numberOfSprites;
 		};
 
+		// need to store a reference to this because the formClone seems to go stale
 		this.ratioOfCollectiblesOutput = formClone.getElementById(
 			'ratioOfCollectiblesOutput',
 		);
