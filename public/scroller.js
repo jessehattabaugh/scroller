@@ -44,6 +44,10 @@ class Scroller extends HTMLElement {
 		console.log('📜', window.scrollY);
 	}
 
+	updateScore() {
+		this.scoreboard.setAttribute('score', JSON.stringify(this.kindTotals));
+	}
+
 	connectedCallback() {
 		console.log('🥌 Scroller connected');
 		this.addEventListener('scroll', this.handleScroll);
@@ -103,7 +107,7 @@ class Scroller extends HTMLElement {
 
 		// create a scoreboard
 		this.scoreboard = $('score-board', this.shadow);
-		this.scoreboard.setAttribute('score', JSON.stringify(this.kindTotals));
+		this.updateScore();
 
 		// randomize the sprites and add them to a .container
 		shuffle(sprites);
@@ -151,13 +155,12 @@ class Scroller extends HTMLElement {
 					console.log(sprite, typeof sprite);
 					collected.push(sprite);
 					sprite.classList.add('collected');
+					this.kindTotals[sprite.innerText]--;
+					this.updateScore();
 				}
 			}
 
-			console.log(
-				'📸 collecting all the sprites that intersect the viewport',
-				collected.length,
-			);
+			console.log(`📸 collecting ${collected.length}`);
 		};
 	}
 
