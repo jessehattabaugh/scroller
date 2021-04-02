@@ -26,14 +26,15 @@ class ScoreBoard extends HTMLElement {
 
 		const timer = $('span', this.shadow);
 		timer.id = 'timer';
-		timer.innerText = ':00';
+		timer.innerText = '00:00';
 		this.timerStart = new Date().getTime();
 
 		this.timerInterval = setInterval(() => {
 			const now = new Date().getTime();
 			const distance = now - this.timerStart;
-			const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-			timer.innerText = `:${seconds}`;
+			const seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
+			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
+			timer.innerText = `${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`;
 		}, 1000);
 	}
 
