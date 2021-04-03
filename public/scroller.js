@@ -1,19 +1,22 @@
-import shuffle from 'https://cdn.skypack.dev/shuffle-array';
+import { LitElement, html, css } from 'https://cdn.skypack.dev/lit-element';
 
-import { creappend as $ } from './creappend.js';
+import shuffle from 'https://cdn.skypack.dev/shuffle-array';
 
 import ScoreBoard from './scoreboard.js';
 customElements.define('score-board', ScoreBoard);
 
-class Scroller extends HTMLElement {
-	constructor() {
-		super();
-		console.log('🚧 constructed Scroller');
+import Sprite from './sprite.js';
+customElements.define('sprite-comp', Sprite);
 
-		this.shadow = this.attachShadow({ mode: 'open' });
-
-		const style = $('style', this.shadow);
-		style.innerText = `
+class Scroller extends LitElement {
+	static get properties() {
+		return {
+			numberOfSprites: { type: String },
+			ratioOfCollectibles: { type: String },
+		};
+	}
+	static get styles() {
+		return css`
 			:host {
 				display: flex;
 				flex-direction: column;
@@ -24,15 +27,10 @@ class Scroller extends HTMLElement {
 				height: 100%;
 			}
 			.container {
-				background-image: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+				background-image: linear-gradient(to right top, #d16ba5, #8aa7ec, #5ffbf1);
 				display: grid;
 				grid-template-columns: repeat(5, 1fr);
 				overflow: scroll;
-			}
-			.sprite {
-				font-size: 13vw;
-				justify-self: center;
-				margin: 1vw;
 			}
 			.collected {
 				opacity: .25;
@@ -40,35 +38,43 @@ class Scroller extends HTMLElement {
 		`;
 	}
 
-	handleScroll() {
-		console.log('📜', window.scrollY);
-	}
+	sprites = [];
+	intersected = [];
+	collected = [];
+	kindTotals = {};
 
-	updateScore() {
-		this.scoreboard.setAttribute('score', JSON.stringify(this.kindTotals));
-	}
+	observer = new IntersectionObserver((entries) => {
+		entries.forEach((entry) => {
+			if (entry.isIntersecting) {
+				console.log('👀 collectible came into view', entry.target.innerText);
+				this.intersected.push(entry.target);
+			} else {
+				console.log('🙈 collectible became hidden', entry.target.innerText);
+				delete this.intersected[this.intersected.indexOf(entry.target)];
+			}
+		});
+	});
 
 	connectedCallback() {
+		super.connectedCallback();
+		this.generateSprites();
 		console.log('🥌 Scroller connected');
-		this.addEventListener('scroll', this.handleScroll);
-		const numberOfSprites = this.getAttribute('numberOfSprites');
-		const ratioOfCollectibles = this.getAttribute('ratioOfCollectibles');
+	}
 
-		const sprites = [];
-
+	generateSprites() {
 		// create some number of collectible sprites
-		const numberOfCollectibles = numberOfSprites * ratioOfCollectibles;
+		const numberOfCollectibles = this.numberOfSprites * this.ratioOfCollectibles;
 		const collectibleKinds = [`🎅`, `🤶`];
-		this.kindTotals = {};
+
 		for (let i = 0; i < numberOfCollectibles; i++) {
 			const kind = shuffle.pick(collectibleKinds);
-			sprites.push({ kind: kind, isCollectible: true });
+			this.sprites.push({ kind: kind, isCollectible: true });
 			this.kindTotals[kind] = (this.kindTotals[kind] || 0) + 1;
 		}
 		console.log('👨‍👩‍👧‍👧 kindTotals: ', this.kindTotals);
 
 		// create some other number of uncollectible sprites
-		const numberOfUncollectibles = numberOfSprites - numberOfCollectibles;
+		const numberOfUncollectibles = this.numberOfSprites - numberOfCollectibles;
 		const uncollectibleKinds = [
 			`👩`,
 			`👨`,
@@ -99,74 +105,39 @@ class Scroller extends HTMLElement {
 			`👼`,
 		];
 		for (let i = 0; i < numberOfUncollectibles; i++) {
-			sprites.push({
+			this.sprites.push({
 				kind: shuffle.pick(uncollectibleKinds),
 				isCollectible: false,
 			});
 		}
 
-		// create a scoreboard
-		this.scoreboard = $('score-board', this.shadow);
-		this.updateScore();
+		shuffle(this.sprites);
+	}
 
-		// randomize the sprites and add them to a .container
-		shuffle(sprites);
-		const container = $('div', this.shadow);
-		container.className = 'container';
-
-		const intersected = [];
-		const collected = [];
-
-		this.observer = new IntersectionObserver((entries, observer) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					console.log(
-						'👀 collectible came into view',
-						entry.target.innerText,
-					);
-					intersected.push(entry.target);
-				} else {
-					console.log(
-						'🙈 collectible became hidden',
-						entry.target.innerText,
-					);
-					delete intersected[intersected.indexOf(entry.target)];
-				}
-			});
-		});
-
-		for (let i = 0, n = sprites.length; i < n; i++) {
-			const sprite = sprites[i];
-			const spriteElement = $('div', container);
-			spriteElement.innerText = sprite.kind;
-			spriteElement.className = 'sprite';
-			if (sprite.isCollectible) {
-				spriteElement.addEventListener('click', () => {
-					alert('you found me!');
-				});
-				this.observer.observe(spriteElement);
+	handleClick() {
+		for (let sprite of this.intersected) {
+			if (sprite && !this.collected.includes(sprite)) {
+				this.collected.push(sprite);
+				sprite.classList.add('collected');
+				this.kindTotals[sprite.innerText]--;
 			}
 		}
 
-		// clicking anywhere on the sprite container collects all the collectible sprites in the view port
-		container.onclick = (event) => {
-			for (let sprite of intersected) {
-				if (sprite && !collected.includes(sprite)) {
-					console.log(sprite, typeof sprite);
-					collected.push(sprite);
-					sprite.classList.add('collected');
-					this.kindTotals[sprite.innerText]--;
-					this.updateScore();
-				}
-			}
-
-			console.log(`📸 collecting ${collected.length}`);
-		};
+		console.log(`📸 collecting ${this.collected.length}`);
 	}
 
-	disconnectedCallback() {
-		console.log('🔌');
-		this.removeEventListener('scroll', this.handleScroll);
+	render() {
+		return html`<score-board .score="${this.kindTotals}"></score-board>
+			<div class="container" @click="${this.handleClick}">
+				${this.sprites.map(
+					(sprite) =>
+						html`<sprite-comp
+							.observer="${this.observer}"
+							.isCollectible="${sprite.isCollectible}"
+							>${sprite.kind}</sprite-comp
+						>`,
+				)}
+			</div>`;
 	}
 }
 
