@@ -19,6 +19,14 @@ class ScoreBoard extends LitElement {
 				font-size: 5em;
 
 			}
+			button {
+				background: lime;
+				border-radius: 1em;
+				border: 0.4em outset magenta;
+				color: blue;
+				font-family: fantasy;
+				font-size: 7vw;
+			}
 		`;
 	}
 
