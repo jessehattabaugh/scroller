@@ -33,7 +33,7 @@ class Scroller extends LitElement {
 				overflow: scroll;
 			}
 			.collected {
-				opacity: 0.5;
+				opacity: .25;
 			}
 		`;
 	}
