@@ -40,6 +40,7 @@ class Scroller extends LitElement {
 	intersected = [];
 	collected = [];
 	kindTotals = {};
+	timerEnd = null;
 
 	observer = new IntersectionObserver((entries) => {
 		entries.forEach((entry) => {
@@ -64,6 +65,10 @@ class Scroller extends LitElement {
 		this.timerStart = new Date().getTime();
 
 		this.timerInterval = setInterval(() => {
+			// stop the clock when an end time gets set
+			if (this.timerEnd !== null) {
+				clearInterval(this.timerInterval);
+			}
 			const now = new Date().getTime();
 			const distance = now - this.timerStart;
 			const seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
@@ -133,7 +138,11 @@ class Scroller extends LitElement {
 				this.kindTotals[sprite.innerText]--;
 
 				const leftToFind = Object.values(this.kindTotals).reduce((a, b) => a + b);
-				console.log(`👨‍🎤`, leftToFind);
+
+				if (!leftToFind) {
+					console.log(`🎉 done!`, leftToFind);
+					this.timerEnd = new Date().getTime();
+				}
 			}
 		}
 
