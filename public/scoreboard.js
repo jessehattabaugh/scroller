@@ -14,6 +14,7 @@ class ScoreBoard extends LitElement {
 				background: black;
 				height: 100%;
 				flex-direction: column;
+				align-items: center;
 			}
 			:host(.stopped) span {
 				font-size: 5em;

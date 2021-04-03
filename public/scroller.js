@@ -131,6 +131,9 @@ class Scroller extends LitElement {
 	}
 
 	handleClick() {
+		
+
+		// collect all the intersected sprites
 		for (let sprite of this.intersected) {
 			if (sprite && !this.collected.includes(sprite)) {
 				this.collected.push(sprite);
