@@ -13,7 +13,7 @@ class Scroller extends LitElement {
 		return {
 			numberOfSprites: { type: String },
 			ratioOfCollectibles: { type: String },
-			timer: {type: String},
+			timer: { type: String },
 		};
 	}
 	static get styles() {
@@ -137,8 +137,8 @@ class Scroller extends LitElement {
 				sprite.classList.add('collected');
 				this.kindTotals[sprite.innerText]--;
 
+				// end the game when there are none left to find
 				const leftToFind = Object.values(this.kindTotals).reduce((a, b) => a + b);
-
 				if (!leftToFind) {
 					console.log(`🎉 done!`, leftToFind);
 					this.timerEnd = new Date().getTime();
@@ -150,17 +150,23 @@ class Scroller extends LitElement {
 	}
 
 	render() {
-		return html`<score-board .score="${this.kindTotals}" .timer="${this.timer}"></score-board>
-			<div class="container" @click="${this.handleClick}">
-				${this.sprites.map(
-					(sprite) =>
-						html`<sprite-comp
-							.observer="${this.observer}"
-							.isCollectible="${sprite.isCollectible}"
-							>${sprite.kind}</sprite-comp
-						>`,
-				)}
-			</div>`;
+		return html`<score-board
+				.score="${this.kindTotals}"
+				.timer="${this.timer}"
+				class="${this.timerEnd !== null ? 'stopped' : 'playing'}"
+			></score-board>
+			${this.timerEnd
+				? null
+				: html`<div class="container" @click="${this.handleClick}">
+						${this.sprites.map(
+							(sprite) =>
+								html`<sprite-comp
+									.observer="${this.observer}"
+									.isCollectible="${sprite.isCollectible}"
+									>${sprite.kind}</sprite-comp
+								>`,
+						)}
+				  </div>`} `;
 	}
 }
 

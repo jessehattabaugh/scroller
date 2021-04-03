@@ -10,6 +10,15 @@ class ScoreBoard extends LitElement {
 				justify-content: space-around;
 				padding: 0.5em;
 			}
+			:host(.stopped) {
+				background: black;
+				height: 100%;
+				flex-direction: column;
+			}
+			:host(.stopped) span {
+				font-size: 5em;
+
+			}
 		`;
 	}
 
@@ -26,9 +35,17 @@ class ScoreBoard extends LitElement {
 		this.timer = '00:00';
 	}
 
+	handleBackClick() {
+		history.back();
+	}
+
 	render() {
-		return html`Find these: <output>${JSON.stringify(this.score)}</output>
-			<span>${this.timer}</span>`;
+		const isStopped = this.classList.contains('stopped');
+		return html`${isStopped
+				? html`You found them all!`
+				: html`Find these: <output>${JSON.stringify(this.score)}</output>`}
+			<span>${this.timer}</span>
+			${isStopped ? html`<button @click="${this.handleBackClick}">Back</button>`: null}`;
 	}
 }
 
