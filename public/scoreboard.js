@@ -20,20 +20,10 @@ class ScoreBoard extends LitElement {
 		};
 	}
 
-	connectedCallback() {
-		super.connectedCallback();
+	constructor() {
+		super();
 
-		this.timerStart = new Date().getTime();
-
-		this.timerInterval = setInterval(() => {
-			const now = new Date().getTime();
-			const distance = now - this.timerStart;
-			const seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
-			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
-			this.timer = `${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`;
-		}, 1000);
-
-		console.log('⏱ ScoreBoard connected');
+		this.timer = '00:00';
 	}
 
 	render() {

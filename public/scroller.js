@@ -13,6 +13,7 @@ class Scroller extends LitElement {
 		return {
 			numberOfSprites: { type: String },
 			ratioOfCollectibles: { type: String },
+			timer: {type: String},
 		};
 	}
 	static get styles() {
@@ -53,9 +54,22 @@ class Scroller extends LitElement {
 	});
 
 	connectedCallback() {
+		console.log('🥌 Scroller connected');
 		super.connectedCallback();
 		this.generateSprites();
-		console.log('🥌 Scroller connected');
+		this.startTimer();
+	}
+
+	startTimer() {
+		this.timerStart = new Date().getTime();
+
+		this.timerInterval = setInterval(() => {
+			const now = new Date().getTime();
+			const distance = now - this.timerStart;
+			const seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
+			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
+			this.timer = `${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`;
+		}, 1000);
 	}
 
 	generateSprites() {
@@ -119,7 +133,6 @@ class Scroller extends LitElement {
 				this.kindTotals[sprite.innerText]--;
 
 				const leftToFind = Object.values(this.kindTotals).reduce((a, b) => a + b);
-
 				console.log(`👨‍🎤`, leftToFind);
 			}
 		}
@@ -128,7 +141,7 @@ class Scroller extends LitElement {
 	}
 
 	render() {
-		return html`<score-board .score="${this.kindTotals}"></score-board>
+		return html`<score-board .score="${this.kindTotals}" .timer="${this.timer}"></score-board>
 			<div class="container" @click="${this.handleClick}">
 				${this.sprites.map(
 					(sprite) =>
