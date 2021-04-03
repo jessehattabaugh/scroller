@@ -1,57 +1,45 @@
-import { creappend as $ } from './creappend.js';
+import { LitElement, html, css } from 'https://cdn.skypack.dev/lit-element';
 
-class ScoreBoard extends HTMLElement {
-	static get observedAttributes() {
-		return ['score'];
-	}
-
-	constructor() {
-		super();
-		console.log('⏱ constructed ScoreBoard');
-
-		this.shadow = this.attachShadow({ mode: 'open' });
-
-		const style = $('style', this.shadow);
-		style.innerText = `
+class ScoreBoard extends LitElement {
+	static get styles() {
+		return css`
 			:host {
 				background: black;
 				color: white;
 				display: flex;
 				justify-content: space-around;
-				padding: .5em;
+				padding: 0.5em;
 			}
 		`;
-		$('span', this.shadow).innerText = 'Find these:';
-		this.scoreOutput = $('output', this.shadow);
+	}
 
-		const timer = $('span', this.shadow);
-		timer.id = 'timer';
-		timer.innerText = '00:00';
+	static get properties() {
+		return {
+			score: { type: String },
+			timer: { type: String },
+		};
+	}
+
+	connectedCallback() {
+		super.connectedCallback();
+
 		this.timerStart = new Date().getTime();
 
 		this.timerInterval = setInterval(() => {
 			const now = new Date().getTime();
 			const distance = now - this.timerStart;
 			const seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
-			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
-			timer.innerText = `${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`;
+			const minutes =
+				Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
+			this.timer = `${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`;
 		}, 1000);
+
+		console.log('⏱ ScoreBoard connected');
 	}
 
-	updateScore(score) {
-		this.scoreOutput.innerText = score || 'wtf';
-	}
-
-	connectedCallback() {
-		console.log('🍍 ScoreBoard connected');
-		this.updateScore(this.getAttribute('score'));
-	}
-
-	attributeChangedCallback(name, oldValue, newValue) {
-		console.log(
-			`🍉 scoreboard ${name} changed from ${oldValue} to ${newValue}`,
-		);
-		if (name == 'score') this.updateScore(newValue);
+	render() {
+		return html`Find these: <output>${this.score}</output>
+			<span>${this.timer}</span>`;
 	}
 }
 
