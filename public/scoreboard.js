@@ -43,7 +43,7 @@ class ScoreBoard extends LitElement {
 		const isStopped = this.classList.contains('stopped');
 		return html`${isStopped
 				? html`You found them all!`
-				: html`Find these: <output>${JSON.stringify(this.score)}</output>`}
+				: html`Find these: <output>${Object.keys(this.score).map((kind, i) => `${kind}:${this.score[kind]}`).join(' ')}</output>`}
 			<span>${this.timer}</span>
 			${isStopped ? html`<button @click="${this.handleBackClick}">Back</button>`: null}`;
 	}
