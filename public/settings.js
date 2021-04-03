@@ -21,7 +21,7 @@ class Settings extends LitElement {
 
 	static get properties() {
 		return {
-			isPlaying: { type: Boolean }
+			isPlaying: { type: Boolean },
 		};
 	}
 
@@ -97,11 +97,12 @@ class Settings extends LitElement {
 				</label>
 				<input type="submit" value="Play!" />
 			</form>
-			${this.isPlaying &&
-			html`<scroller-modal
-				numberOfSprites="${this.numberOfSprites}"
-				ratioOfCollectibles="${this.ratioOfCollectibles}"
-			></scroller-modal>`}`;
+			${this.isPlaying
+				? html`<scroller-modal
+						numberOfSprites="${this.numberOfSprites}"
+						ratioOfCollectibles="${this.ratioOfCollectibles}"
+				  ></scroller-modal>`
+				: null}`;
 	}
 }
 
