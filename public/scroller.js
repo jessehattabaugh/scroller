@@ -21,12 +21,7 @@ class Scroller extends LitElement {
 				height: 100%;
 			}
 			.container {
-				background-image: linear-gradient(
-					to right top,
-					#d16ba5,
-					#8aa7ec,
-					#5ffbf1
-				);
+				background-image: linear-gradient(to right top, #d16ba5, #8aa7ec, #5ffbf1);
 				display: grid;
 				grid-template-columns: repeat(5, 1fr);
 				overflow: scroll;
@@ -45,16 +40,10 @@ class Scroller extends LitElement {
 	observer = new IntersectionObserver((entries) => {
 		entries.forEach((entry) => {
 			if (entry.isIntersecting) {
-				console.log(
-					'👀 collectible came into view',
-					entry.target.innerText,
-				);
+				console.log('👀 collectible came into view', entry.target.innerText);
 				this.intersected.push(entry.target);
 			} else {
-				console.log(
-					'🙈 collectible became hidden',
-					entry.target.innerText,
-				);
+				console.log('🙈 collectible became hidden', entry.target.innerText);
 				delete this.intersected[this.intersected.indexOf(entry.target)];
 			}
 		});

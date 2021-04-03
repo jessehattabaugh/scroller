@@ -73,9 +73,7 @@ class Settings extends LitElement {
 						@change="${this.handleNumberOfSpritesChange}"
 						value="${this.numberOfSprites}"
 					/>
-					<output id="numberOfSpritesOutput"
-						>${this.numberOfSprites}</output
-					>
+					<output id="numberOfSpritesOutput">${this.numberOfSprites}</output>
 				</label>
 				<label>
 					ratio of collectibles
@@ -88,9 +86,7 @@ class Settings extends LitElement {
 						@change="${this.handleRatioOfCollectiblesChange}"
 						value="${this.ratioOfCollectibles}"
 					/>
-					<output id="ratioOfCollectiblesOutput"
-						>${this.ratioOfCollectibles}</output
-					>
+					<output id="ratioOfCollectiblesOutput">${this.ratioOfCollectibles}</output>
 				</label>
 				<input type="submit" value="Play!" />
 			</form>

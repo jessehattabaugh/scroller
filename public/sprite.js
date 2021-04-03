@@ -8,7 +8,6 @@ class Sprite extends LitElement {
 				justify-self: center;
 				margin: 1vw;
 			}
-
 		`;
 	}
 	static get properties() {

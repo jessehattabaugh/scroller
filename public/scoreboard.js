@@ -29,8 +29,7 @@ class ScoreBoard extends LitElement {
 			const now = new Date().getTime();
 			const distance = now - this.timerStart;
 			const seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
-			const minutes =
-				Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
+			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
 			this.timer = `${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`;
 		}, 1000);
 
