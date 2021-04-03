@@ -19,6 +19,12 @@ class Settings extends LitElement {
 		`;
 	}
 
+	static get properties() {
+		return {
+			isPlaying: { type: Boolean }
+		};
+	}
+
 	numberOfSprites = 500;
 	ratioOfCollectibles = 0.025;
 
@@ -52,6 +58,7 @@ class Settings extends LitElement {
 		console.log(`🎲 let's play!`);
 
 		this.isPlaying = true;
+
 		// update the url
 		const url = new URL(window.location);
 		url.searchParams.set('numberOfSprites', this.numberOfSprites);

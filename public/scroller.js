@@ -9,6 +9,12 @@ import Sprite from './sprite.js';
 customElements.define('sprite-comp', Sprite);
 
 class Scroller extends LitElement {
+	static get properties() {
+		return {
+			numberOfSprites: { type: String },
+			ratioOfCollectibles: { type: String },
+		};
+	}
 	static get styles() {
 		return css`
 			:host {
@@ -51,12 +57,13 @@ class Scroller extends LitElement {
 
 	connectedCallback() {
 		super.connectedCallback();
+		this.generateSprites();
 		console.log('🥌 Scroller connected');
-		const numberOfSprites = this.getAttribute('numberOfSprites');
-		const ratioOfCollectibles = this.getAttribute('ratioOfCollectibles');
+	}
 
+	generateSprites() {
 		// create some number of collectible sprites
-		const numberOfCollectibles = numberOfSprites * ratioOfCollectibles;
+		const numberOfCollectibles = this.numberOfSprites * this.ratioOfCollectibles;
 		const collectibleKinds = [`🎅`, `🤶`];
 
 		for (let i = 0; i < numberOfCollectibles; i++) {
@@ -67,7 +74,7 @@ class Scroller extends LitElement {
 		console.log('👨‍👩‍👧‍👧 kindTotals: ', this.kindTotals);
 
 		// create some other number of uncollectible sprites
-		const numberOfUncollectibles = numberOfSprites - numberOfCollectibles;
+		const numberOfUncollectibles = this.numberOfSprites - numberOfCollectibles;
 		const uncollectibleKinds = [
 			`👩`,
 			`👨`,
@@ -104,7 +111,6 @@ class Scroller extends LitElement {
 			});
 		}
 
-		// randomize the sprites and add them to a .container
 		shuffle(this.sprites);
 	}
 
