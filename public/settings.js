@@ -16,7 +16,7 @@ class Settings extends LitElement {
 			output {
 				display: block;
 			}
-			[type=submit] {
+			[type='submit'] {
 				color: purple;
 				background: hotpink;
 				font-size: 5vw;
@@ -31,11 +31,16 @@ class Settings extends LitElement {
 	static get properties() {
 		return {
 			isPlaying: { type: Boolean },
+			numberOfSprites: { type: Number },
+			ratioOfCollectibles: { type: Number },
 		};
 	}
 
-	numberOfSprites = 500;
-	ratioOfCollectibles = 0.025;
+	constructor() {
+		super();
+		this.numberOfSprites = 500;
+		this.ratioOfCollectibles = 0.025;
+	}
 
 	connectedCallback() {
 		super.connectedCallback();
@@ -70,8 +75,8 @@ class Settings extends LitElement {
 
 		// update the url
 		const url = new URL(window.location);
-		url.searchParams.set('numberOfSprites', this.numberOfSprites);
-		url.searchParams.set('ratioOfCollectibles', this.ratioOfCollectibles);
+		url.searchParams.set('🍆', this.numberOfSprites);
+		url.searchParams.set('💩', this.ratioOfCollectibles);
 		window.history.pushState({}, '', url);
 
 		return false;
@@ -82,19 +87,17 @@ class Settings extends LitElement {
 				<label>
 					number of sprites
 					<input
-						id="numberOfSprites"
 						type="range"
 						min="10"
 						max="9999"
 						@change="${this.handleNumberOfSpritesChange}"
 						value="${this.numberOfSprites}"
 					/>
-					<output id="numberOfSpritesOutput">${this.numberOfSprites}</output>
+					<output>${this.numberOfSprites}</output>
 				</label>
 				<label>
 					ratio of collectibles
 					<input
-						id="ratioOfCollectibles"
 						type="range"
 						min="0.001"
 						max="0.1"
@@ -102,7 +105,7 @@ class Settings extends LitElement {
 						@change="${this.handleRatioOfCollectiblesChange}"
 						value="${this.ratioOfCollectibles}"
 					/>
-					<output id="ratioOfCollectiblesOutput">${this.ratioOfCollectibles}</output>
+					<output>${this.ratioOfCollectibles}</output>
 				</label>
 				<input type="submit" value="Play!" />
 			</form>

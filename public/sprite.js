@@ -28,7 +28,7 @@ class Sprite extends LitElement {
 			this.observer.observe(this);
 		}
 
-		console.log('👾 sprite connected');
+		//console.log('👾 sprite connected');
 	}
 
 	render() {
