@@ -35,7 +35,7 @@ class Scroller extends HTMLElement {
 				margin: 1vw;
 			}
 			.collected {
-				background: red;
+				opacity: .25;
 			}
 		`;
 	}

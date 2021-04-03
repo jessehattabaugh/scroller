@@ -22,6 +22,15 @@ class Settings extends HTMLElement {
 			output {
 				display: block;
 			}
+			[type=submit] {
+				color: purple;
+				background: hotpink;
+				font-size: 5vw;
+				padding: 0.5em;
+				border: 0.5em outset lime;
+				font-family: fantasy;
+				border-radius: 1em;
+			}
 		`;
 
 		this.numberOfSprites = 500;
