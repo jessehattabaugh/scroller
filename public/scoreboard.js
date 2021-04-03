@@ -38,7 +38,7 @@ class ScoreBoard extends LitElement {
 	}
 
 	render() {
-		return html`Find these: <output>${this.score}</output>
+		return html`Find these: <output>${JSON.stringify(this.score)}</output>
 			<span>${this.timer}</span>`;
 	}
 }
