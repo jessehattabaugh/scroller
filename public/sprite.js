@@ -8,6 +8,9 @@ class Sprite extends LitElement {
 				justify-self: center;
 				margin: 1vw;
 			}
+			:host(.collected) {
+				opacity: .25;
+			}
 		`;
 	}
 	static get properties() {

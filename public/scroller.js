@@ -32,9 +32,6 @@ class Scroller extends LitElement {
 				grid-template-columns: repeat(5, 1fr);
 				overflow: scroll;
 			}
-			.collected {
-				opacity: .25;
-			}
 		`;
 	}
 
@@ -120,6 +117,10 @@ class Scroller extends LitElement {
 				this.collected.push(sprite);
 				sprite.classList.add('collected');
 				this.kindTotals[sprite.innerText]--;
+
+				const leftToFind = Object.values(this.kindTotals).reduce((a, b) => a + b);
+
+				console.log(`👨‍🎤`, leftToFind);
 			}
 		}
 
