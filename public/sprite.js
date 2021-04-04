@@ -6,6 +6,7 @@ class Sprite extends LitElement {
 			:host {
 				justify-self: center;
 				transform: scale(4);
+				font-size: 4vw;
 			}
 			:host(.collected) {
 				transition-property: opacity;
