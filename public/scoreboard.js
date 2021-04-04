@@ -15,10 +15,10 @@ class ScoreBoard extends LitElement {
 				height: 100%;
 				flex-direction: column;
 				align-items: center;
+				font-size: 9vw;
 			}
 			:host(.stopped) span {
-				font-size: 5em;
-
+				font-size: 18vw;
 			}
 			button {
 				background: lime;
@@ -27,6 +27,7 @@ class ScoreBoard extends LitElement {
 				color: blue;
 				font-family: fantasy;
 				font-size: 7vw;
+				padding: 0.75em;
 			}
 		`;
 	}
