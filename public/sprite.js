@@ -4,11 +4,25 @@ class Sprite extends LitElement {
 	static get styles() {
 		return css`
 			:host {
-				font-size: 13vw;
 				justify-self: center;
+				transform: scale(4);
 			}
 			:host(.collected) {
-				opacity: .25;
+				transition-property: opacity;
+				transition-duration: 1s;
+				transition-timing-function: cubic-bezier(0.6, -0.28, 0.74, 0.05);
+				opacity: 0.1;
+
+				animation-name: collected;
+				animation-duration: 1s;
+				animation-iteration-count: 1;
+				animation-direction: alternate;
+
+			}
+			@keyframes collected {
+				50% {
+					transform: scale(8) rotate(360deg);
+				}
 			}
 		`;
 	}
