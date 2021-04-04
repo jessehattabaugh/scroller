@@ -159,6 +159,7 @@ class Scroller extends LitElement {
 
 	render() {
 		return html`<score-board
+				.clicks="${this.clicks}"
 				.score="${this.kindTotals}"
 				.timer="${this.timer}"
 				class="${this.timerEnd !== null ? 'stopped' : 'playing'}"
