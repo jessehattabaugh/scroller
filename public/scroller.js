@@ -69,7 +69,8 @@ class Scroller extends LitElement {
 	}
 
 	randomEmoji() {
-		return shuffle.pick(emojisList);
+		const goodEmojis = emojisList.slice(316, 3057);
+		return shuffle.pick(goodEmojis);
 	}
 
 	generateSprites() {
