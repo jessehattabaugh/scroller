@@ -34,7 +34,8 @@ class Scroller extends LitElement {
 				display: grid;
 				flex: 1;
 				grid-template-columns: repeat(5, 1fr);
-				overflow: scroll;
+				overflow-x: hidden;
+				overflow-y: scroll;
 			}
 		`;
 	}
