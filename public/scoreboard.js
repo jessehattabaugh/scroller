@@ -31,7 +31,7 @@ class ScoreBoard extends LitElement {
 				padding: 0.75em;
 			}
 			output {
-				font-size: 6vw;
+				font-size: min(10vw, 3em);
 			}
 		`;
 	}
