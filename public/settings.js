@@ -8,10 +8,15 @@ class Settings extends LitElement {
 		return css`
 			form {
 				font-size: 6vw;
+				padding: 1em;
 			}
 			input {
 				display: block;
 				width: 100%;
+			}
+			label {
+				display: block;
+				padding: 1em;
 			}
 			[type='submit'] {
 				color: purple;
@@ -90,7 +95,6 @@ class Settings extends LitElement {
 						@change="${this.handleNumberOfSpritesChange}"
 						value="${this.numberOfSprites}"
 					/>
-
 				</label>
 				<label>
 					ratio of collectibles: <output>${this.ratioOfCollectibles}</output>
@@ -102,7 +106,6 @@ class Settings extends LitElement {
 						@change="${this.handleRatioOfCollectiblesChange}"
 						value="${this.ratioOfCollectibles}"
 					/>
-
 				</label>
 				<input type="submit" value="Play!" />
 			</form>
