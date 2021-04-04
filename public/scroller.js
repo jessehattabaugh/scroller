@@ -33,6 +33,7 @@ class Scroller extends LitElement {
 				background-image: linear-gradient(to right top, #d16ba5, #8aa7ec, #5ffbf1);
 				display: grid;
 				flex: 1;
+				grid-row-gap: 14vw;
 				grid-template-columns: repeat(5, 1fr);
 				overflow-x: hidden;
 				overflow-y: scroll;
