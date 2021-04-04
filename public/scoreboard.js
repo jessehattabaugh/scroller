@@ -4,6 +4,7 @@ class ScoreBoard extends LitElement {
 	static get styles() {
 		return css`
 			:host {
+				align-items: center;
 				background: black;
 				color: white;
 				display: flex;
