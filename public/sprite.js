@@ -6,7 +6,6 @@ class Sprite extends LitElement {
 			:host {
 				font-size: 13vw;
 				justify-self: center;
-				margin: 1vw;
 			}
 			:host(.collected) {
 				opacity: .25;
