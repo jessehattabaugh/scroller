@@ -1,6 +1,7 @@
 import { LitElement, html, css } from 'https://cdn.skypack.dev/lit-element';
 
 import shuffle from 'https://cdn.skypack.dev/shuffle-array';
+import emojisList from 'https://cdn.skypack.dev/emojis-list';
 
 import ScoreBoard from './scoreboard.js';
 customElements.define('score-board', ScoreBoard);
@@ -67,10 +68,18 @@ class Scroller extends LitElement {
 		this.startTimer();
 	}
 
+	randomEmoji() {
+		return shuffle.pick(emojisList);
+	}
+
 	generateSprites() {
 		// create some number of collectible sprites
 		const numberOfCollectibles = this.numberOfSprites * this.ratioOfCollectibles;
-		const collectibleKinds = [`🎅`, `🤶`];
+		const numberOfCollectibleKinds = 2;
+		const collectibleKinds = [];
+		for (let i = 0; i < numberOfCollectibleKinds; i++) {
+			collectibleKinds.push(this.randomEmoji());
+		}
 
 		for (let i = 0; i < numberOfCollectibles; i++) {
 			const kind = shuffle.pick(collectibleKinds);
@@ -81,35 +90,12 @@ class Scroller extends LitElement {
 
 		// create some other number of uncollectible sprites
 		const numberOfUncollectibles = this.numberOfSprites - numberOfCollectibles;
-		const uncollectibleKinds = [
-			`👩`,
-			`👨`,
-			`🧑`,
-			`👧`,
-			`👦`,
-			`🧒`,
-			`👶`,
-			`👵`,
-			`👴`,
-			`🧓`,
-			`👩‍🦰`,
-			`👨‍🦰`,
-			`👩‍🦱`,
-			`👨‍🦱`,
-			`👩‍🦲`,
-			`👨‍🦲`,
-			`👩‍🦳`,
-			`👨‍🦳`,
-			`👱‍♀️`,
-			`👱‍♂️`,
-			`👸`,
-			`🤴`,
-			`👳‍♀️`,
-			`👳‍♂️`,
-			`👲`,
-			`🧔`,
-			`👼`,
-		];
+		const numberOfUncollectibleKinds = 10;
+		const uncollectibleKinds = [];
+		for (let i = 0; i < numberOfUncollectibleKinds; i++) {
+			uncollectibleKinds.push(this.randomEmoji());
+		}
+
 		for (let i = 0; i < numberOfUncollectibles; i++) {
 			this.sprites.push({
 				kind: shuffle.pick(uncollectibleKinds),
