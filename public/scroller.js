@@ -11,6 +11,7 @@ customElements.define('sprite-comp', Sprite);
 class Scroller extends LitElement {
 	static get properties() {
 		return {
+			clicks: { type: Number },
 			numberOfSprites: { type: String },
 			ratioOfCollectibles: { type: String },
 			timer: { type: String },
@@ -21,11 +22,11 @@ class Scroller extends LitElement {
 			:host {
 				display: flex;
 				flex-direction: column;
+				height: 100%;
+				left: 0;
 				position: absolute;
 				top: 0;
-				left: 0;
 				width: 100%;
-				height: 100%;
 			}
 			.container {
 				background-image: linear-gradient(to right top, #d16ba5, #8aa7ec, #5ffbf1);
@@ -36,45 +37,33 @@ class Scroller extends LitElement {
 		`;
 	}
 
-	sprites = [];
-	intersected = [];
-	collected = [];
-	kindTotals = {};
-	timerEnd = null;
+	constructor() {
+		super();
+		this.clicks = 0;
+		this.collected = [];
+		this.intersected = [];
+		this.kindTotals = {};
+		this.sprites = [];
+		this.timerEnd = null;
 
-	observer = new IntersectionObserver((entries) => {
-		entries.forEach((entry) => {
-			if (entry.isIntersecting) {
-				console.log('👀 collectible came into view', entry.target.innerText);
-				this.intersected.push(entry.target);
-			} else {
-				console.log('🙈 collectible became hidden', entry.target.innerText);
-				delete this.intersected[this.intersected.indexOf(entry.target)];
-			}
+		this.observer = new IntersectionObserver((entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					//console.log('👀 collectible came into view', entry.target.innerText);
+					this.intersected.push(entry.target);
+				} else {
+					//console.log('🙈 collectible became hidden', entry.target.innerText);
+					delete this.intersected[this.intersected.indexOf(entry.target)];
+				}
+			});
 		});
-	});
+	}
 
 	connectedCallback() {
 		console.log('🥌 Scroller connected');
 		super.connectedCallback();
 		this.generateSprites();
 		this.startTimer();
-	}
-
-	startTimer() {
-		this.timerStart = new Date().getTime();
-
-		this.timerInterval = setInterval(() => {
-			// stop the clock when an end time gets set
-			if (this.timerEnd !== null) {
-				clearInterval(this.timerInterval);
-			}
-			const now = new Date().getTime();
-			const distance = now - this.timerStart;
-			const seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
-			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
-			this.timer = `${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`;
-		}, 1000);
 	}
 
 	generateSprites() {
@@ -130,14 +119,31 @@ class Scroller extends LitElement {
 		shuffle(this.sprites);
 	}
 
+	startTimer() {
+		this.timerStart = new Date().getTime();
+
+		this.timerInterval = setInterval(() => {
+			// stop the clock when an end time gets set
+			if (this.timerEnd !== null) {
+				clearInterval(this.timerInterval);
+			}
+			const now = new Date().getTime();
+			const distance = now - this.timerStart;
+			const seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
+			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
+			this.timer = `${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`;
+		}, 1000);
+	}
+
 	handleClick() {
-		
+		console.log(`📸 collecting ${this.collected.length}`);
+		this.clicks++;
 
 		// collect all the intersected sprites
 		for (let sprite of this.intersected) {
 			if (sprite && !this.collected.includes(sprite)) {
 				this.collected.push(sprite);
-				sprite.classList.add('collected');
+				sprite.classList.add('collected'); // this seems dangerous but it works...
 				this.kindTotals[sprite.innerText]--;
 
 				// end the game when there are none left to find
@@ -149,7 +155,7 @@ class Scroller extends LitElement {
 			}
 		}
 
-		console.log(`📸 collecting ${this.collected.length}`);
+
 	}
 
 	render() {

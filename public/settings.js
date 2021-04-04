@@ -13,9 +13,6 @@ class Settings extends LitElement {
 				display: block;
 				width: 100%;
 			}
-			output {
-				display: block;
-			}
 			[type='submit'] {
 				color: purple;
 				background: hotpink;
@@ -85,7 +82,7 @@ class Settings extends LitElement {
 	render() {
 		return html`<form @submit="${this.handleSubmit}">
 				<label>
-					number of sprites
+					number of sprites: <output>${this.numberOfSprites}</output>
 					<input
 						type="range"
 						min="10"
@@ -93,10 +90,10 @@ class Settings extends LitElement {
 						@change="${this.handleNumberOfSpritesChange}"
 						value="${this.numberOfSprites}"
 					/>
-					<output>${this.numberOfSprites}</output>
+
 				</label>
 				<label>
-					ratio of collectibles
+					ratio of collectibles: <output>${this.ratioOfCollectibles}</output>
 					<input
 						type="range"
 						min="0.001"
@@ -105,7 +102,7 @@ class Settings extends LitElement {
 						@change="${this.handleRatioOfCollectiblesChange}"
 						value="${this.ratioOfCollectibles}"
 					/>
-					<output>${this.ratioOfCollectibles}</output>
+
 				</label>
 				<input type="submit" value="Play!" />
 			</form>
