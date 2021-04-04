@@ -19,12 +19,12 @@ class Settings extends LitElement {
 				padding: 1em;
 			}
 			[type='submit'] {
-				color: purple;
+				color: cyan;
 				background: hotpink;
 				font-size: 5vw;
 				padding: 0.5em;
 				border: 0.5em outset lime;
-				font-family: fantasy;
+				font-family: cursive;
 				border-radius: 1em;
 			}
 		`;
@@ -107,7 +107,9 @@ class Settings extends LitElement {
 						value="${this.ratioOfCollectibles}"
 					/>
 				</label>
-				<input type="submit" value="Play!" />
+				<label>
+					<input type="submit" value="Play!" />
+				</label>
 			</form>
 			${this.isPlaying
 				? html`<scroller-modal
