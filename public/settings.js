@@ -33,6 +33,7 @@ class Settings extends LitElement {
 	static get properties() {
 		return {
 			isPlaying: { type: Boolean },
+			numberOfColumns: { type: Number },
 			numberOfSprites: { type: Number },
 			ratioOfCollectibles: { type: Number },
 		};
@@ -40,6 +41,7 @@ class Settings extends LitElement {
 
 	constructor() {
 		super();
+		this.numberOfColumns = 5;
 		this.numberOfSprites = 500;
 		this.ratioOfCollectibles = 0.025;
 	}
@@ -69,6 +71,10 @@ class Settings extends LitElement {
 		this.ratioOfCollectibles = event.target.value;
 	}
 
+	handleNumberOfColumnsChange(event) {
+		this.numberOfColumns = event.target.value;
+	}
+
 	handleSubmit(event) {
 		event.preventDefault();
 		console.log(`🎲 let's play!`);
@@ -89,22 +95,32 @@ class Settings extends LitElement {
 				<label>
 					number of sprites: <output>${this.numberOfSprites}</output>
 					<input
-						type="range"
-						min="10"
-						max="9999"
 						@change="${this.handleNumberOfSpritesChange}"
+						max="9999"
+						min="10"
+						type="range"
 						value="${this.numberOfSprites}"
 					/>
 				</label>
 				<label>
 					ratio of collectibles: <output>${this.ratioOfCollectibles}</output>
 					<input
-						type="range"
-						min="0.001"
-						max="0.1"
-						step="0.001"
 						@change="${this.handleRatioOfCollectiblesChange}"
+						max="0.1"
+						min="0.001"
+						step="0.001"
+						type="range"
 						value="${this.ratioOfCollectibles}"
+					/>
+				</label>
+				<label>
+					number of columns: <output>${this.numberOfColumns}</output>
+					<input
+						@change="${this.handleNumberOfColumnsChange}"
+						max="10"
+						min="1"
+						type="range"
+						value="${this.numberOfColumns}"
 					/>
 				</label>
 				<label>
@@ -113,8 +129,9 @@ class Settings extends LitElement {
 			</form>
 			${this.isPlaying
 				? html`<scroller-modal
-						numberOfSprites="${this.numberOfSprites}"
-						ratioOfCollectibles="${this.ratioOfCollectibles}"
+						.numberOfColumns="${this.numberOfColumns}"
+						.numberOfSprites="${this.numberOfSprites}"
+						.ratioOfCollectibles="${this.ratioOfCollectibles}"
 				  ></scroller-modal>`
 				: null}`;
 	}

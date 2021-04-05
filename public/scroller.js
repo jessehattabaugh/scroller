@@ -13,8 +13,9 @@ class Scroller extends LitElement {
 	static get properties() {
 		return {
 			clicks: { type: Number },
-			numberOfSprites: { type: String },
-			ratioOfCollectibles: { type: String },
+			numberOfColumns: { type: Number },
+			numberOfSprites: { type: Number },
+			ratioOfCollectibles: { type: Number },
 			timer: { type: String },
 		};
 	}
@@ -33,8 +34,6 @@ class Scroller extends LitElement {
 				background-image: linear-gradient(to right top, #d16ba5, #8aa7ec, #5ffbf1);
 				display: grid;
 				flex: 1;
-				grid-row-gap: 14vw;
-				grid-template-columns: repeat(5, 1fr);
 				overflow-x: hidden;
 				overflow-y: scroll;
 			}
@@ -147,7 +146,14 @@ class Scroller extends LitElement {
 	}
 
 	render() {
-		return html`<score-board
+		return html`
+			<style>
+				.container {
+					grid-row-gap: ${80 / this.numberOfColumns}vw;
+					grid-template-columns: repeat(${this.numberOfColumns}, 1fr);
+				}
+			</style>
+			<score-board
 				.clicks="${this.clicks}"
 				.score="${this.kindTotals}"
 				.timer="${this.timer}"
@@ -159,12 +165,14 @@ class Scroller extends LitElement {
 						${this.sprites.map(
 							(sprite) =>
 								html`<sprite-comp
+									.columns="${this.numberOfColumns}"
 									.observer="${this.observer}"
 									.isCollectible="${sprite.isCollectible}"
 									>${sprite.kind}</sprite-comp
 								>`,
 						)}
-				  </div>`} `;
+				  </div>`}
+		`;
 	}
 }
 
