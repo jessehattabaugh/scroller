@@ -6,19 +6,17 @@ class Sprite extends LitElement {
 			:host {
 				justify-self: center;
 				transform: scale(4);
-				font-size: 4vw;
+				user-select: none;
 			}
 			:host(.collected) {
-				transition-property: opacity;
-				transition-duration: 1s;
-				transition-timing-function: cubic-bezier(0.6, -0.28, 0.74, 0.05);
-				opacity: 0.15;
-
-				animation-name: collected;
+				animation-direction: alternate;
 				animation-duration: 1s;
 				animation-iteration-count: 1;
-				animation-direction: alternate;
-
+				animation-name: collected;
+				opacity: 0.15;
+				transition-duration: 1s;
+				transition-property: opacity;
+				transition-timing-function: cubic-bezier(0.6, -0.28, 0.74, 0.05);
 			}
 			@keyframes collected {
 				50% {
@@ -29,6 +27,7 @@ class Sprite extends LitElement {
 	}
 	static get properties() {
 		return {
+			columns: { type: Number },
 			observer: { type: Object, attribute: false },
 			isCollectible: { type: Boolean },
 			isCollected: { type: Boolean },
@@ -46,7 +45,11 @@ class Sprite extends LitElement {
 	}
 
 	render() {
-		return html`<slot>${this.kind}</slot>`;
+		return html`<style>
+				:host {
+					font-size: ${20 / this.columns}vw;
+				}</style
+			><slot>${this.kind}</slot>`;
 	}
 }
 
