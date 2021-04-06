@@ -55,7 +55,7 @@ export const dalisNightmare = {
 		`🕜`,
 		`🐅`,
 		`🐘`,
-		`💃`;
+		`💃`,
 	],
 	avoidable: [
 		`👺`,
