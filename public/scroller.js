@@ -119,16 +119,16 @@ class Scroller extends LitElement {
 		this.requestUpdate();
 
 		this.timerInterval = setInterval(() => {
-			// stop the clock when an end time gets set
-			const isTimerStopped = this.timerEnd !== null;
-			if (isTimerStopped) {
+			const isTimerRunning = this.timerEnd === null;
+			if (isTimerRunning) {
+				const now = new Date().getTime();
+				const distance = now - this.timerStart;
+				const seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
+				const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
+				this.timer = `${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`;
+			} else {
 				clearInterval(this.timerInterval);
 			}
-			const now = new Date().getTime();
-			const distance = now - this.timerStart;
-			const seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
-			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
-			this.timer = `${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`;
 		}, 1000);
 	}
 
@@ -177,7 +177,7 @@ class Scroller extends LitElement {
 				.clicks="${this.clicks}"
 				.score="${this.kindTotals}"
 				.timer="${this.timer}"
-				class="${isPlaying ? 'playing': 'stopped' }"
+				class="${isPlaying ? 'playing' : 'stopped'}"
 			></score-board>
 			${this.timerEnd
 				? null
