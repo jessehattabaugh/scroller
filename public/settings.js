@@ -20,13 +20,17 @@ class Settings extends LitElement {
 				user-select: none;
 			}
 			[type='submit'] {
-				color: cyan;
 				background: hotpink;
-				font-size: 5vw;
-				padding: 0.5em;
-				border: 0.5em outset lime;
-				font-family: cursive;
 				border-radius: 1em;
+				border: 0.5em outset lime;
+				color: cyan;
+				font-family: cursive;
+				font-size: 5vw;
+				outline: none;
+				padding: 0.5em;
+			}
+			[type='submit']:focus {
+				background: red;
 			}
 		`;
 	}
