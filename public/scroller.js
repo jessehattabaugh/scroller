@@ -120,7 +120,8 @@ class Scroller extends LitElement {
 
 		this.timerInterval = setInterval(() => {
 			// stop the clock when an end time gets set
-			if (this.timerEnd !== null) {
+			const isTimerStopped = this.timerEnd !== null;
+			if (isTimerStopped) {
 				clearInterval(this.timerInterval);
 			}
 			const now = new Date().getTime();
