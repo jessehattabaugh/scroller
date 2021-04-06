@@ -158,6 +158,7 @@ class Scroller extends LitElement {
 	}
 
 	render() {
+		const isPlaying = this.timerEnd === null;
 		return html`
 			<style>
 				.container {
@@ -170,7 +171,7 @@ class Scroller extends LitElement {
 				.clicks="${this.clicks}"
 				.score="${this.kindTotals}"
 				.timer="${this.timer}"
-				class="${this.timerEnd !== null ? 'stopped' : 'playing'}"
+				class="${isPlaying ? 'playing': 'stopped' }"
 			></score-board>
 			${this.timerEnd
 				? null
