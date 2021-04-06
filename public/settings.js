@@ -17,6 +17,7 @@ class Settings extends LitElement {
 			label {
 				display: block;
 				padding: 1em;
+				user-select: none;
 			}
 			[type='submit'] {
 				color: cyan;
