@@ -42,6 +42,7 @@ class ScoreBoard extends LitElement {
 
 	static get properties() {
 		return {
+			bonus: { type: Number },
 			clicks: { type: Number },
 			score: { type: String },
 			timer: { type: String },
@@ -69,8 +70,8 @@ class ScoreBoard extends LitElement {
 								.join(' ')}</output
 						>`}
 			<span>${this.timer}</span>
-			<span>👇: ${this.clicks} ${isStopped ? ' clicks' : null}</span>
-			<span>⭐: ${this.bonusPoints}</span>
+			<span>👇: ${this.clicks}</span>
+			<span>⭐: ${this.bonus}</span>
 			${isStopped ? html`<button @click="${this.handleBackClick}">Back</button>` : null}`;
 	}
 }
