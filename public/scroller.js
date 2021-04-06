@@ -48,6 +48,7 @@ class Scroller extends LitElement {
 		this.kindTotals = {};
 		this.sprites = [];
 		this.timerEnd = null;
+		this.bonusPoints = 0;
 
 		this.observer = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
@@ -70,12 +71,13 @@ class Scroller extends LitElement {
 	}
 
 	randomEmoji() {
+		// early and late emojis all kinda suck
 		const goodEmojis = emojisList.slice(316, 3057);
 		return shuffle.pick(goodEmojis);
 	}
 
 	generateSprites() {
-		// create some number of collectible sprites
+		// collectible sprites
 		const numberOfCollectibles = this.numberOfSprites * this.ratioOfCollectibles;
 		const numberOfCollectibleKinds = 2;
 		const collectibleKinds = [];
@@ -90,7 +92,7 @@ class Scroller extends LitElement {
 		}
 		console.log('👨‍👩‍👧‍👧 kindTotals: ', this.kindTotals);
 
-		// create some other number of uncollectible sprites
+		// uncollectible sprites
 		const numberOfUncollectibles = this.numberOfSprites - numberOfCollectibles;
 		const numberOfUncollectibleKinds = 10;
 		const uncollectibleKinds = [];
@@ -129,10 +131,19 @@ class Scroller extends LitElement {
 		this.clicks++;
 
 		// collect all the intersected sprites
+		let numberFoundThisClick = 0;
 		for (let sprite of this.intersected) {
 			if (sprite && !this.collected.includes(sprite)) {
 				this.collected.push(sprite);
+
+				// more sprites more bonus!
+				this.bonusPoints += numberFoundThisClick;
+				numberFoundThisClick++;
+
+				// make the sprite fade away
 				sprite.classList.add('collected'); // this seems dangerous but it works...
+
+				// reduce the tally in the scoreboard
 				this.kindTotals[sprite.innerText]--;
 
 				// end the game when there are none left to find
@@ -143,6 +154,7 @@ class Scroller extends LitElement {
 				}
 			}
 		}
+		console.log(`⭐got ${this.bonusPoints} bonus points`);
 	}
 
 	render() {
@@ -154,6 +166,7 @@ class Scroller extends LitElement {
 				}
 			</style>
 			<score-board
+				.bonus="${this.bonusPoints}"
 				.clicks="${this.clicks}"
 				.score="${this.kindTotals}"
 				.timer="${this.timer}"
