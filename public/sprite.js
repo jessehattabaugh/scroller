@@ -36,12 +36,9 @@ class Sprite extends LitElement {
 
 	connectedCallback() {
 		super.connectedCallback();
-
 		if (this.isCollectible) {
 			this.observer.observe(this);
 		}
-
-		//console.log('👾 sprite connected');
 	}
 
 	render() {

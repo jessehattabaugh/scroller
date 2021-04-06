@@ -68,7 +68,14 @@ class Scroller extends LitElement {
 		console.log('🥌 Scroller connected');
 		super.connectedCallback();
 		this.generateSprites();
-		setTimeout(this.startTimer.bind(this), 3000);
+		this.timer = 5;
+		const prestartInterval = setInterval(() => {
+			this.timer--
+			if (!this.timer) {
+				this.startTimer();
+				clearInterval(prestartInterval);
+			}
+		}, 1000);
 	}
 
 	randomEmoji() {
