@@ -48,6 +48,7 @@ class Scroller extends LitElement {
 		this.kindTotals = {};
 		this.sprites = [];
 		this.timerEnd = null;
+		this.timerStart = null;
 		this.bonusPoints = 0;
 
 		this.observer = new IntersectionObserver((entries) => {
@@ -67,7 +68,7 @@ class Scroller extends LitElement {
 		console.log('🥌 Scroller connected');
 		super.connectedCallback();
 		this.generateSprites();
-		this.startTimer();
+		setTimeout(this.startTimer.bind(this), 1000);
 	}
 
 	randomEmoji() {
@@ -111,7 +112,11 @@ class Scroller extends LitElement {
 	}
 
 	startTimer() {
+		console.log('⌚ starting timer');
 		this.timerStart = new Date().getTime();
+		this.timer = '00:00';
+		// I don't know why ^ doesn't trigger an update without v
+		this.requestUpdate();
 
 		this.timerInterval = setInterval(() => {
 			// stop the clock when an end time gets set
