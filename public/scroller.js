@@ -68,7 +68,7 @@ class Scroller extends LitElement {
 		console.log('🥌 Scroller connected');
 		super.connectedCallback();
 		this.generateSprites();
-		setTimeout(this.startTimer.bind(this), 1000);
+		setTimeout(this.startTimer.bind(this), 3000);
 	}
 
 	randomEmoji() {
@@ -165,6 +165,7 @@ class Scroller extends LitElement {
 
 	render() {
 		const isPlaying = this.timerEnd === null;
+		const isStarted = this.timerStart !== null;
 		return html`
 			<style>
 				.container {
@@ -177,11 +178,10 @@ class Scroller extends LitElement {
 				.clicks="${this.clicks}"
 				.score="${this.kindTotals}"
 				.timer="${this.timer}"
-				class="${isPlaying ? 'playing' : 'stopped'}"
+				class="${isPlaying ? 'playing' : 'stopped'} ${isStarted ? 'started' : 'notstarted'}"
 			></score-board>
-			${this.timerEnd
-				? null
-				: html`<div class="container" @click="${this.handleClick}">
+			${!isStarted || isPlaying
+				? html`<div class="container" @click="${this.handleClick}">
 						${this.sprites.map(
 							(sprite) =>
 								html`<sprite-comp
@@ -191,7 +191,8 @@ class Scroller extends LitElement {
 									>${sprite.kind}</sprite-comp
 								>`,
 						)}
-				  </div>`}
+				  </div>`
+				: null}
 		`;
 	}
 }
