@@ -30,7 +30,7 @@ class Settings extends LitElement {
 				padding: 0.5em;
 			}
 			[type='submit']:focus {
-				background: red;
+				box-shadow: 0 0 1em white;
 			}
 		`;
 	}
