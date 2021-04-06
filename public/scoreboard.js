@@ -21,6 +21,9 @@ class ScoreBoard extends LitElement {
 			:host(.stopped) span {
 				font-size: 18vw;
 			}
+			output {
+				font-size: min(10vw, 3em);
+			}
 			button {
 				background: lime;
 				border-radius: 1em;
@@ -29,9 +32,10 @@ class ScoreBoard extends LitElement {
 				font-family: fantasy;
 				font-size: 7vw;
 				padding: 0.75em;
+				outline: none;
 			}
-			output {
-				font-size: min(10vw, 3em);
+			button:focus {
+				background: red;
 			}
 		`;
 	}
