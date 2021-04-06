@@ -35,7 +35,7 @@ class ScoreBoard extends LitElement {
 				outline: none;
 			}
 			button:focus {
-				background: red;
+				box-shadow: 0 0 1em white;
 			}
 		`;
 	}
