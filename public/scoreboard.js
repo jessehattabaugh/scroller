@@ -10,25 +10,20 @@ class ScoreBoard extends LitElement {
 				display: flex;
 				justify-content: space-around;
 				padding: 0.5em;
-				transition-property: all;
 				transition-duration: 1s;
+				transition-property: all;
+				transition-timing-function: linear;
 			}
-			:host(.notstarted) {
-				background: black;
-				height: 100%;
-				flex-direction: column;
+			:host(.notstarted),
+			:host(.stopped) {
 				align-items: center;
+				background: black;
+				flex-direction: column;
 				font-size: 9vw;
+				height: 100%;
 			}
 			:host(.notstarted) output {
 				font-size: 18vw;
-			}
-			:host(.stopped) {
-				background: black;
-				height: 100%;
-				flex-direction: column;
-				align-items: center;
-				font-size: 9vw;
 			}
 			:host(.stopped) span {
 				font-size: 18vw;

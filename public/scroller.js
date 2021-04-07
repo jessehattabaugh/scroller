@@ -72,7 +72,7 @@ class Scroller extends LitElement {
 		// before the game starts the timer is used for a countdown till the timer starts
 		this.timer = 5;
 		const prestartInterval = setInterval(() => {
-			this.timer--
+			this.timer--;
 			if (!this.timer) {
 				this.startTimer();
 				clearInterval(prestartInterval);

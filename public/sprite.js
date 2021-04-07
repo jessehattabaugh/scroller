@@ -5,7 +5,7 @@ class Sprite extends LitElement {
 		return css`
 			:host {
 				justify-self: center;
-				transform: scale(4) translate(0, 0.5em);
+				transform: scale(4);
 				user-select: none;
 			}
 			:host(.collected) {
