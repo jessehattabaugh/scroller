@@ -87,27 +87,36 @@ class Scroller extends LitElement {
 	}
 
 	generateSprites() {
+		// TODO clear out old sprites?
+
+		// badguys
+		const numberOfBadGuys = 10;
+		for (let i = 0; i < numberOfBadGuys; i++) {
+			const kind = '😈';
+			this.sprites.push({kind: kind, isCollectible: true });
+		}
+
 		// collectible sprites
 		const numberOfCollectibles = this.numberOfSprites * this.ratioOfCollectibles;
-		const numberOfCollectibleKinds = 2;
-		const collectibleKinds = [];
+		const numberOfCollectibleKinds = 2; // TODO make this a property
+		let collectibleKinds = [];
 		for (let i = 0; i < numberOfCollectibleKinds; i++) {
-			collectibleKinds.push(this.randomEmoji());
+			collectibleKinds.push(this.randomEmoji()); // TODO check to make sure it's not a duplicate
 		}
 
 		for (let i = 0; i < numberOfCollectibles; i++) {
 			const kind = shuffle.pick(collectibleKinds);
 			this.sprites.push({ kind: kind, isCollectible: true });
-			this.kindTotals[kind] = (this.kindTotals[kind] || 0) + 1;
+			this.kindTotals[kind] = (this.kindTotals[kind] || 0) + 1; // TODO rename this.kindTotals to this.score
 		}
 		console.log('👨‍👩‍👧‍👧 kindTotals: ', this.kindTotals);
 
-		// uncollectible sprites
+		// uncollectible sprites TODO rename "uncollectible" to "ordinary"
 		const numberOfUncollectibles = this.numberOfSprites - numberOfCollectibles;
-		const numberOfUncollectibleKinds = 10;
+		const numberOfUncollectibleKinds = 10; // TODO make this a property
 		const uncollectibleKinds = [];
 		for (let i = 0; i < numberOfUncollectibleKinds; i++) {
-			uncollectibleKinds.push(this.randomEmoji());
+			uncollectibleKinds.push(this.randomEmoji()); // TODO check to make sure it's not a duplicate
 		}
 
 		for (let i = 0; i < numberOfUncollectibles; i++) {
