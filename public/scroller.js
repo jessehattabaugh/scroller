@@ -169,7 +169,7 @@ class Scroller extends LitElement {
 				}
 			}
 		}
-		console.log(`⭐got ${this.bonusPoints} bonus points`);
+		console.log(`⭐ got ${this.bonusPoints} bonus points`);
 	}
 
 	render() {
