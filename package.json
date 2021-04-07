@@ -8,7 +8,7 @@
 		"serve": "^11.3.2"
 	},
 	"homepage": "https://github.com/jessehattabaugh/scroller#readme",
-	"license": "GPL-3.0-or-later",
+	"license": "UNLICENSED",
 	"name": "scroller",
 	"private": "true",
 	"repository": {
