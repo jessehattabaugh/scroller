@@ -48,6 +48,7 @@ class Scroller extends LitElement {
 		this.kindTotals = {};
 		this.sprites = [];
 		this.timerEnd = null;
+		this.timerStart = null;
 		this.bonusPoints = 0;
 
 		this.observer = new IntersectionObserver((entries) => {
@@ -67,7 +68,14 @@ class Scroller extends LitElement {
 		console.log('🥌 Scroller connected');
 		super.connectedCallback();
 		this.generateSprites();
-		this.startTimer();
+		this.timer = 5;
+		const prestartInterval = setInterval(() => {
+			this.timer--
+			if (!this.timer) {
+				this.startTimer();
+				clearInterval(prestartInterval);
+			}
+		}, 1000);
 	}
 
 	randomEmoji() {
@@ -111,18 +119,23 @@ class Scroller extends LitElement {
 	}
 
 	startTimer() {
+		console.log('⌚ starting timer');
 		this.timerStart = new Date().getTime();
+		this.timer = '00:00';
+		// I don't know why ^ doesn't trigger an update without v
+		this.requestUpdate();
 
 		this.timerInterval = setInterval(() => {
-			// stop the clock when an end time gets set
-			if (this.timerEnd !== null) {
+			const isTimerRunning = this.timerEnd === null;
+			if (isTimerRunning) {
+				const now = new Date().getTime();
+				const distance = now - this.timerStart;
+				const seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
+				const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
+				this.timer = `${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`;
+			} else {
 				clearInterval(this.timerInterval);
 			}
-			const now = new Date().getTime();
-			const distance = now - this.timerStart;
-			const seconds = Math.floor((distance % (1000 * 60)) / 1000) + '';
-			const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60)) + '';
-			this.timer = `${minutes.padStart(2, 0)}:${seconds.padStart(2, 0)}`;
 		}, 1000);
 	}
 
@@ -158,6 +171,8 @@ class Scroller extends LitElement {
 	}
 
 	render() {
+		const isPlaying = this.timerEnd === null;
+		const isStarted = this.timerStart !== null;
 		return html`
 			<style>
 				.container {
@@ -170,11 +185,10 @@ class Scroller extends LitElement {
 				.clicks="${this.clicks}"
 				.score="${this.kindTotals}"
 				.timer="${this.timer}"
-				class="${this.timerEnd !== null ? 'stopped' : 'playing'}"
+				class="${isPlaying ? 'playing' : 'stopped'} ${isStarted ? 'started' : 'notstarted'}"
 			></score-board>
-			${this.timerEnd
-				? null
-				: html`<div class="container" @click="${this.handleClick}">
+			${!isStarted || isPlaying
+				? html`<div class="container" @click="${this.handleClick}">
 						${this.sprites.map(
 							(sprite) =>
 								html`<sprite-comp
@@ -184,7 +198,8 @@ class Scroller extends LitElement {
 									>${sprite.kind}</sprite-comp
 								>`,
 						)}
-				  </div>`}
+				  </div>`
+				: null}
 		`;
 	}
 }

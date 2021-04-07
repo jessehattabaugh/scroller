@@ -10,6 +10,18 @@ class ScoreBoard extends LitElement {
 				display: flex;
 				justify-content: space-around;
 				padding: 0.5em;
+				transition-property: all;
+				transition-duration: 1s;
+			}
+			:host(.notstarted) {
+				background: black;
+				height: 100%;
+				flex-direction: column;
+				align-items: center;
+				font-size: 9vw;
+			}
+			:host(.notstarted) output {
+				font-size: 18vw;
 			}
 			:host(.stopped) {
 				background: black;
@@ -61,6 +73,7 @@ class ScoreBoard extends LitElement {
 
 	render() {
 		const isStopped = this.classList.contains('stopped');
+		const isStarted = this.classList.contains('started');
 		return html`${isStopped
 				? html`You found them all!`
 				: html`Find these:
@@ -70,8 +83,9 @@ class ScoreBoard extends LitElement {
 								.join(' ')}</output
 						>`}
 			<span>${this.timer}</span>
-			<span>👇: ${this.clicks}</span>
-			<span>⭐: ${this.bonus}</span>
+			${isStarted
+				? html`<span>👇: ${this.clicks}</span> <span>⭐: ${this.bonus}</span>`
+				: null}
 			${isStopped ? html`<button @click="${this.handleBackClick}">Back</button>` : null}`;
 	}
 }
