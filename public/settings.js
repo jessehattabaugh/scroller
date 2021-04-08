@@ -11,7 +11,8 @@ class Settings extends LitElement {
 				padding: 1em;
 			}
 			input {
-				 dth: 100%;
+				display: block;
+				width: 100%;
 			}
 			label {
 				display: block;
