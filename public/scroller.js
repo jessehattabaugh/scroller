@@ -109,7 +109,7 @@ class Scroller extends LitElement {
 			this.sprites.push({ kind: kind, isCollectible: true });
 			this.kindTotals[kind] = (this.kindTotals[kind] || 0) + 1; // TODO rename this.kindTotals to this.score
 		}
-		console.log('👨‍👩‍👧‍👧 kindTotals: ', this.kindTotals);
+		console.log('👀 Look for these! ', this.kindTotals);
 
 		// uncollectible sprites TODO rename "uncollectible" to "ordinary"
 		const numberOfUncollectibles = this.numberOfSprites - numberOfCollectibles;
@@ -157,18 +157,21 @@ class Scroller extends LitElement {
 		// collect all the intersected sprites
 		let numberFoundThisClick = 0;
 		for (let sprite of this.intersected) {
+
+			// this sprite may have been collected already
 			if (sprite && !this.collected.includes(sprite)) {
 				this.collected.push(sprite);
 
 				// more sprites more bonus!
 				this.bonusPoints += numberFoundThisClick;
-				numberFoundThisClick++;
+				numberFoundThisClick++; // more bonus next time!
 
 				// make the sprite fade away
 				sprite.classList.add('collected'); // this seems dangerous but it works...
 
 				// reduce the tally in the scoreboard
-				this.kindTotals[sprite.innerText]--;
+				if (sprite.innerText != '😈')
+					this.kindTotals[sprite.innerText]--;
 
 				// end the game when there are none left to find
 				const leftToFind = Object.values(this.kindTotals).reduce((a, b) => a + b);
