@@ -173,7 +173,7 @@ class Scroller extends LitElement {
 				if (sprite.innerText != '😈')
 					this.kindTotals[sprite.innerText]--;
 				else
-					this.bonusPoints--;
+					this.bonusPoints -= 5;
 
 				// end the game when there are none left to find
 				const leftToFind = Object.values(this.kindTotals).reduce((a, b) => a + b);
