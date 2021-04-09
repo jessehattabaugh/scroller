@@ -153,6 +153,7 @@ class Settings extends LitElement {
 				? html`<scroller-modal
 						.numberOfColumns="${this.numberOfColumns}"
 						.numberOfSprites="${this.numberOfSprites}"
+						.ratioOfBadGuys="${this.ratioOfBadGuys}"
 						.ratioOfCollectibles="${this.ratioOfCollectibles}"
 				  ></scroller-modal>`
 				: null}`;
