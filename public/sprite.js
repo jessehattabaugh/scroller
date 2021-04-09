@@ -5,7 +5,7 @@ class Sprite extends LitElement {
 		return css`
 			:host {
 				justify-self: center;
-				transform: scale(4);
+
 				user-select: none;
 			}
 			:host(.collected) {
@@ -31,6 +31,7 @@ class Sprite extends LitElement {
 			observer: { type: Object, attribute: false },
 			isCollectible: { type: Boolean },
 			isCollected: { type: Boolean },
+			rotatability: { type: Number },
 		};
 	}
 
@@ -45,6 +46,7 @@ class Sprite extends LitElement {
 		return html`<style>
 				:host {
 					font-size: ${20 / this.columns}vw;
+					transform: scale(4) rotate(${Math.random() * this.rotatability}turn);
 				}</style
 			><slot>${this.kind}</slot>`;
 	}
