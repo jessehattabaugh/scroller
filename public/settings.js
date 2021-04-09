@@ -7,7 +7,7 @@ class Settings extends LitElement {
 	static get styles() {
 		return css`
 			form {
-				font-size: 6vw;
+				font-size: 1.5em;
 				padding: 1em;
 			}
 			input {
@@ -16,18 +16,18 @@ class Settings extends LitElement {
 			}
 			label {
 				display: block;
-				padding: 1em;
+				padding: max(0em, 2vw);
 				user-select: none;
 			}
 			[type='submit'] {
 				background: hotpink;
 				border-radius: 1em;
 				border: 0.5em outset lime;
-				color: cyan;
-				font-family: cursive;
-				font-size: 5vw;
+				color: yellow;
+				font-family: "Lucida Console", Monaco, monospace;
+				font-size: 3em;
 				outline: none;
-				padding: 0.5em;
+				padding: 3vw;
 			}
 			[type='submit']:focus {
 				box-shadow: 0 0 1em white;
@@ -112,6 +112,9 @@ class Settings extends LitElement {
 			? null
 			: html`<form @submit="${this.handleSubmit}">
 					<label>
+						<input type="submit" value="Play!" />
+					</label>
+					<label>
 						number of sprites: <output>${this.numberOfSprites}</output>
 						<input
 							@change="${this.handleNumberOfSpritesChange}"
@@ -163,9 +166,6 @@ class Settings extends LitElement {
 							step="0.001"
 							value="${this.rotationPercentage}"
 						/>
-					</label>
-					<label>
-						<input type="submit" value="Play!" />
 					</label>
 			  </form>`}
 		${this.isPlaying
