@@ -42,6 +42,7 @@ class Settings extends LitElement {
 			numberOfSprites: { type: Number },
 			ratioOfBadGuys: { type: Number },
 			ratioOfCollectibles: { type: Number },
+			rotationPercentage: { type: Number },
 		};
 	}
 
@@ -51,6 +52,7 @@ class Settings extends LitElement {
 		this.numberOfSprites = 500;
 		this.ratioOfCollectibles = 0.025;
 		this.ratioOfBadGuys = 0.01;
+		this.rotationPercentage = 0.15;
 	}
 
 	connectedCallback() {

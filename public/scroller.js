@@ -215,10 +215,10 @@ class Scroller extends LitElement {
 						${this.sprites.map(
 							(sprite) =>
 								html`<sprite-comp
-									style="transform: rotate(${this.rotationPercentage}turn)"
 									.columns="${this.numberOfColumns}"
 									.observer="${this.observer}"
 									.isCollectible="${sprite.isCollectible}"
+									.rotatability="${this.rotationPercentage}"
 									>${sprite.kind}</sprite-comp
 								>`,
 						)}
