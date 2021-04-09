@@ -108,73 +108,75 @@ class Settings extends LitElement {
 	}
 
 	render() {
-		return html`<form @submit="${this.handleSubmit}">
-				<label>
-					number of sprites: <output>${this.numberOfSprites}</output>
-					<input
-						@change="${this.handleNumberOfSpritesChange}"
-						max="9999"
-						min="10"
-						type="range"
-						value="${this.numberOfSprites}"
-					/>
-				</label>
-				<label>
-					ratio of collectibles: <output>${this.ratioOfCollectibles}</output>
-					<input
-						@change="${this.handleRatioOfCollectiblesChange}"
-						max="0.1"
-						min="0.001"
-						step="0.001"
-						type="range"
-						value="${this.ratioOfCollectibles}"
-					/>
-				</label>
-				<label>
-					number of columns: <output>${this.numberOfColumns}</output>
-					<input
-						@change="${this.handleNumberOfColumnsChange}"
-						max="10"
-						min="1"
-						type="range"
-						value="${this.numberOfColumns}"
-					/>
-				</label>
-				<label>
-					ratio of bad guys: <output>${this.ratioOfBadGuys}</output>
-					<input
-						@change="${this.handleRatioOfBadGuysChange}"
-						max="0.1"
-						min="0.001"
-						type="range"
-						step="0.001"
-						value="${this.ratioOfBadGuys}"
-					/>
-				</label>
-				<label>
-					rotation percentage: <output>${this.rotationPercentage}</output>
-					<input
-						@change="${this.handleRotationPercentageChange}"
-						max="1"
-						min="0"
-						type="range"
-						step="0.001"
-						value="${this.rotationPercentage}"
-					/>
-				</label>
-				<label>
-					<input type="submit" value="Play!" />
-				</label>
-			</form>
-			${this.isPlaying
-				? html`<scroller-modal
-						.numberOfColumns="${this.numberOfColumns}"
-						.numberOfSprites="${this.numberOfSprites}"
-						.ratioOfBadGuys="${this.ratioOfBadGuys}"
-						.ratioOfCollectibles="${this.ratioOfCollectibles}"
-						.rotationPercentage="${this.rotationPercentage}"
-				  ></scroller-modal>`
-				: null}`;
+		return html`${this.isPlaying
+			? null
+			: html`<form @submit="${this.handleSubmit}">
+					<label>
+						number of sprites: <output>${this.numberOfSprites}</output>
+						<input
+							@change="${this.handleNumberOfSpritesChange}"
+							max="9999"
+							min="10"
+							type="range"
+							value="${this.numberOfSprites}"
+						/>
+					</label>
+					<label>
+						ratio of collectibles: <output>${this.ratioOfCollectibles}</output>
+						<input
+							@change="${this.handleRatioOfCollectiblesChange}"
+							max="0.1"
+							min="0.001"
+							step="0.001"
+							type="range"
+							value="${this.ratioOfCollectibles}"
+						/>
+					</label>
+					<label>
+						number of columns: <output>${this.numberOfColumns}</output>
+						<input
+							@change="${this.handleNumberOfColumnsChange}"
+							max="10"
+							min="1"
+							type="range"
+							value="${this.numberOfColumns}"
+						/>
+					</label>
+					<label>
+						ratio of bad guys: <output>${this.ratioOfBadGuys}</output>
+						<input
+							@change="${this.handleRatioOfBadGuysChange}"
+							max="0.1"
+							min="0.001"
+							type="range"
+							step="0.001"
+							value="${this.ratioOfBadGuys}"
+						/>
+					</label>
+					<label>
+						rotation percentage: <output>${this.rotationPercentage}</output>
+						<input
+							@change="${this.handleRotationPercentageChange}"
+							max="1"
+							min="0"
+							type="range"
+							step="0.001"
+							value="${this.rotationPercentage}"
+						/>
+					</label>
+					<label>
+						<input type="submit" value="Play!" />
+					</label>
+			  </form>`}
+		${this.isPlaying
+			? html`<scroller-modal
+					.numberOfColumns="${this.numberOfColumns}"
+					.numberOfSprites="${this.numberOfSprites}"
+					.ratioOfBadGuys="${this.ratioOfBadGuys}"
+					.ratioOfCollectibles="${this.ratioOfCollectibles}"
+					.rotationPercentage="${this.rotationPercentage}"
+			  ></scroller-modal>`
+			: null}`;
 	}
 }
 
