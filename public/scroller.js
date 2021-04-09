@@ -150,7 +150,7 @@ class Scroller extends LitElement {
 	}
 
 	handleClick() {
-		console.log(`📸 collecting ${this.collected.length}`);
+		console.log(`📸 collecting`);
 		this.clicks++;
 
 		// collect all the intersected sprites
