@@ -89,11 +89,11 @@ class Scroller extends LitElement {
 	generateSprites() {
 		// TODO clear out old sprites?
 
-		// badguys
-		const numberOfBadGuys = 10;
+		// badguy sprites
+		const numberOfBadGuys = this.numberOfSprites * this.ratioOfBadGuys;
 		for (let i = 0; i < numberOfBadGuys; i++) {
 			const kind = '😈';
-			this.sprites.push({kind: kind, isCollectible: true });
+			this.sprites.push({kind: kind, isCollectible: true, isBad: true });
 		}
 
 		// collectible sprites
@@ -103,7 +103,6 @@ class Scroller extends LitElement {
 		for (let i = 0; i < numberOfCollectibleKinds; i++) {
 			collectibleKinds.push(this.randomEmoji()); // TODO check to make sure it's not a duplicate
 		}
-
 		for (let i = 0; i < numberOfCollectibles; i++) {
 			const kind = shuffle.pick(collectibleKinds);
 			this.sprites.push({ kind: kind, isCollectible: true });
