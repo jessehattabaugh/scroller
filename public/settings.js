@@ -86,6 +86,10 @@ class Settings extends LitElement {
 		this.ratioOfBadGuys = event.target.value;
 	}
 
+	handleRotationPercentageChange(event) {
+		this.rotationPercentage = event.target.value;
+	}
+
 	handleSubmit(event) {
 		event.preventDefault();
 		console.log(`🎲 let's play!`);
@@ -148,11 +152,11 @@ class Settings extends LitElement {
 				<label>
 					rotation percentage: <output>${this.rotationPercentage}</output>
 					<input
-						@change="${this.rotationPercentage}"
-						max="100"
+						@change="${this.handleRotationPercentageChange}"
+						max="1"
 						min="0"
 						type="range"
-						step="25"
+						step="0.001"
 						value="${this.rotationPercentage}"
 					/>
 				</label>
@@ -166,6 +170,7 @@ class Settings extends LitElement {
 						.numberOfSprites="${this.numberOfSprites}"
 						.ratioOfBadGuys="${this.ratioOfBadGuys}"
 						.ratioOfCollectibles="${this.ratioOfCollectibles}"
+						.rotationPercentage="${this.rotationPercentage}"
 				  ></scroller-modal>`
 				: null}`;
 	}

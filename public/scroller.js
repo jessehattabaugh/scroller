@@ -16,6 +16,7 @@ class Scroller extends LitElement {
 			numberOfColumns: { type: Number },
 			numberOfSprites: { type: Number },
 			ratioOfCollectibles: { type: Number },
+			rotationPercentage: {type: Number},
 			timer: { type: String },
 		};
 	}
@@ -50,6 +51,7 @@ class Scroller extends LitElement {
 		this.timerEnd = null;
 		this.timerStart = null;
 		this.bonusPoints = 0;
+		this.rotationPercentage = 0;
 
 		this.observer = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
@@ -213,6 +215,7 @@ class Scroller extends LitElement {
 						${this.sprites.map(
 							(sprite) =>
 								html`<sprite-comp
+									style="transform: rotate(${this.rotationPercentage}turn)"
 									.columns="${this.numberOfColumns}"
 									.observer="${this.observer}"
 									.isCollectible="${sprite.isCollectible}"
