@@ -22,13 +22,14 @@ class Settings extends LitElement {
 			[type='submit'] {
 				background: hotpink;
 				border-radius: 1em;
-				border: 0.5em outset lime;
+				border: 0.25em outset lime;
 				color: yellow;
 				font-family: "Lucida Console", Monaco, monospace;
-				font-size: 3em;
+				font-size: 2.25em;
 				font-weight: bold;
 				outline: none;
-				padding: 3vw;
+				padding: .5em;
+				width: min(100%, 7em);
 			}
 			[type='submit']:focus {
 				box-shadow: 0 0 1em white;
