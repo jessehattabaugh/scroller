@@ -93,7 +93,7 @@ class Scroller extends LitElement {
 		const numberOfBadGuys = this.numberOfSprites * this.ratioOfBadGuys;
 		for (let i = 0; i < numberOfBadGuys; i++) {
 			const kind = '😈';
-			this.sprites.push({kind: kind, isCollectible: true, isBad: true });
+			this.sprites.push({ kind: kind, isCollectible: true, isBad: true });
 		}
 
 		// collectible sprites
@@ -150,39 +150,45 @@ class Scroller extends LitElement {
 	}
 
 	handleClick() {
-		console.log(`📸 collecting ${this.collected.length}`);
+		console.log(`📸 collecting`);
 		this.clicks++;
 
 		// collect all the intersected sprites
 		let numberFoundThisClick = 0;
+		const bonusPointsBefore = this.bonusPoints;
 		for (let sprite of this.intersected) {
 
-			// this sprite may have been collected already
 			if (sprite && !this.collected.includes(sprite)) {
-				this.collected.push(sprite);
+				if (sprite.innerText === '😈') {
+					// bad guy got them!
+					console.log(`😈 bad guy got you! -5 bonus points`);
+					this.bonusPoints -= 5;
+				} else {
+					this.collected.push(sprite);
 
-				// more sprites more bonus!
-				this.bonusPoints += numberFoundThisClick;
-				numberFoundThisClick++; // more bonus next time!
+					// more sprites more bonus!
+					numberFoundThisClick++; // more bonus next time!
+					this.bonusPoints += numberFoundThisClick;
+
+					// reduce the tally in the scoreboard
+					console.log(
+						`🍄 you collected a ${sprite.innerText} and got ${numberFoundThisClick} bonus points`,
+					);
+					this.kindTotals[sprite.innerText]--;
+				}
 
 				// make the sprite fade away
 				sprite.classList.add('collected'); // this seems dangerous but it works...
 
-				// reduce the tally in the scoreboard
-				if (sprite.innerText != '😈')
-					this.kindTotals[sprite.innerText]--;
-				else
-					this.bonusPoints -= 5;
-
 				// end the game when there are none left to find
 				const leftToFind = Object.values(this.kindTotals).reduce((a, b) => a + b);
 				if (!leftToFind) {
-					console.log(`🎉 done!`, leftToFind);
+					console.log(`🎉 none left to find!`, leftToFind);
 					this.timerEnd = new Date().getTime();
 				}
 			}
 		}
-		console.log(`⭐ got ${this.bonusPoints} bonus points`);
+		console.log(`⭐ got ${this.bonusPoints - bonusPointsBefore} bonus points total`);
 	}
 
 	render() {
