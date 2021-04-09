@@ -40,6 +40,7 @@ class Settings extends LitElement {
 			isPlaying: { type: Boolean },
 			numberOfColumns: { type: Number },
 			numberOfSprites: { type: Number },
+			ratioOfBadGuys: { type: Number },
 			ratioOfCollectibles: { type: Number },
 		};
 	}
@@ -49,6 +50,7 @@ class Settings extends LitElement {
 		this.numberOfColumns = 5;
 		this.numberOfSprites = 500;
 		this.ratioOfCollectibles = 0.025;
+		this.ratioOfBadGuys = 0.01;
 	}
 
 	connectedCallback() {
@@ -78,6 +80,10 @@ class Settings extends LitElement {
 
 	handleNumberOfColumnsChange(event) {
 		this.numberOfColumns = event.target.value;
+	}
+
+	handleRatioOfBadGuysChange(event) {
+		this.ratioOfBadGuys = event.target.value;
 	}
 
 	handleSubmit(event) {
@@ -126,6 +132,17 @@ class Settings extends LitElement {
 						min="1"
 						type="range"
 						value="${this.numberOfColumns}"
+					/>
+				</label>
+				<label>
+					ratio of bad guys: <output>${this.ratioOfBadGuys}</output>
+					<input
+						@change="${this.handleRatioOfBadGuysChange}"
+						max="0.1"
+						min="0.001"
+						type="range"
+						step="0.001"
+						value="${this.ratioOfBadGuys}"
 					/>
 				</label>
 				<label>
