@@ -46,7 +46,11 @@ class Sprite extends LitElement {
 		return html`<style>
 				:host {
 					font-size: ${20 / this.columns}vw;
-					transform: scale(4) rotate(${Math.random() * this.rotatability}turn);
+					transform: scale(4)
+						rotate(
+							${Math.random() < 0.5 ? '-' : ''}${Math.random() *
+							this.rotatability}turn
+						);
 				}</style
 			><slot>${this.kind}</slot>`;
 	}
