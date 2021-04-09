@@ -146,6 +146,17 @@ class Settings extends LitElement {
 					/>
 				</label>
 				<label>
+					rotation percentage: <output>${this.rotationPercentage}</output>
+					<input
+						@change="${this.rotationPercentage}"
+						max="100"
+						min="0"
+						type="range"
+						step="25"
+						value="${this.rotationPercentage}"
+					/>
+				</label>
+				<label>
 					<input type="submit" value="Play!" />
 				</label>
 			</form>
