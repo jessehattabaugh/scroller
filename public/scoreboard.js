@@ -77,7 +77,11 @@ class ScoreBoard extends LitElement {
 								.map((kind, i) => `${kind}:${this.score[kind]}`)
 								.join(' ')}</output
 						>`}
+						${isStarted
+							? null
+							: html`<span>Avoid: 😈</span>`}
 			<span>${this.timer}</span>
+
 			${isStarted
 				? html`<span>👇: ${this.clicks}</span> <span>⭐: ${this.bonus}</span>`
 				: null}
