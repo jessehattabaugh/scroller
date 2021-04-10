@@ -13,10 +13,11 @@ class Scroller extends LitElement {
 	static get properties() {
 		return {
 			clicks: { type: Number },
+			isFlashing: { type: Boolean },
 			numberOfColumns: { type: Number },
 			numberOfSprites: { type: Number },
 			ratioOfCollectibles: { type: Number },
-			rotationPercentage: {type: Number},
+			rotationPercentage: { type: Number },
 			timer: { type: String },
 		};
 	}
@@ -35,8 +36,27 @@ class Scroller extends LitElement {
 				background-image: linear-gradient(to right top, #d16ba5, #8aa7ec, #5ffbf1);
 				display: grid;
 				flex: 1;
+				margin-bottom: -1.5em;
 				overflow-x: hidden;
 				overflow-y: scroll;
+				padding-top: 1.5em;
+			}
+			#halo {
+				border-image-slice: 1;
+				border-image-source: linear-gradient(to right top, white, gold);
+				border-style: solid;
+				border-width: 1em;
+				box-sizing: border-box;
+				box-sizing: border-box;
+				filter: opacity(0.5);
+				height: 100%;
+				left: 0;
+				outline-offset: -2em;
+				outline: 1em solid rgba(255, 255, 255, 0.5);
+				pointer-events: none;
+				position: absolute;
+				top: 0;
+				width: 100%;
 			}
 		`;
 	}
@@ -159,7 +179,6 @@ class Scroller extends LitElement {
 		let numberFoundThisClick = 0;
 		const bonusPointsBefore = this.bonusPoints;
 		for (let sprite of this.intersected) {
-
 			if (sprite && !this.collected.includes(sprite)) {
 				if (sprite.innerText === '😈') {
 					// bad guy got them!
@@ -190,14 +209,15 @@ class Scroller extends LitElement {
 				}
 			}
 		}
+		this.isFlashing = true;
+		setTimeout(() => (this.isFlashing = false), 1000);
 		console.log(`⭐ got ${this.bonusPoints - bonusPointsBefore} bonus points total`);
 	}
 
 	render() {
 		const isPlaying = this.timerEnd === null;
 		const isStarted = this.timerStart !== null;
-		return html`
-			<style>
+		return html` <style>
 				.container {
 					grid-row-gap: ${80 / this.numberOfColumns}vw;
 					grid-template-columns: repeat(${this.numberOfColumns}, 1fr);
@@ -224,7 +244,7 @@ class Scroller extends LitElement {
 						)}
 				  </div>`
 				: null}
-		`;
+			${this.isFlashing ? html`<div id="halo"></div>` : null}`;
 	}
 }
 
