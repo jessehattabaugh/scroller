@@ -4,7 +4,7 @@ class Sprite extends LitElement {
 	static get styles() {
 		return css`
 			:host {
-				backface-visibility: hidden;
+				backface-visibility: hidden; /* prevents blurry emojis */
 				justify-self: center;
 				user-select: none;
 			}
@@ -13,14 +13,18 @@ class Sprite extends LitElement {
 				animation-duration: 1s;
 				animation-iteration-count: 1;
 				animation-name: collected;
+				animation-timing-function: ease-in-out;
 				opacity: 0.15;
-				transition-duration: 1s;
-				transition-property: opacity;
-				transition-timing-function: cubic-bezier(0.6, -0.28, 0.74, 0.05);
 			}
 			@keyframes collected {
+				0% {
+					opacity: 1;
+				}
 				50% {
-					transform: scale(8) rotate(360deg);
+					transform: scale(4) rotate(360deg);
+				}
+				75% {
+					opacity: 1;
 				}
 			}
 		`;
