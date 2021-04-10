@@ -76,14 +76,14 @@ class Scroller extends LitElement {
 		this.observer = new IntersectionObserver((entries) => {
 			entries.forEach((entry) => {
 				if (entry.isIntersecting) {
-					//console.log('👀 collectible came into view', entry.target.innerText);
+					console.log('👀 collectible came into view', entry.target.innerText);
 					this.intersected.push(entry.target);
 				} else {
-					//console.log('🙈 collectible became hidden', entry.target.innerText);
+					console.log('🙈 collectible became hidden', entry.target.innerText);
 					delete this.intersected[this.intersected.indexOf(entry.target)];
 				}
 			});
-		});
+		}, {threshold: 0.5});
 	}
 
 	connectedCallback() {
