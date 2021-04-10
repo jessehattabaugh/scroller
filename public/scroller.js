@@ -34,29 +34,20 @@ class Scroller extends LitElement {
 				width: 100%;
 			}
 			.container {
-				box-sizing: border-box;
-				background-image: linear-gradient(to right top, #d16ba5, #8aa7ec, #5ffbf1);
 				display: grid;
+			}
+			#halo {
+				background-image: linear-gradient(to right top, #d16ba5, #8aa7ec, #5ffbf1);
 				flex: 1;
+				outline-offset: -3em;
+				outline-style: none;
+				outline-width: 3em;
+				outline-color: rgba(255, 255, 255, 0.75);
 				overflow-x: hidden;
 				overflow-y: scroll;
 			}
-			#halo {
-				border-image-slice: 1;
-				border-image-source: linear-gradient(to right top, white, gold);
-				border-style: solid;
-				border-width: 1em;
-				box-sizing: border-box;
-				box-sizing: border-box;
-				filter: opacity(0.5);
-				height: 100%;
-				left: 0;
-				outline-offset: -2em;
-				outline: 1em solid rgba(255, 255, 255, 0.5);
-				pointer-events: none;
-				position: absolute;
-				top: 0;
-				width: 100%;
+			#halo.flashing {
+				outline-style: solid;
 			}
 		`;
 	}
@@ -73,17 +64,20 @@ class Scroller extends LitElement {
 		this.bonusPoints = 0;
 		this.rotationPercentage = 0;
 
-		this.observer = new IntersectionObserver((entries) => {
-			entries.forEach((entry) => {
-				if (entry.isIntersecting) {
-					console.log('👀 collectible came into view', entry.target.innerText);
-					this.intersected.push(entry.target);
-				} else {
-					console.log('🙈 collectible became hidden', entry.target.innerText);
-					delete this.intersected[this.intersected.indexOf(entry.target)];
-				}
-			});
-		}, {threshold: 0.5});
+		this.observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						console.log('👀 collectible came into view', entry.target.innerText);
+						this.intersected.push(entry.target);
+					} else {
+						console.log('🙈 collectible became hidden', entry.target.innerText);
+						delete this.intersected[this.intersected.indexOf(entry.target)];
+					}
+				});
+			},
+			{ threshold: 0.25 },
+		);
 	}
 
 	connectedCallback() {
@@ -231,20 +225,21 @@ class Scroller extends LitElement {
 				class="${isPlaying ? 'playing' : 'stopped'} ${isStarted ? 'started' : 'notstarted'}"
 			></score-board>
 			${!isStarted || isPlaying
-				? html`<div class="container" @click="${this.handleClick}">
-						${this.sprites.map(
-							(sprite) =>
-								html`<sprite-comp
-									.columns="${this.numberOfColumns}"
-									.observer="${this.observer}"
-									.isCollectible="${sprite.isCollectible}"
-									.rotatability="${this.rotationPercentage}"
-									>${sprite.kind}</sprite-comp
-								>`,
-						)}
+				? html`<div id="halo" class="${this.isFlashing ? 'flashing' : ''}">
+						<div class="container" @click="${this.handleClick}">
+							${this.sprites.map(
+								(sprite) =>
+									html`<sprite-comp
+										.columns="${this.numberOfColumns}"
+										.observer="${this.observer}"
+										.isCollectible="${sprite.isCollectible}"
+										.rotatability="${this.rotationPercentage}"
+										>${sprite.kind}</sprite-comp
+									>`,
+							)}
+						</div>
 				  </div>`
-				: null}
-			${this.isFlashing ? html`<div id="halo"></div>` : null}`;
+				: null}`;
 	}
 }
 
