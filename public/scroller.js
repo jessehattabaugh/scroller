@@ -46,10 +46,10 @@ class Scroller extends LitElement {
 				outline-width: 2em;
 				overflow-x: hidden;
 				overflow-y: scroll;
-				transition: 0.5s outline-color ease-out;
+				transition: 2s outline-color ease-out;
 			}
 			#halo.winning {
-				outline-color: rgba(255, 255, 255, 0.75);
+				outline-color: white;
 				transition: none;
 			}
 			#halo.losing {
@@ -77,10 +77,10 @@ class Scroller extends LitElement {
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting) {
-						console.log('👀 collectible came into view', entry.target.innerText);
+						//console.log('👀 collectible came into view', entry.target.innerText);
 						this.intersected.push(entry.target);
 					} else {
-						console.log('🙈 collectible became hidden', entry.target.innerText);
+						//console.log('🙈 collectible became hidden', entry.target.innerText);
 						delete this.intersected[this.intersected.indexOf(entry.target)];
 					}
 				});
