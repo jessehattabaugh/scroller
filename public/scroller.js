@@ -211,7 +211,8 @@ class Scroller extends LitElement {
 		}
 		const totalBonusPoints = this.bonusPoints - bonusPointsBefore;
 		console.log(`⭐ got ${totalBonusPoints} bonus points total`);
-		this.isWinning = Math.sign(totalBonusPoints) !== -1;
+
+		this.isWinning = Math.sign(totalBonusPoints) === 1;
 
 		this.isFlashing = true;
 		setTimeout(() => (this.isFlashing = false));
