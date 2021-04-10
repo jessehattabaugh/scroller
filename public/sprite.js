@@ -52,6 +52,7 @@ class Sprite extends LitElement {
 					font-size: ${40 / this.columns}vw;
 					transform:
 						scale(2)
+						translateY(0.25em)
 						rotate(
 							${Math.random() < 0.5 ? '-' : ''}${Math.random() *
 							this.rotatability}turn
