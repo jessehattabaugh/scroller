@@ -68,7 +68,7 @@ class ScoreBoard extends LitElement {
 
 	render() {
 		const isStopped = this.classList.contains('stopped');
-		const isStarted = this.classList.contains('started');
+		const isStarted = this.classList.contains('started'); 
 		return html`${isStopped
 				? html`You found them all!`
 				: html`Find these:
