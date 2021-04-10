@@ -4,8 +4,8 @@ class Sprite extends LitElement {
 	static get styles() {
 		return css`
 			:host {
+				backface-visibility: hidden;
 				justify-self: center;
-
 				user-select: none;
 			}
 			:host(.collected) {
@@ -45,8 +45,9 @@ class Sprite extends LitElement {
 	render() {
 		return html`<style>
 				:host {
-					font-size: ${20 / this.columns}vw;
-					transform: scale(4)
+					font-size: ${40 / this.columns}vw;
+					transform:
+						scale(2)
 						rotate(
 							${Math.random() < 0.5 ? '-' : ''}${Math.random() *
 							this.rotatability}turn
