@@ -47,8 +47,12 @@ class Scroller extends LitElement {
 				overflow-y: scroll;
 				transition: 0.5s outline-color ease-out;
 			}
-			#halo.flashing {
+			#halo.winning {
 				outline-color: rgba(255, 255, 255, 0.75);
+				transition: none;
+			}
+			#halo.losing {
+				outline-color: rgba(255, 0, 0, 0.75);
 				transition: none;
 			}
 		`;
@@ -205,9 +209,13 @@ class Scroller extends LitElement {
 				}
 			}
 		}
+		const totalBonusPoints = this.bonusPoints - bonusPointsBefore;
+		console.log(`⭐ got ${totalBonusPoints} bonus points total`);
+		this.isWinning = Math.sign(totalBonusPoints) !== -1;
+
 		this.isFlashing = true;
 		setTimeout(() => (this.isFlashing = false));
-		console.log(`⭐ got ${this.bonusPoints - bonusPointsBefore} bonus points total`);
+
 	}
 
 	render() {
@@ -227,7 +235,7 @@ class Scroller extends LitElement {
 				class="${isPlaying ? 'playing' : 'stopped'} ${isStarted ? 'started' : 'notstarted'}"
 			></score-board>
 			${!isStarted || isPlaying
-				? html`<div id="halo" class="${this.isFlashing ? 'flashing' : ''}">
+				? html`<div id="halo" class="${this.isFlashing ? this.isWinning ? 'winning' : 'losing' : ''}">
 						<div class="container" @click="${this.handleClick}">
 							${this.sprites.map(
 								(sprite) =>
