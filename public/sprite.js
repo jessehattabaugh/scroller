@@ -22,7 +22,7 @@ class Sprite extends LitElement {
 					opacity: 1;
 				}
 				50% {
-					transform: translateY(0.35em) rotate(1.5turn) scale(6);
+					transform: translateY(0.35em) rotate(1turn) scale(6);
 				}
 				75% {
 					opacity: 1;
