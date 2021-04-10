@@ -55,7 +55,7 @@ class Settings extends LitElement {
 		this.numberOfSprites = 500;
 		this.ratioOfCollectibles = 0.025;
 		this.ratioOfBadGuys = 0.01;
-		this.rotationPercentage = 0.15;
+		this.rotationPercentage = 0;
 	}
 
 	connectedCallback() {

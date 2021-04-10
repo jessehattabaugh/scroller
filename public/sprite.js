@@ -22,7 +22,7 @@ class Sprite extends LitElement {
 					opacity: 1;
 				}
 				50% {
-					transform: translateY(0.25em) rotate(1.5turn) scale(6);
+					transform: translateY(0.35em) rotate(1.5turn) scale(6);
 				}
 				75% {
 					opacity: 1;
@@ -51,7 +51,7 @@ class Sprite extends LitElement {
 		return html`<style>
 				:host {
 					font-size: ${40 / this.columns}vw;
-					transform: translateY(0.25em)
+					transform: translateY(0.35em)
 						rotate(
 							${Math.random() < 0.5 ? '-' : ''}${Math.random() *
 							this.rotatability}turn
