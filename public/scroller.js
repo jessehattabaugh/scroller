@@ -45,7 +45,7 @@ class Scroller extends LitElement {
 				outline-color: transparent;
 				overflow-x: hidden;
 				overflow-y: scroll;
-				transition: 0.5s outline-color linear;
+				transition: 0.5s outline-color ease-out;
 			}
 			#halo.flashing {
 				outline-color: rgba(255, 255, 255, 0.75);
@@ -206,7 +206,7 @@ class Scroller extends LitElement {
 			}
 		}
 		this.isFlashing = true;
-		setTimeout(() => (this.isFlashing = false), 500);
+		setTimeout(() => (this.isFlashing = false));
 		console.log(`⭐ got ${this.bonusPoints - bonusPointsBefore} bonus points total`);
 	}
 

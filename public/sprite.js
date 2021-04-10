@@ -7,7 +7,7 @@ class Sprite extends LitElement {
 				backface-visibility: hidden; /* prevents blurry emojis */
 				justify-self: center;
 				user-select: none;
-				text-shadow: 0 0.1em 0.2em rgba(0,0,0,0.5);
+				text-shadow: 0 0.1em 0.2em rgba(0, 0, 0, 0.5);
 			}
 			:host(.collected) {
 				animation-direction: alternate;
@@ -18,11 +18,11 @@ class Sprite extends LitElement {
 				opacity: 0.15;
 			}
 			@keyframes collected {
-				0% {
+				0%{
 					opacity: 1;
 				}
 				50% {
-					transform: scale(4) rotate(360deg);
+					transform: translateY(0.25em) rotate(1.5turn) scale(6);
 				}
 				75% {
 					opacity: 1;
@@ -51,13 +51,12 @@ class Sprite extends LitElement {
 		return html`<style>
 				:host {
 					font-size: ${40 / this.columns}vw;
-					transform:
-						scale(2)
-						translateY(0.25em)
+					transform: translateY(0.25em)
 						rotate(
 							${Math.random() < 0.5 ? '-' : ''}${Math.random() *
 							this.rotatability}turn
-						);
+						)
+						scale(2) ;
 				}</style
 			><slot>${this.kind}</slot>`;
 	}
