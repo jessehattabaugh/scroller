@@ -27,6 +27,7 @@ class Settings extends LitElement {
 				font-family: "Lucida Console", Monaco, monospace;
 				font-size: 2.25em;
 				font-weight: bold;
+				margin: auto;
 				outline: none;
 				padding: .5em;
 				width: min(100%, 7em);

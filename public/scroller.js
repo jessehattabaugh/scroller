@@ -24,6 +24,7 @@ class Scroller extends LitElement {
 	static get styles() {
 		return css`
 			:host {
+				box-sizing: border-box;
 				display: flex;
 				flex-direction: column;
 				height: 100%;
@@ -33,13 +34,12 @@ class Scroller extends LitElement {
 				width: 100%;
 			}
 			.container {
+				box-sizing: border-box;
 				background-image: linear-gradient(to right top, #d16ba5, #8aa7ec, #5ffbf1);
 				display: grid;
 				flex: 1;
-				margin-bottom: -1.5em;
 				overflow-x: hidden;
 				overflow-y: scroll;
-				padding-top: 1.5em;
 			}
 			#halo {
 				border-image-slice: 1;
