@@ -7,6 +7,7 @@ class Sprite extends LitElement {
 				backface-visibility: hidden; /* prevents blurry emojis */
 				justify-self: center;
 				user-select: none;
+				text-shadow: 0 0.1em 0.2em rgba(0,0,0,0.5);
 			}
 			:host(.collected) {
 				animation-direction: alternate;
