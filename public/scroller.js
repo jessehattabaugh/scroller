@@ -39,15 +39,17 @@ class Scroller extends LitElement {
 			#halo {
 				background-image: linear-gradient(to right top, #d16ba5, #8aa7ec, #5ffbf1);
 				flex: 1;
-				outline-offset: -3em;
-				outline-style: none;
-				outline-width: 3em;
-				outline-color: rgba(255, 255, 255, 0.75);
+				outline-offset: -2em;
+				outline-style: solid;
+				outline-width: 2em;
+				outline-color: transparent;
 				overflow-x: hidden;
 				overflow-y: scroll;
+				transition: 1s outline-color linear;
 			}
 			#halo.flashing {
-				outline-style: solid;
+				outline-color: rgba(255, 255, 255, 0.75);
+				transition: none;
 			}
 		`;
 	}
