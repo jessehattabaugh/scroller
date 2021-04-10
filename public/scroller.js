@@ -14,6 +14,7 @@ class Scroller extends LitElement {
 		return {
 			clicks: { type: Number },
 			isFlashing: { type: Boolean },
+			isWinning: { type: Boolean },
 			numberOfColumns: { type: Number },
 			numberOfSprites: { type: Number },
 			ratioOfCollectibles: { type: Number },
@@ -39,10 +40,10 @@ class Scroller extends LitElement {
 			#halo {
 				background-image: linear-gradient(to right top, #d16ba5, #8aa7ec, #5ffbf1);
 				flex: 1;
+				outline-color: transparent;
 				outline-offset: -2em;
 				outline-style: solid;
 				outline-width: 2em;
-				outline-color: transparent;
 				overflow-x: hidden;
 				overflow-y: scroll;
 				transition: 0.5s outline-color ease-out;
@@ -60,15 +61,17 @@ class Scroller extends LitElement {
 
 	constructor() {
 		super();
+		this.bonusPoints = 0;
 		this.clicks = 0;
 		this.collected = [];
 		this.intersected = [];
+		this.isFlashing = false;
+		this.isWinning = true; /* winning by default */
 		this.kindTotals = {};
+		this.rotationPercentage = 0;
 		this.sprites = [];
 		this.timerEnd = null;
 		this.timerStart = null;
-		this.bonusPoints = 0;
-		this.rotationPercentage = 0;
 
 		this.observer = new IntersectionObserver(
 			(entries) => {
@@ -210,13 +213,15 @@ class Scroller extends LitElement {
 			}
 		}
 		const totalBonusPoints = this.bonusPoints - bonusPointsBefore;
-		console.log(`⭐ got ${totalBonusPoints} bonus points total`);
-
 		this.isWinning = Math.sign(totalBonusPoints) === 1;
+		console.log(
+			`⭐ got ${totalBonusPoints} bonus points total ${
+				this.isWinning ? '🏆winning' : '💀losing'
+			}`,
+		);
 
 		this.isFlashing = true;
 		setTimeout(() => (this.isFlashing = false));
-
 	}
 
 	render() {
@@ -236,7 +241,10 @@ class Scroller extends LitElement {
 				class="${isPlaying ? 'playing' : 'stopped'} ${isStarted ? 'started' : 'notstarted'}"
 			></score-board>
 			${!isStarted || isPlaying
-				? html`<div id="halo" class="${this.isFlashing ? this.isWinning ? 'winning' : 'losing' : ''}">
+				? html`<div
+						id="halo"
+						class="${this.isFlashing ? (this.isWinning ? 'winning' : 'losing') : ''}"
+				  >
 						<div class="container" @click="${this.handleClick}">
 							${this.sprites.map(
 								(sprite) =>
