@@ -38,7 +38,7 @@ class Sprite extends LitElement {
 				text-align: center;
 				top: 0;
 				width: 100%;
-				font-size: 3em;
+				font-size: 10vw;
 			}
 			.win {
 				color: yellow;
