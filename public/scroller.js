@@ -221,7 +221,7 @@ class Scroller extends LitElement {
 		);
 
 		this.isFlashing = true;
-		setTimeout(() => (this.isFlashing = false));
+		setTimeout(() => (this.isFlashing = false), 500);
 	}
 
 	render() {
