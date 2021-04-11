@@ -9,7 +9,7 @@ class Sprite extends LitElement {
 				text-shadow: 0 0.05em 0.08em rgba(0, 0, 0, 0.5);
 				user-select: none;
 			}
-			:host(.collected) {
+			:host(.collected) div {
 				animation-direction: alternate;
 				animation-duration: 1s;
 				animation-iteration-count: 1;
@@ -22,7 +22,7 @@ class Sprite extends LitElement {
 					opacity: 1;
 				}
 				50% {
-					transform: translateY(0.35em) rotate(1turn) scale(6);
+					transform: translateY(0.35em) rotate(1turn) scale(3);
 				}
 				75% {
 					opacity: 1;
@@ -68,7 +68,7 @@ class Sprite extends LitElement {
 					font-size: ${this.fontSize};
 					transform: translateY(0.35em) rotate(${this.rotation}turn) scale(${this.scale});
 				}</style
-			><slot>${this.kind}</slot> ${this.isCollected
+			><div><slot>${this.kind}</slot></div> ${this.isCollected
 				? html`<span>${this.bonusPoints}</span>`
 				: null}`;
 	}
