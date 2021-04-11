@@ -50,7 +50,7 @@ class Scroller extends LitElement {
 				transition: 2s outline-color ease-out;
 			}
 			#halo.winning {
-				outline-color: white;
+				outline-color: rgba(255, 255, 255, 0.75);
 				transition: none;
 			}
 			#halo.losing {
@@ -205,7 +205,6 @@ class Scroller extends LitElement {
 						`🍄 you collected a ${sprite.innerText} and got ${numberFoundThisClick} bonus points`,
 					);
 					this.kindTotals[sprite.innerText]--;
-
 				}
 
 				// make the sprite fade away
@@ -218,7 +217,6 @@ class Scroller extends LitElement {
 					console.log(`🎉 none left to find!`, leftToFind);
 					this.timerEnd = new Date().getTime();
 				}
-
 			}
 		}
 		const totalBonusPoints = this.bonusPoints - bonusPointsBefore;
