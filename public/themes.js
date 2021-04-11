@@ -9,7 +9,7 @@ export const youThemeName = {
 */
 export const humanFaces = {
 	name: "human faces",
-	collectible: [`👸`, `🤴`, `👼`, `🎅`, `🤶`],
+	collectible: [`🎅`, `🤶`, `👸`, `🤴`, `👼`],
 	avoidable: [`👹`, `👽`, `🤖`],
 	ordinary: [
 		`👩`,
@@ -37,16 +37,14 @@ export const humanFaces = {
 		`👳‍♂️`,
 		`👲`,
 		`🧔`,
-
-
 	],
 };
 
 export const dalisNightmare = {
 	name: "dali's nightmare",
-	collectible: [`🕜`, `🐅`, `🐘`, `💃`],
-	avoidable: [`👺`],
+	collectible: [`🐘`, `💃`, `🕜`],
+	avoidable: [`🐯`],
 	ordinary: [`🕐`, `🕑`, `🕒`, `🕓`, `🕔`, `🕕`, `🕖`, `🕗`, `🕘`, `🕙`, `🕚`, `🕛`],
 };
 
-export default [humanFaces, dalisNightmare];
+export default {humanFaces, dalisNightmare};

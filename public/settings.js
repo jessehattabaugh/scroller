@@ -50,6 +50,7 @@ class Settings extends LitElement {
 			ratioOfCollectibles: { type: Number },
 			rotationPercentage: { type: Number },
 			sizeVariability: { type: Number },
+			theme: { type: String },
 		};
 	}
 
@@ -61,6 +62,7 @@ class Settings extends LitElement {
 		this.ratioOfCollectibles = 0.025;
 		this.rotationPercentage = 0.1;
 		this.sizeVariability = 0.1;
+		this.theme = 'humanFaces';
 	}
 
 	connectedCallback() {
@@ -100,6 +102,15 @@ class Settings extends LitElement {
 		this.rotationPercentage = event.target.value;
 	}
 
+	handleSizeVariabilityChange(event) {
+		this.sizeVariability = event.target.value;
+	}
+
+	handleThemeChange(event) {
+		//console.log(`👗 ${event.target.value}`);
+		this.theme = event.target.value;
+	}
+
 	handleSubmit(event) {
 		event.preventDefault();
 		console.log(`🎲 let's play!`);
@@ -115,10 +126,6 @@ class Settings extends LitElement {
 		return false;
 	}
 
-	handleSizeVariabilityChange(event) {
-		this.sizeVariability = event.target.value;
-	}
-
 	render() {
 		return html`${this.isPlaying
 			? null
@@ -128,8 +135,15 @@ class Settings extends LitElement {
 					</label>
 					<label>
 						theme:
-						<select>
-							${themes.map((theme) => html`<option>${theme.name}</option>`)}
+						<output
+							>${themes[this.theme].collectible[0]}${themes[this.theme]
+								.avoidable[0]}${themes[this.theme].ordinary[0]}</output
+						>
+						<select @change="${this.handleThemeChange}">
+							${Object.keys(themes).map(
+								(theme) =>
+									html`<option value="${theme}">${themes[theme].name}</option>`,
+							)}
 						</select>
 					</label>
 					<label>
