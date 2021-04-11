@@ -4,7 +4,6 @@ import Scroller from './scroller.js';
 customElements.define('scroller-modal', Scroller);
 
 import themes from './themes.js';
-console.log(Object.keys(themes));
 class Settings extends LitElement {
 	static get styles() {
 		return css`
@@ -219,6 +218,7 @@ class Settings extends LitElement {
 					.ratioOfCollectibles="${this.ratioOfCollectibles}"
 					.rotationPercentage="${this.rotationPercentage}"
 					.sizeVariability="${this.sizeVariability}"
+					.theme="${this.theme}"
 			  ></scroller-modal>`
 			: null}`;
 	}

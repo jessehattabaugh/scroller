@@ -9,6 +9,8 @@ customElements.define('score-board', ScoreBoard);
 import Sprite from './sprite.js';
 customElements.define('sprite-comp', Sprite);
 
+import themes from './themes.js';
+
 class Scroller extends LitElement {
 	static get properties() {
 		return {
@@ -119,7 +121,7 @@ class Scroller extends LitElement {
 		// badguy sprites
 		const numberOfBadGuys = this.numberOfSprites * this.ratioOfBadGuys;
 		for (let i = 0; i < numberOfBadGuys; i++) {
-			const kind = '😈';
+			const kind = shuffle.pick(themes[this.theme].avoidable);
 			this.sprites.push({ kind: kind, isCollectible: true, isBad: true });
 		}
 
@@ -128,7 +130,7 @@ class Scroller extends LitElement {
 		const numberOfCollectibleKinds = 2; // TODO make this a property
 		let collectibleKinds = [];
 		for (let i = 0; i < numberOfCollectibleKinds; i++) {
-			collectibleKinds.push(this.randomEmoji()); // TODO check to make sure it's not a duplicate
+			collectibleKinds.push(shuffle.pick(themes[this.theme].collectible)); // TODO check to make sure it's not a duplicate
 		}
 		for (let i = 0; i < numberOfCollectibles; i++) {
 			const kind = shuffle.pick(collectibleKinds);
@@ -138,11 +140,12 @@ class Scroller extends LitElement {
 		console.log('👀 Look for these! ', this.kindTotals);
 
 		// uncollectible sprites TODO rename "uncollectible" to "ordinary"
-		const numberOfUncollectibles = this.numberOfSprites - numberOfCollectibles;
+		const numberOfUncollectibles =
+			this.numberOfSprites - (numberOfCollectibles + numberOfBadGuys);
 		const numberOfUncollectibleKinds = 10; // TODO make this a property
 		const uncollectibleKinds = [];
 		for (let i = 0; i < numberOfUncollectibleKinds; i++) {
-			uncollectibleKinds.push(this.randomEmoji()); // TODO check to make sure it's not a duplicate
+			uncollectibleKinds.push(shuffle.pick(themes[this.theme].ordinary)); // TODO check to make sure it's not a duplicate
 		}
 
 		for (let i = 0; i < numberOfUncollectibles; i++) {
@@ -185,7 +188,7 @@ class Scroller extends LitElement {
 		const bonusPointsBefore = this.bonusPoints;
 		for (let sprite of this.intersected) {
 			if (sprite && !this.collected.includes(sprite)) {
-				if (sprite.innerText === '😈') {
+				if (themes[this.theme].avoidable.includes(sprite.innerText)) {
 					if (!sprite.classList.contains('collected')) {
 						// bad guy got them!
 						console.log(`😈 bad guy got you! -5 bonus points`);
@@ -205,6 +208,7 @@ class Scroller extends LitElement {
 						`🍄 you collected a ${sprite.innerText} and got ${numberFoundThisClick} bonus points`,
 					);
 					this.kindTotals[sprite.innerText]--;
+					console.dir(this.kindTotals);
 				}
 
 				// make the sprite fade away
