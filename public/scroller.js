@@ -184,9 +184,11 @@ class Scroller extends LitElement {
 		for (let sprite of this.intersected) {
 			if (sprite && !this.collected.includes(sprite)) {
 				if (sprite.innerText === '😈') {
-					// bad guy got them!
-					console.log(`😈 bad guy got you! -5 bonus points`);
-					this.bonusPoints -= 5;
+					if (!sprite.classList.contains('collected')) {
+						// bad guy got them!
+						console.log(`😈 bad guy got you! -5 bonus points`);
+						this.bonusPoints -= 5;
+					}
 				} else {
 					this.collected.push(sprite);
 
