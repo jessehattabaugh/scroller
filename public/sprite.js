@@ -29,14 +29,25 @@ class Sprite extends LitElement {
 				}
 			}
 			span {
-				position: absolute;
-				top: 0;
+				font-weight: bold;
 				left: 0;
+				margin-top: 0.25em;
+				position: absolute;
+				text-align: center;
+				top: 0;
+				width: 100%;
+			}
+			.win {
+				color: yellow;
+			}
+			.loss {
+				color: red;
 			}
 		`;
 	}
 	static get properties() {
 		return {
+			bonusPoints: {type: Number},
 			columns: { type: Number },
 			isCollected: { type: Boolean },
 			isCollectible: { type: Boolean },
@@ -44,6 +55,11 @@ class Sprite extends LitElement {
 			rotatability: { type: Number },
 			sizeVariability: { type: Number },
 		};
+	}
+
+	constructor() {
+		super();
+		this.bonusPoints = 0;
 	}
 
 	connectedCallback() {
@@ -67,9 +83,12 @@ class Sprite extends LitElement {
 				:host {
 					font-size: ${this.fontSize};
 					transform: translateY(0.35em) rotate(${this.rotation}turn) scale(${this.scale});
-				}</style
-			><div><slot>${this.kind}</slot></div> ${this.isCollected
-				? html`<span>${this.bonusPoints}</span>`
+				}
+			</style>
+			<div><slot>${this.kind}</slot></div>
+			${this.isCollected
+				? html`<span class="${Math.sign(this.bonusPoints) === 1 ? 'win' : 'loss'}"
+						>${this.bonusPoints}</span>`
 				: null}`;
 	}
 }
