@@ -69,8 +69,8 @@ class Scroller extends LitElement {
 		this.isFlashing = false;
 		this.isWinning = true; /* winning by default */
 		this.kindTotals = {};
-		this.rotationPercentage = 0;
-		this.sizeVariability = 0;
+		this.rotationPercentage = null;
+		this.sizeVariability = null;
 		this.sprites = [];
 		this.timerEnd = null;
 		this.timerStart = null;

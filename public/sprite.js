@@ -48,17 +48,20 @@ class Sprite extends LitElement {
 		}
 
 		this.fontSize = `${40 / this.columns}vw`;
-		this.rotation = `${Math.random() < 0.5 ? '-' : ''}${Math.random() * this.rotatability}turn`;
 
-		const sizeFactor = Math.random() * (this.sizeVariability * 3) + 1.25;
-		this.scale = Math.random() < 0.5 ? -(sizeFactor) : sizeFactor;
+		const randomRotation = Math.random();
+		const rotationFactor = randomRotation * this.rotatability;
+		this.rotation =
+			randomRotation == 0 ? 0 : Math.random() < 0.5 ? -rotationFactor : rotationFactor;
+
+		this.scale = Math.random() * (this.sizeVariability * 3) + 1.25;
 	}
 
 	render() {
 		return html`<style>
 				:host {
 					font-size: ${this.fontSize};
-					transform: translateY(0.35em) rotate(${this.rotation}) scale(${this.scale});
+					transform: translateY(0.35em) rotate(${this.rotation}turn) scale(${this.scale});
 				}</style
 			><slot>${this.kind}</slot>`;
 	}
