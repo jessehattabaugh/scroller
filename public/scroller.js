@@ -19,6 +19,7 @@ class Scroller extends LitElement {
 			numberOfSprites: { type: Number },
 			ratioOfCollectibles: { type: Number },
 			rotationPercentage: { type: Number },
+			sizeVariability: { type: Number },
 			timer: { type: String },
 		};
 	}
@@ -69,6 +70,7 @@ class Scroller extends LitElement {
 		this.isWinning = true; /* winning by default */
 		this.kindTotals = {};
 		this.rotationPercentage = 0;
+		this.sizeVariability = 0;
 		this.sprites = [];
 		this.timerEnd = null;
 		this.timerStart = null;
@@ -252,9 +254,10 @@ class Scroller extends LitElement {
 								(sprite) =>
 									html`<sprite-comp
 										.columns="${this.numberOfColumns}"
-										.observer="${this.observer}"
 										.isCollectible="${sprite.isCollectible}"
+										.observer="${this.observer}"
 										.rotatability="${this.rotationPercentage}"
+										.sizeVariability="${this.sizeVariability}"
 										>${sprite.kind}</sprite-comp
 									>`,
 							)}
