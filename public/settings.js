@@ -47,6 +47,7 @@ class Settings extends LitElement {
 			ratioOfBadGuys: { type: Number },
 			ratioOfCollectibles: { type: Number },
 			rotationPercentage: { type: Number },
+			sizeVariability: {type: Number},
 		};
 	}
 
@@ -54,9 +55,10 @@ class Settings extends LitElement {
 		super();
 		this.numberOfColumns = 5;
 		this.numberOfSprites = 500;
-		this.ratioOfCollectibles = 0.025;
 		this.ratioOfBadGuys = 0.01;
+		this.ratioOfCollectibles = 0.025;
 		this.rotationPercentage = 0;
+		this.sizeVariability = 0.5;
 	}
 
 	connectedCallback() {
@@ -109,6 +111,10 @@ class Settings extends LitElement {
 		window.history.pushState({}, '', url);
 
 		return false;
+	}
+
+	handleSizeVariabilityChange(event) {
+		this.sizeVariability = event.target.value;
 	}
 
 	render() {
@@ -169,6 +175,17 @@ class Settings extends LitElement {
 							type="range"
 							step="0.001"
 							value="${this.rotationPercentage}"
+						/>
+					</label>
+					<label>
+						size variability: <output>${this.sizeVariability}</output>
+						<input
+							@change="${this.handleSizeVariabilityChange}"
+							max="1"
+							min="0"
+							type="range"
+							step="0.001"
+							value="${this.sizeVariability}"
 						/>
 					</label>
 			  </form>`}
