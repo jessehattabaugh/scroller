@@ -3,6 +3,8 @@ import { LitElement, html, css } from 'https://cdn.skypack.dev/lit-element';
 import Scroller from './scroller.js';
 customElements.define('scroller-modal', Scroller);
 
+import themes from './themes.js';
+console.log(Object.keys(themes));
 class Settings extends LitElement {
 	static get styles() {
 		return css`
@@ -123,6 +125,12 @@ class Settings extends LitElement {
 			: html`<form @submit="${this.handleSubmit}">
 					<label>
 						<input type="submit" value="Play!" />
+					</label>
+					<label>
+						theme:
+						<select>
+							${themes.map((theme) => html`<option>${theme.name}</option>`)}
+						</select>
 					</label>
 					<label>
 						number of sprites: <output>${this.numberOfSprites}</output>
