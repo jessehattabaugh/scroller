@@ -28,6 +28,11 @@ class Sprite extends LitElement {
 					opacity: 1;
 				}
 			}
+			span {
+				position: absolute;
+				top: 0;
+				left: 0;
+			}
 		`;
 	}
 	static get properties() {
@@ -63,7 +68,7 @@ class Sprite extends LitElement {
 					font-size: ${this.fontSize};
 					transform: translateY(0.35em) rotate(${this.rotation}turn) scale(${this.scale});
 				}</style
-			><slot>${this.kind}</slot>${this.isCollected
+			><slot>${this.kind}</slot> ${this.isCollected
 				? html`<span>${this.bonusPoints}</span>`
 				: null}`;
 	}
