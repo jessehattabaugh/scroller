@@ -5,30 +5,32 @@ class Sprite extends LitElement {
 		return css`
 			:host {
 				backface-visibility: hidden; /* prevents blurry emojis */
+				contain: layout;
 				justify-self: center;
 				text-shadow: 0 0.05em 0.08em rgba(0, 0, 0, 0.5);
 				user-select: none;
 			}
-			:host(.collected) div {
+			:host(.collected) #emoji {
 				animation-direction: alternate;
 				animation-duration: 1s;
 				animation-iteration-count: 1;
 				animation-name: collected;
 				animation-timing-function: ease-in-out;
 				opacity: 0.15;
+				transform: translateY(0.35em) rotate(0turn) scale(2);
 			}
 			@keyframes collected {
 				0% {
 					opacity: 1;
 				}
 				50% {
-					transform: translateY(0.35em) rotate(1turn) scale(3);
+					transform: translateY(0.35em) rotate(1turn) scale(4);
 				}
 				75% {
 					opacity: 1;
 				}
 			}
-			span {
+			#score {
 				font-weight: bold;
 				left: 0;
 				margin-top: 0.25em;
@@ -36,12 +38,13 @@ class Sprite extends LitElement {
 				text-align: center;
 				top: 0;
 				width: 100%;
+				font-size: 3em;
 			}
 			.win {
 				color: yellow;
 			}
 			.win:before {
-				content: "+";
+				content: '+';
 			}
 			.loss {
 				color: red;
@@ -50,7 +53,7 @@ class Sprite extends LitElement {
 	}
 	static get properties() {
 		return {
-			bonusPoints: {type: Number},
+			bonusPoints: { type: Number },
 			columns: { type: Number },
 			isCollected: { type: Boolean },
 			isCollectible: { type: Boolean },
@@ -83,15 +86,20 @@ class Sprite extends LitElement {
 
 	render() {
 		return html`<style>
-				:host {
+				#emoji {
 					font-size: ${this.fontSize};
 					transform: translateY(0.35em) rotate(${this.rotation}turn) scale(${this.scale});
 				}
 			</style>
-			<div><slot>${this.kind}</slot></div>
+			<div id="emoji">
+				<slot>${this.kind}</slot>
+			</div>
 			${this.isCollected
-				? html`<span class="${Math.sign(this.bonusPoints) === 1 ? 'win' : 'loss'}"
-						>${this.bonusPoints}</span>`
+				? html`<span
+						id="score"
+						class="${Math.sign(this.bonusPoints) === 1 ? 'win' : 'loss'}"
+						>${this.bonusPoints}</span
+				  >`
 				: null}`;
 	}
 }
