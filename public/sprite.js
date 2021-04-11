@@ -63,7 +63,9 @@ class Sprite extends LitElement {
 					font-size: ${this.fontSize};
 					transform: translateY(0.35em) rotate(${this.rotation}turn) scale(${this.scale});
 				}</style
-			><slot>${this.kind}</slot>`;
+			><slot>${this.kind}</slot>${this.isCollected
+				? html`<span>${this.bonusPoints}</span>`
+				: null}`;
 	}
 }
 
