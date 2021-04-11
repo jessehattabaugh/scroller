@@ -6,8 +6,8 @@ class Sprite extends LitElement {
 			:host {
 				backface-visibility: hidden; /* prevents blurry emojis */
 				justify-self: center;
-				user-select: none;
 				text-shadow: 0 0.05em 0.08em rgba(0, 0, 0, 0.5);
+				user-select: none;
 			}
 			:host(.collected) {
 				animation-direction: alternate;
@@ -18,7 +18,7 @@ class Sprite extends LitElement {
 				opacity: 0.15;
 			}
 			@keyframes collected {
-				0%{
+				0% {
 					opacity: 1;
 				}
 				50% {
@@ -33,10 +33,11 @@ class Sprite extends LitElement {
 	static get properties() {
 		return {
 			columns: { type: Number },
-			observer: { type: Object, attribute: false },
-			isCollectible: { type: Boolean },
 			isCollected: { type: Boolean },
+			isCollectible: { type: Boolean },
+			observer: { type: Object, attribute: false },
 			rotatability: { type: Number },
+			sizeVariability: { type: Number },
 		};
 	}
 
@@ -45,18 +46,19 @@ class Sprite extends LitElement {
 		if (this.isCollectible) {
 			this.observer.observe(this);
 		}
+
+		this.fontSize = `${40 / this.columns}vw`;
+		this.rotation = `${Math.random() < 0.5 ? '-' : ''}${Math.random() * this.rotatability}turn`;
+
+		const sizeFactor = Math.random() * (this.sizeVariability * 3) + 1.25;
+		this.scale = Math.random() < 0.5 ? -(sizeFactor) : sizeFactor;
 	}
 
 	render() {
 		return html`<style>
 				:host {
-					font-size: ${40 / this.columns}vw;
-					transform: translateY(0.35em)
-						rotate(
-							${Math.random() < 0.5 ? '-' : ''}${Math.random() *
-							this.rotatability}turn
-						)
-						scale(2) ;
+					font-size: ${this.fontSize};
+					transform: translateY(0.35em) rotate(${this.rotation}) scale(${this.scale});
 				}</style
 			><slot>${this.kind}</slot>`;
 	}

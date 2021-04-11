@@ -25,12 +25,12 @@ class Settings extends LitElement {
 				border-radius: 1em;
 				border: 0.25em outset lime;
 				color: yellow;
-				font-family: "Lucida Console", Monaco, monospace;
+				font-family: 'Lucida Console', Monaco, monospace;
 				font-size: 2.25em;
 				font-weight: bold;
 				margin: auto;
 				outline: none;
-				padding: .5em;
+				padding: 0.5em;
 				width: min(100%, 7em);
 			}
 			[type='submit']:focus {
@@ -47,7 +47,7 @@ class Settings extends LitElement {
 			ratioOfBadGuys: { type: Number },
 			ratioOfCollectibles: { type: Number },
 			rotationPercentage: { type: Number },
-			sizeVariability: {type: Number},
+			sizeVariability: { type: Number },
 		};
 	}
 
@@ -196,6 +196,7 @@ class Settings extends LitElement {
 					.ratioOfBadGuys="${this.ratioOfBadGuys}"
 					.ratioOfCollectibles="${this.ratioOfCollectibles}"
 					.rotationPercentage="${this.rotationPercentage}"
+					.sizeVariability="${this.sizeVariability}"
 			  ></scroller-modal>`
 			: null}`;
 	}
