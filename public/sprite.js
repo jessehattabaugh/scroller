@@ -31,14 +31,13 @@ class Sprite extends LitElement {
 				}
 			}
 			#score {
+				font-size: 9vw;
 				font-weight: bold;
 				left: 0;
-				margin-top: 0.25em;
 				position: absolute;
 				text-align: center;
-				top: 0;
+				top: 0.5em;
 				width: 100%;
-				font-size: 10vw;
 			}
 			.win {
 				color: yellow;
