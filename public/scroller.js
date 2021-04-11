@@ -190,6 +190,7 @@ class Scroller extends LitElement {
 						// bad guy got them!
 						console.log(`😈 bad guy got you! -5 bonus points`);
 						this.bonusPoints -= 5;
+						sprite.bonusPoints = -5;
 					}
 				} else {
 					this.collected.push(sprite);
@@ -197,15 +198,18 @@ class Scroller extends LitElement {
 					// more sprites more bonus!
 					numberFoundThisClick++; // more bonus next time!
 					this.bonusPoints += numberFoundThisClick;
+					sprite.bonusPoints = numberFoundThisClick;
 
 					// reduce the tally in the scoreboard
 					console.log(
 						`🍄 you collected a ${sprite.innerText} and got ${numberFoundThisClick} bonus points`,
 					);
 					this.kindTotals[sprite.innerText]--;
+
 				}
 
 				// make the sprite fade away
+				sprite.isCollected = true;
 				sprite.classList.add('collected'); // this seems dangerous but it works...
 
 				// end the game when there are none left to find
@@ -214,6 +218,7 @@ class Scroller extends LitElement {
 					console.log(`🎉 none left to find!`, leftToFind);
 					this.timerEnd = new Date().getTime();
 				}
+
 			}
 		}
 		const totalBonusPoints = this.bonusPoints - bonusPointsBefore;
