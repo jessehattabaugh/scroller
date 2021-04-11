@@ -40,6 +40,9 @@ class Sprite extends LitElement {
 			.win {
 				color: yellow;
 			}
+			.win:before {
+				content: "+";
+			}
 			.loss {
 				color: red;
 			}
