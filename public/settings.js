@@ -44,6 +44,7 @@ class Settings extends LitElement {
 		return {
 			isPlaying: { type: Boolean },
 			numberOfColumns: { type: Number },
+			numberOfKindsOfBadGuys: { type: Number },
 			numberOfSprites: { type: Number },
 			ratioOfBadGuys: { type: Number },
 			ratioOfCollectibles: { type: Number },
@@ -62,6 +63,7 @@ class Settings extends LitElement {
 		this.rotationPercentage = 0.1;
 		this.sizeVariability = 0.1;
 		this.theme = 'humanFaces';
+		this.numberOfKindsOfBadGuys = 1;
 	}
 
 	connectedCallback() {
@@ -110,6 +112,10 @@ class Settings extends LitElement {
 		this.theme = event.target.value;
 	}
 
+	handleNumberOfKindsOfBadGuysChange(event) {
+		this.numberOfKindsOfBadGuys = event.target.value;
+	}
+
 	handleSubmit(event) {
 		event.preventDefault();
 		console.log(`🎲 let's play!`);
@@ -156,14 +162,13 @@ class Settings extends LitElement {
 						/>
 					</label>
 					<label>
-						ratio of collectibles: <output>${this.ratioOfCollectibles}</output>
+						number of kinds of bad guys: <output>${this.numberOfKindsOfBadGuys}</output>
 						<input
-							@change="${this.handleRatioOfCollectiblesChange}"
-							max="0.1"
-							min="0.001"
-							step="0.001"
+							@change="${this.handleNumberOfKindsOfBadGuysChange}"
+							max="10"
+							min="0"
 							type="range"
-							value="${this.ratioOfCollectibles}"
+							value="${this.numberOfKindsOfBadGuys}"
 						/>
 					</label>
 					<label>
@@ -174,6 +179,17 @@ class Settings extends LitElement {
 							min="1"
 							type="range"
 							value="${this.numberOfColumns}"
+						/>
+					</label>
+					<label>
+						ratio of collectibles: <output>${this.ratioOfCollectibles}</output>
+						<input
+							@change="${this.handleRatioOfCollectiblesChange}"
+							max="0.1"
+							min="0.001"
+							step="0.001"
+							type="range"
+							value="${this.ratioOfCollectibles}"
 						/>
 					</label>
 					<label>
