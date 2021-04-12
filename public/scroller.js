@@ -64,6 +64,7 @@ class Scroller extends LitElement {
 
 	constructor() {
 		super();
+		this.badGuyTotals = {};
 		this.bonusPoints = 0;
 		this.clicks = 0;
 		this.collected = [];
@@ -123,7 +124,9 @@ class Scroller extends LitElement {
 		for (let i = 0; i < numberOfBadGuys; i++) {
 			const kind = shuffle.pick(themes[this.theme].avoidable);
 			this.sprites.push({ kind: kind, isCollectible: true, isBad: true });
+			this.badGuyTotals[kind] = (this.badGuyTotals[kind] || 0) + 1;
 		}
+		console.log(`😈 watch out for bad guys `, this.badGuyTotals);
 
 		// collectible sprites
 		const numberOfCollectibles = this.numberOfSprites * this.ratioOfCollectibles;
@@ -137,7 +140,7 @@ class Scroller extends LitElement {
 			this.sprites.push({ kind: kind, isCollectible: true });
 			this.kindTotals[kind] = (this.kindTotals[kind] || 0) + 1; // TODO rename this.kindTotals to this.score
 		}
-		console.log('👀 Look for these! ', this.kindTotals);
+		console.log(`🔎 Look for these! `, this.kindTotals);
 
 		// uncollectible sprites TODO rename "uncollectible" to "ordinary"
 		const numberOfUncollectibles =
@@ -191,7 +194,7 @@ class Scroller extends LitElement {
 				if (themes[this.theme].avoidable.includes(sprite.innerText)) {
 					if (!sprite.classList.contains('collected')) {
 						// bad guy got them!
-						console.log(`😈 bad guy got you! -5 bonus points`);
+						console.log(`😱 bad guy got you! -5 bonus points`);
 						this.bonusPoints -= 5;
 						sprite.bonusPoints = -5;
 					}
@@ -248,6 +251,7 @@ class Scroller extends LitElement {
 				.bonus="${this.bonusPoints}"
 				.clicks="${this.clicks}"
 				.score="${this.kindTotals}"
+				.baddies="${this.badGuyTotals}"
 				.timer="${this.timer}"
 				class="${isPlaying ? 'playing' : 'stopped'} ${isStarted ? 'started' : 'notstarted'}"
 			></score-board>

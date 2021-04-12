@@ -49,6 +49,7 @@ class ScoreBoard extends LitElement {
 
 	static get properties() {
 		return {
+			baddies: {type: Object},
 			bonus: { type: Number },
 			clicks: { type: Number },
 			score: { type: String },
@@ -68,7 +69,7 @@ class ScoreBoard extends LitElement {
 
 	render() {
 		const isStopped = this.classList.contains('stopped');
-		const isStarted = this.classList.contains('started'); 
+		const isStarted = this.classList.contains('started');
 		return html`${isStopped
 				? html`You found them all!`
 				: html`Find these:
@@ -79,7 +80,9 @@ class ScoreBoard extends LitElement {
 						>`}
 						${isStarted
 							? null
-							: html`<span>Avoid: 😈</span>`}
+							: html`<span>Avoid: ${Object.keys(this.baddies)
+								.map((kind, i) => `${kind}:${this.baddies[kind]}`)
+								.join(' ')}</span>`}
 			<span>${this.timer}</span>
 
 			${isStarted
