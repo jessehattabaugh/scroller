@@ -47,6 +47,9 @@ class ScoreBoard extends LitElement {
 				margin: 0;
 				font-size: 0.5em;
 			}
+			div {
+				text-align: center;
+			}
 		`;
 	}
 
