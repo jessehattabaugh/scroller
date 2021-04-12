@@ -28,6 +28,11 @@ export const fruit = {
 	ordinary: [`🥕`,`🥦`,`🥬`,`🥒`,`🥑`,`🌽`,`🍅`,`🍑`,`🍐`,`🍎`,`🥭`,`🍍`,`🍋`,`🍊`,`🍉`,`🥥`,`🥝`]
 }
 
-export const hearts = {}
+export const hearts = {
+	name: "hearts",
+	collectible: [`💝`, `💌`,`😍`],
+	avoidable: [`💔`,`😻`],
+	ordinary: [`♥`,`💘`,`💖`,`💗`,`💓`,`💙`,`💚`,`💛`,`💜`,`🧡`,`💞`,`💟`,`🖤`,`❤`,`❣`,`💕`,`🤍`,`🤎`,`🥰`],
+}
 
-export default {fruit, humanFaces, dalisNightmare};
+export default {dalisNightmare, fruit, hearts, humanFaces};
