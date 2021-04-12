@@ -9,9 +9,9 @@ class ScoreBoard extends LitElement {
 				color: white;
 				display: flex;
 				justify-content: space-around;
-				padding: 0.5em;
+				padding: 0.25em;
 				white-space: nowrap;
-				font-size: min(6vw, 3em);
+				font-size: min(7vw, 3em);
 			}
 			:host(.notstarted),
 			:host(.stopped) {
@@ -22,10 +22,10 @@ class ScoreBoard extends LitElement {
 				height: 100%;
 			}
 			:host(.notstarted) output {
-				font-size: 18vw;
+				font-size: 14vw;
 			}
 			:host(.stopped) span {
-				font-size: 18vw;
+				font-size: 14vw;
 			}
 			output {
 				white-space: initial;
@@ -49,6 +49,7 @@ class ScoreBoard extends LitElement {
 			}
 			div {
 				text-align: center;
+				margin: 0 0.25em;
 			}
 		`;
 	}
@@ -95,7 +96,7 @@ class ScoreBoard extends LitElement {
 							.join(' ')}
 				  </div>`}
 			${isStarted ? null : html`<div>${this.timer}</div>`}
-			${isStarted ? html`<div>★: ${this.bonus}</div>` : null}
+			${isStarted ? html`<div><h4>★</h4>${this.bonus}</div>` : null}
 			${isStopped ? html`<button @click="${this.handleBackClick}">Back</button>` : null}`;
 	}
 }
