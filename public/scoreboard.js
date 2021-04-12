@@ -12,6 +12,7 @@ class ScoreBoard extends LitElement {
 				padding: 0.25em;
 				white-space: nowrap;
 				font-size: min(7vw, 3em);
+				text-shadow: 0 0 0.7em white;
 			}
 			:host(.notstarted),
 			:host(.stopped) {
