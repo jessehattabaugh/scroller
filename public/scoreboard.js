@@ -10,10 +10,8 @@ class ScoreBoard extends LitElement {
 				display: flex;
 				justify-content: space-around;
 				padding: 0.5em;
-				transition-duration: 1s;
-				transition-property: all;
-				transition-timing-function: linear;
 				white-space: nowrap;
+				font-size: min(6vw, 3em);
 			}
 			:host(.notstarted),
 			:host(.stopped) {
@@ -30,7 +28,6 @@ class ScoreBoard extends LitElement {
 				font-size: 18vw;
 			}
 			output {
-				font-size: min(9vw, 3em);
 				white-space: initial;
 			}
 			button {
@@ -48,6 +45,7 @@ class ScoreBoard extends LitElement {
 			}
 			h4 {
 				margin: 0;
+				font-size: 0.5em;
 			}
 		`;
 	}
@@ -94,7 +92,7 @@ class ScoreBoard extends LitElement {
 							.join(' ')}
 				  </div>`}
 			${isStarted ? null : html`<div>${this.timer}</div>`}
-			${isStarted ? html`<div>⭐: ${this.bonus}</div>` : null}
+			${isStarted ? html`<div>★: ${this.bonus}</div>` : null}
 			${isStopped ? html`<button @click="${this.handleBackClick}">Back</button>` : null}`;
 	}
 }
