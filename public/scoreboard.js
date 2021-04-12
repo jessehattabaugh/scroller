@@ -30,7 +30,7 @@ class ScoreBoard extends LitElement {
 				font-size: 18vw;
 			}
 			output {
-				font-size: min(10vw, 3em);
+				font-size: min(9vw, 3em);
 				white-space: initial;
 			}
 			button {
