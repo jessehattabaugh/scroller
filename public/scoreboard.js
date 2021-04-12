@@ -31,6 +31,7 @@ class ScoreBoard extends LitElement {
 			}
 			output {
 				font-size: min(10vw, 3em);
+				white-space: initial;
 			}
 			button {
 				background: lime;
@@ -77,19 +78,21 @@ class ScoreBoard extends LitElement {
 		return html`<div>
 				${isStopped
 					? html`You found them all!`
-					: html`<h4>Find these:</h4>
+					: html`<h4>Find:</h4>
 							<output
 								>${Object.keys(this.score)
 									.map((kind, i) => `${kind}:${this.score[kind]}`)
 									.join(' ')}</output
 							>`}
 			</div>
-			<div>
-				<h4>Avoid:</h4>
-				${Object.keys(this.baddies)
-					.map((kind, i) => `${kind}:${this.baddies[kind]}`)
-					.join(' ')}
-			</div>
+			${isStopped
+				? null
+				: html`<div>
+						<h4>Avoid:</h4>
+						${Object.keys(this.baddies)
+							.map((kind, i) => kind)
+							.join(' ')}
+				  </div>`}
 			${isStarted ? null : html`<div>${this.timer}</div>`}
 			${isStarted ? html`<div>⭐: ${this.bonus}</div>` : null}
 			${isStopped ? html`<button @click="${this.handleBackClick}">Back</button>` : null}`;
