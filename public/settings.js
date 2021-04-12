@@ -26,13 +26,13 @@ class Settings extends LitElement {
 				border-radius: 1em;
 				border: 0.25em outset lime;
 				color: yellow;
-				font-family: 'Lucida Console', Monaco, monospace;
 				font-size: 2.25em;
 				font-weight: bold;
 				margin: auto;
 				outline: none;
 				padding: 0.5em;
 				width: min(100%, 7em);
+				font-family: unset;
 			}
 			[type='submit']:focus {
 				box-shadow: 0 0 1em white;

@@ -8,11 +8,12 @@ class ScoreBoard extends LitElement {
 				background: black;
 				color: white;
 				display: flex;
+				font-size: min(7vw, 3em);
+				gap: 0.5em;
 				justify-content: space-around;
 				padding: 0.25em;
+				text-shadow: 0 0 0.5em rgba(255, 255, 255, 0.5);
 				white-space: nowrap;
-				font-size: min(7vw, 3em);
-				text-shadow: 0 0 0.7em white;
 			}
 			:host(.notstarted),
 			:host(.stopped) {
@@ -32,25 +33,24 @@ class ScoreBoard extends LitElement {
 				white-space: initial;
 			}
 			button {
+				appearance: none;
 				background: lime;
 				border-radius: 1em;
 				border: 0.4em outset magenta;
 				color: blue;
-				font-family: fantasy;
 				font-size: 7vw;
-				padding: 0.75em;
 				outline: none;
+				padding: 0.75em;
 			}
 			button:focus {
 				box-shadow: 0 0 1em white;
 			}
 			h4 {
-				margin: 0;
 				font-size: 0.5em;
+				margin: 0;
 			}
 			div {
 				text-align: center;
-				margin: 0 0.25em;
 			}
 		`;
 	}
