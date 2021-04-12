@@ -17,6 +17,7 @@ class Scroller extends LitElement {
 			clicks: { type: Number },
 			isFlashing: { type: Boolean },
 			isWinning: { type: Boolean },
+			numberOfKindsOfBadGuys: { type: Number },
 			numberOfColumns: { type: Number },
 			numberOfSprites: { type: Number },
 			ratioOfCollectibles: { type: Number },
@@ -121,8 +122,12 @@ class Scroller extends LitElement {
 
 		// badguy sprites
 		const numberOfBadGuys = this.numberOfSprites * this.ratioOfBadGuys;
+		let badGuyKinds = [];
+		for (let i = 0; i < this.numberOfKindsOfBadGuys; i++) {
+			badGuyKinds.push(shuffle.pick(themes[this.theme].avoidable));
+		}
 		for (let i = 0; i < numberOfBadGuys; i++) {
-			const kind = shuffle.pick(themes[this.theme].avoidable);
+			const kind = shuffle.pick(badGuyKinds);
 			this.sprites.push({ kind: kind, isCollectible: true, isBad: true });
 			this.badGuyTotals[kind] = (this.badGuyTotals[kind] || 0) + 1;
 		}
@@ -211,7 +216,6 @@ class Scroller extends LitElement {
 						`🍄 you collected a ${sprite.innerText} and got ${numberFoundThisClick} bonus points`,
 					);
 					this.kindTotals[sprite.innerText]--;
-					console.dir(this.kindTotals);
 				}
 
 				// make the sprite fade away
