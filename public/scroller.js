@@ -140,7 +140,7 @@ class Scroller extends LitElement {
 			this.sprites.push({ kind: kind, isCollectible: true });
 			this.kindTotals[kind] = (this.kindTotals[kind] || 0) + 1; // TODO rename this.kindTotals to this.score
 		}
-		console.log(`🔎 Look for these! `, this.kindTotals);
+		console.log(`🔎 collect all of these! `, this.kindTotals);
 
 		// uncollectible sprites TODO rename "uncollectible" to "ordinary"
 		const numberOfUncollectibles =

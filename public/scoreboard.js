@@ -4,7 +4,7 @@ class ScoreBoard extends LitElement {
 	static get styles() {
 		return css`
 			:host {
-				align-items: center;
+				align-items: flex-end;
 				background: black;
 				color: white;
 				display: flex;
@@ -13,6 +13,7 @@ class ScoreBoard extends LitElement {
 				transition-duration: 1s;
 				transition-property: all;
 				transition-timing-function: linear;
+				white-space: nowrap;
 			}
 			:host(.notstarted),
 			:host(.stopped) {
@@ -44,12 +45,15 @@ class ScoreBoard extends LitElement {
 			button:focus {
 				box-shadow: 0 0 1em white;
 			}
+			h4 {
+				margin: 0;
+			}
 		`;
 	}
 
 	static get properties() {
 		return {
-			baddies: {type: Object},
+			baddies: { type: Object },
 			bonus: { type: Number },
 			clicks: { type: Number },
 			score: { type: String },
@@ -70,24 +74,24 @@ class ScoreBoard extends LitElement {
 	render() {
 		const isStopped = this.classList.contains('stopped');
 		const isStarted = this.classList.contains('started');
-		return html`${isStopped
-				? html`You found them all!`
-				: html`Find these:
-						<output
-							>${Object.keys(this.score)
-								.map((kind, i) => `${kind}:${this.score[kind]}`)
-								.join(' ')}</output
-						>`}
-						${isStarted
-							? null
-							: html`<span>Avoid: ${Object.keys(this.baddies)
-								.map((kind, i) => `${kind}:${this.baddies[kind]}`)
-								.join(' ')}</span>`}
-			<span>${this.timer}</span>
-
-			${isStarted
-				? html`<span>⭐: ${this.bonus}</span>`
-				: null}
+		return html`<div>
+				${isStopped
+					? html`You found them all!`
+					: html`<h4>Find these:</h4>
+							<output
+								>${Object.keys(this.score)
+									.map((kind, i) => `${kind}:${this.score[kind]}`)
+									.join(' ')}</output
+							>`}
+			</div>
+			<div>
+				<h4>Avoid:</h4>
+				${Object.keys(this.baddies)
+					.map((kind, i) => `${kind}:${this.baddies[kind]}`)
+					.join(' ')}
+			</div>
+			${isStarted ? null : html`<div>${this.timer}</div>`}
+			${isStarted ? html`<div>⭐: ${this.bonus}</div>` : null}
 			${isStopped ? html`<button @click="${this.handleBackClick}">Back</button>` : null}`;
 	}
 }
