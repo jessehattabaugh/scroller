@@ -165,10 +165,20 @@ class Settings extends LitElement {
 						number of kinds of bad guys: <output>${this.numberOfKindsOfBadGuys}</output>
 						<input
 							@change="${this.handleNumberOfKindsOfBadGuysChange}"
-							max="10"
+							max="5"
 							min="0"
 							type="range"
 							value="${this.numberOfKindsOfBadGuys}"
+						/>
+					</label>
+					<label>
+						number of kinds of bad guys: <output>${this.numberOfKindsOfCollectibles}</output>
+						<input
+							@change="${this.handleNumberOfKindsOfCollectiblesChange}"
+							max="10"
+							min="0"
+							type="range"
+							value="${this.numberOfKindsOfCollectibles}"
 						/>
 					</label>
 					<label>
