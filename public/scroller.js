@@ -18,6 +18,7 @@ class Scroller extends LitElement {
 			isFlashing: { type: Boolean },
 			isWinning: { type: Boolean },
 			numberOfKindsOfBadGuys: { type: Number },
+			numberOfKindsOfCollectibles: {type: Number},
 			numberOfColumns: { type: Number },
 			numberOfSprites: { type: Number },
 			ratioOfCollectibles: { type: Number },
@@ -135,9 +136,8 @@ class Scroller extends LitElement {
 
 		// collectible sprites
 		const numberOfCollectibles = this.numberOfSprites * this.ratioOfCollectibles;
-		const numberOfCollectibleKinds = 2; // TODO make this a property
 		let collectibleKinds = [];
-		for (let i = 0; i < numberOfCollectibleKinds; i++) {
+		for (let i = 0; i < this.numberOfKindsOfCollectibles; i++) {
 			collectibleKinds.push(shuffle.pick(themes[this.theme].collectible)); // TODO check to make sure it's not a duplicate
 		}
 		for (let i = 0; i < numberOfCollectibles; i++) {
