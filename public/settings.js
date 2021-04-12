@@ -246,8 +246,9 @@ class Settings extends LitElement {
 			  </form>`}
 		${this.isPlaying
 			? html`<scroller-modal
-					.numberOfKindsOfBadGuys="${this.numberOfKindsOfBadGuys}"
 					.numberOfColumns="${this.numberOfColumns}"
+					.numberOfKindsOfBadGuys="${this.numberOfKindsOfBadGuys}"
+					.numberOfKindsOfCollectibles="${this.numberOfKindsOfCollectibles}"
 					.numberOfSprites="${this.numberOfSprites}"
 					.ratioOfBadGuys="${this.ratioOfBadGuys}"
 					.ratioOfCollectibles="${this.ratioOfCollectibles}"
