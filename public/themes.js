@@ -99,6 +99,7 @@ export const hearts = {
 };
 
 export const animals = {
+	name: "animals",
 	collectible: [`🎠`, `🏇`, `🦧`, `🐕‍🦺`, `🦮`, `🐆`, `🐫`],
 	avoidable: [`🦑`, `🐍`, `🐱‍👤`, `🦛`],
 	ordinary: [
