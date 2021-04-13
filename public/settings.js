@@ -21,7 +21,7 @@ class Settings extends LitElement {
 				user-select: none;
 			}
 			[type='submit'] {
-				--webkit-appearance: none;
+				-webkit-appearance: none;
 				background: hotpink;
 				border-radius: 1em;
 				border: 0.25em outset lime;

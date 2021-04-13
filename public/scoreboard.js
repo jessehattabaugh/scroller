@@ -10,10 +10,9 @@ class ScoreBoard extends LitElement {
 				display: flex;
 				font-size: min(7vw, 3em);
 				gap: 0.5em;
-				justify-content: space-around;
+				justify-content: space-evenly;
 				padding: 0.25em;
 				text-shadow: 0 0 0.5em rgba(255, 255, 255, 0.5);
-				white-space: nowrap;
 			}
 			:host(.notstarted),
 			:host(.stopped) {
@@ -22,6 +21,10 @@ class ScoreBoard extends LitElement {
 				flex-direction: column;
 				font-size: 9vw;
 				height: 100%;
+			}
+			:host(.notstarted) div,
+			:host(.stopped) div {
+				flex: none;
 			}
 			:host(.notstarted) output {
 				font-size: 14vw;
@@ -33,12 +36,12 @@ class ScoreBoard extends LitElement {
 				white-space: initial;
 			}
 			button {
-				--webkit-appearance: none;
+				-webkit-appearance: none;
 				background: lime;
 				border-radius: 1em;
 				border: 0.4em outset magenta;
 				color: blue;
-				font-size: 7vw;
+				font-size: min(7vw, 0.5em);
 				outline: none;
 				padding: 0.75em;
 			}
@@ -51,6 +54,15 @@ class ScoreBoard extends LitElement {
 			}
 			div {
 				text-align: center;
+			}
+			.find {
+				flex: 5;
+			}
+			.avoid {
+				flex: 2;
+			}
+			.score {
+				flex: 1;
 			}
 		`;
 	}
@@ -78,7 +90,7 @@ class ScoreBoard extends LitElement {
 	render() {
 		const isStopped = this.classList.contains('stopped');
 		const isStarted = this.classList.contains('started');
-		return html`<div>
+		return html`<div class="find">
 				${isStopped
 					? html`You found them all!`
 					: html`<h4>Find:</h4>
@@ -90,14 +102,19 @@ class ScoreBoard extends LitElement {
 			</div>
 			${isStopped
 				? null
-				: html`<div>
+				: html`<div class="avoid">
 						<h4>Avoid:</h4>
 						${Object.keys(this.baddies)
 							.map((kind, i) => kind)
 							.join(' ')}
 				  </div>`}
 			${isStarted ? null : html`<div>${this.timer}</div>`}
-			${isStarted ? html`<div><h4>★</h4>${this.bonus}</div>` : null}
+			${isStarted
+				? html`<div class="score">
+						<h4>★</h4>
+						${this.bonus}
+				  </div>`
+				: null}
 			${isStopped ? html`<button @click="${this.handleBackClick}">Back</button>` : null}`;
 	}
 }
