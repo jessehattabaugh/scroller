@@ -74,7 +74,7 @@ class Sprite extends LitElement {
 			this.observer.observe(this);
 		}
 
-		this.fontSize = `${40 / this.columns}vw`;
+		this.fontSize = `${50 / this.columns}vw`;
 
 		const randomRotation = Math.random();
 		const rotationFactor = randomRotation * this.rotatability;

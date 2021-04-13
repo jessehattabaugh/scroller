@@ -247,9 +247,9 @@ class Scroller extends LitElement {
 		const isStarted = this.timerStart !== null;
 		return html` <style>
 				.container {
-					grid-row-gap: ${40 / this.numberOfColumns}vw;
+					grid-row-gap: ${20 / this.numberOfColumns}vw;
 					grid-template-columns: repeat(${this.numberOfColumns}, 1fr);
-				}
+				}			
 			</style>
 			<score-board
 				.bonus="${this.bonusPoints}"
