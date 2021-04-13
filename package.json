@@ -13,7 +13,7 @@
 		"url": "git+https://github.com/jessehattabaugh/scroller.git"
 	},
 	"scripts": {
-		"start": "npx serve public",
+		"start": "cd ./public && npx simplehttp2server-cli",
 		"test": "npx cowsay no tests yet, sorry!"
 	},
 	"version": "0.0.0"
