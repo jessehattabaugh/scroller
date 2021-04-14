@@ -11,6 +11,7 @@ customElements.define('sprite-comp', Sprite);
 
 import themes from './themes.js';
 
+// rename this to "Game"
 class Scroller extends LitElement {
 	static get properties() {
 		return {
@@ -153,9 +154,12 @@ class Scroller extends LitElement {
 		const numberOfUncollectibleKinds = 10; // TODO make this a property
 		const uncollectibleKinds = [];
 		for (let i = 0; i < numberOfUncollectibleKinds; i++) {
-			uncollectibleKinds.push(shuffle.pick(themes[this.theme].ordinary)); // TODO check to make sure it's not a duplicate
+			let randomKind;
+			do {
+				randomKind = shuffle.pick(themes[this.theme].ordinary);
+			} while (uncollectibleKinds.includes(randomKind));
+			uncollectibleKinds.push(randomKind); // TODO check to make sure it's not a duplicate
 		}
-
 		for (let i = 0; i < numberOfUncollectibles; i++) {
 			this.sprites.push({
 				kind: shuffle.pick(uncollectibleKinds),
@@ -249,7 +253,7 @@ class Scroller extends LitElement {
 				.container {
 					grid-row-gap: ${20 / this.numberOfColumns}vw;
 					grid-template-columns: repeat(${this.numberOfColumns}, 1fr);
-				}			
+				}
 			</style>
 			<score-board
 				.bonus="${this.bonusPoints}"
