@@ -116,7 +116,7 @@ class ScoreBoard extends LitElement {
 						${this.bonus}
 				  </div>`
 				: null}
-			${isStopped ? html`<button @click="${this.handleBackClick}">Back</button>` : null}`;
+			${isStopped ? html`<button @click="${this.handleBackClick}">Play Again!</button>` : null}`;
 	}
 }
 
