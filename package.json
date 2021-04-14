@@ -3,10 +3,10 @@
 	"bugs": {
 		"url": "https://github.com/jessehattabaugh/scroller/issues"
 	},
-	"description": "a game about scrolling",
+	"description": "game about finding emojis",
 	"homepage": "https://github.com/jessehattabaugh/scroller#readme",
 	"license": "UNLICENSED",
-	"name": "scroller",
+	"name": "emojiscroller",
 	"private": "true",
 	"repository": {
 		"type": "git",

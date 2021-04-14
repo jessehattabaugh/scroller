@@ -1,6 +1,6 @@
 # EmojiScroller
 
-a game about scrolling
+game about finding emojis
 
 ## hosted on render.com
 
