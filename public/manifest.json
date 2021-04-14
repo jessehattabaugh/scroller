@@ -18,6 +18,6 @@
 	"name": "EmojiScroller: Find the Emojis!",
 	"scope": "/",
 	"short_name": "EmojiScroller",
-	"start_url": "/?source=pwa",
+	"start_url": "/",
 	"theme_color": "black"
 }

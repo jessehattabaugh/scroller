@@ -19,7 +19,7 @@ class Scroller extends LitElement {
 			isFlashing: { type: Boolean },
 			isWinning: { type: Boolean },
 			numberOfKindsOfBadGuys: { type: Number },
-			numberOfKindsOfCollectibles: {type: Number},
+			numberOfKindsOfCollectibles: { type: Number },
 			numberOfColumns: { type: Number },
 			numberOfSprites: { type: Number },
 			ratioOfCollectibles: { type: Number },
@@ -126,7 +126,8 @@ class Scroller extends LitElement {
 		const numberOfBadGuys = this.numberOfSprites * this.ratioOfBadGuys;
 		let badGuyKinds = [];
 		for (let i = 0; i < this.numberOfKindsOfBadGuys; i++) {
-			badGuyKinds.push(shuffle.pick(themes[this.theme].avoidable));
+			const n = themes[this.theme].avoidable.length;
+			badGuyKinds.push(themes[this.theme].avoidable[i % n]);
 		}
 		for (let i = 0; i < numberOfBadGuys; i++) {
 			const kind = shuffle.pick(badGuyKinds);
@@ -139,7 +140,8 @@ class Scroller extends LitElement {
 		const numberOfCollectibles = this.numberOfSprites * this.ratioOfCollectibles;
 		let collectibleKinds = [];
 		for (let i = 0; i < this.numberOfKindsOfCollectibles; i++) {
-			collectibleKinds.push(shuffle.pick(themes[this.theme].collectible)); // TODO check to make sure it's not a duplicate
+			const n = themes[this.theme].collectible.length;
+			collectibleKinds.push(themes[this.theme].collectible[i % n]);
 		}
 		for (let i = 0; i < numberOfCollectibles; i++) {
 			const kind = shuffle.pick(collectibleKinds);
@@ -154,11 +156,8 @@ class Scroller extends LitElement {
 		const numberOfUncollectibleKinds = 10; // TODO make this a property
 		const uncollectibleKinds = [];
 		for (let i = 0; i < numberOfUncollectibleKinds; i++) {
-			let randomKind;
-			do {
-				randomKind = shuffle.pick(themes[this.theme].ordinary);
-			} while (uncollectibleKinds.includes(randomKind));
-			uncollectibleKinds.push(randomKind); // TODO check to make sure it's not a duplicate
+			const n = themes[this.theme].ordinary.length;
+			uncollectibleKinds.push(themes[this.theme].ordinary[i % n]);
 		}
 		for (let i = 0; i < numberOfUncollectibles; i++) {
 			this.sprites.push({
