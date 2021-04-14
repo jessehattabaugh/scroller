@@ -7,6 +7,7 @@ class Sprite extends LitElement {
 				backface-visibility: hidden; /* prevents blurry emojis */
 				contain: layout;
 				justify-self: center;
+				position: relative;
 				text-shadow: 0 0.05em 0.08em rgba(0, 0, 0, 0.5);
 				user-select: none;
 			}
@@ -73,7 +74,7 @@ class Sprite extends LitElement {
 			this.observer.observe(this);
 		}
 
-		this.fontSize = `${40 / this.columns}vw`;
+		this.fontSize = `${50 / this.columns}vw`;
 
 		const randomRotation = Math.random();
 		const rotationFactor = randomRotation * this.rotatability;
