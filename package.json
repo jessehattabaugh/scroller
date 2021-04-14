@@ -4,9 +4,6 @@
 		"url": "https://github.com/jessehattabaugh/scroller/issues"
 	},
 	"description": "a game about scrolling",
-	"devDependencies": {
-		"serve": "^11.3.2"
-	},
 	"homepage": "https://github.com/jessehattabaugh/scroller#readme",
 	"license": "UNLICENSED",
 	"name": "scroller",
@@ -16,7 +13,7 @@
 		"url": "git+https://github.com/jessehattabaugh/scroller.git"
 	},
 	"scripts": {
-		"start": "serve public",
+		"start": "npx serve public",
 		"test": "npx cowsay no tests yet, sorry!"
 	},
 	"version": "0.0.0"

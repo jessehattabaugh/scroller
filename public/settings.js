@@ -7,6 +7,7 @@ import themes from './themes.js';
 class Settings extends LitElement {
 	static get styles() {
 		return css`
+
 			form {
 				font-size: 1.5em;
 				padding: 1em;
@@ -21,12 +22,12 @@ class Settings extends LitElement {
 				user-select: none;
 			}
 			[type='submit'] {
-				-webkit-appearance: none;
-				background: hotpink;
+        -webkit-appearance: none;
+				background: Crimson;
 				border-radius: 1em;
-				border: 0.25em outset lime;
-				color: yellow;
-				font-family: unset;
+				border: 0.25em outset Lime;
+				color: Khaki;
+				font-family: inherit;
 				font-size: 2.25em;
 				font-weight: bold;
 				margin: auto;

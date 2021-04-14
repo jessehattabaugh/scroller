@@ -41,6 +41,7 @@ class ScoreBoard extends LitElement {
 				border-radius: 1em;
 				border: 0.4em outset magenta;
 				color: blue;
+				font-family: inherit;
 				font-size: min(7vw, 0.5em);
 				outline: none;
 				padding: 0.75em;

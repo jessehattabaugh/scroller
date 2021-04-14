@@ -1,7 +1,7 @@
 import { LitElement, html, css } from 'https://cdn.skypack.dev/lit-element';
 
 import shuffle from 'https://cdn.skypack.dev/shuffle-array';
-import emojisList from 'https://cdn.skypack.dev/emojis-list';
+//import emojisList from 'https://cdn.skypack.dev/emojis-list';
 
 import ScoreBoard from './scoreboard.js';
 customElements.define('score-board', ScoreBoard);
@@ -112,11 +112,11 @@ class Scroller extends LitElement {
 		}, 1000);
 	}
 
-	randomEmoji() {
+	/*randomEmoji() {
 		// early and late emojis all kinda suck
 		const goodEmojis = emojisList.slice(316, 3057);
 		return shuffle.pick(goodEmojis);
-	}
+	}*/
 
 	generateSprites() {
 		// TODO clear out old sprites?
