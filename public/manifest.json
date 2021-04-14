@@ -15,9 +15,9 @@
 			"type": "image/png"
 		}
 	],
-	"name": "EmojiSafari: Find the Emojis!",
+	"name": "EmojiScroller: Find the Emojis!",
 	"scope": "/",
-	"short_name": "EmojiSafari",
+	"short_name": "EmojiScroller",
 	"start_url": "/?source=pwa",
 	"theme_color": "black"
 }
