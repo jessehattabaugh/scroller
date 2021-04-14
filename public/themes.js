@@ -74,8 +74,8 @@ export const fruit = {
 
 export const hearts = {
 	name: 'hearts',
-	collectible: [`💝`, `💌`, `😍`, `💑`],
-	avoidable: [`💔`, `😻`, `🫀`],
+	collectible: [`💝`, `💌`, `😍`],
+	avoidable: [`💔`, `😻`],
 	ordinary: [
 		`💘`,
 		`💖`,
