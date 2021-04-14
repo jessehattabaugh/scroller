@@ -8,7 +8,7 @@
 		<meta name="description" content="game about finding emojis" />
 		<meta name="theme-color" content="black" />
 		<link rel="icon" href="favicon.ico" />
-		<link rel="apple-touch-icon" href="icon192.png">
+		<link rel="apple-touch-icon" href="icon192.png" />
 		<style>
 			@import url('https://fonts.googleapis.com/css2?family=Itim&display=swap');
 			* {
@@ -42,5 +42,10 @@
 			customElements.define('aside-settings', Settings);
 		</script>
 		<aside-settings></aside-settings>
+		<script>
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.register('sw.js');
+			}
+		</script>
 	</body>
 </html>
