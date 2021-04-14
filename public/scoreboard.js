@@ -33,11 +33,12 @@ class ScoreBoard extends LitElement {
 				white-space: initial;
 			}
 			button {
-				appearance: none;
+				-webkit-appearance: none;
 				background: lime;
 				border-radius: 1em;
 				border: 0.4em outset magenta;
 				color: blue;
+				font-family: inherit;
 				font-size: 7vw;
 				outline: none;
 				padding: 0.75em;
