@@ -153,4 +153,12 @@ export const animals = {
 	],
 };
 
-export default { humanFaces, animals, fruit, hearts };
+//fae makes teh best themes! ;P 
+export const halloween = {
+	name: "halloween",
+	collectible: [`🎃`, `🍭`, `🍫`, `🍬`],
+	avoidable: [`🤡`, `😈`, `🕷`],
+	ordinary: [`🕯`, `💀`, `👻`, `👽`, `🦇`, `🕸`, `🦴`, `👹`, `🤖`, `🦉`, `🌙`],
+};
+
+export default { humanFaces, animals, fruit, hearts, halloween };
