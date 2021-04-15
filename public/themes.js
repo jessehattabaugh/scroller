@@ -158,7 +158,7 @@ export const halloween = {
 	name: "halloween",
 	collectible: [`🎃`, `🍭`, `🍫`, `🍬`],
 	avoidable: [`🤡`, `😈`, `🕷`],
-	ordinary: [`🕯`, `💀`, `👻`, `👽`, `🦇`, `🕸`, `🦴`, `☠`, `👹`, `🤖`, `🦉`, `🌙`, `⚰`],
+	ordinary: [`🕯`, `💀`, `👻`, `👽`, `🦇`, `🕸`, `🦴`, `👹`, `🤖`, `🦉`, `🌙`],
 };
 
 export default { humanFaces, animals, fruit, hearts, halloween };
