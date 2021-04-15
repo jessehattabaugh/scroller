@@ -153,4 +153,11 @@ export const animals = {
 	],
 };
 
-export default { humanFaces, animals, fruit, hearts };
+export const alienAbduction = {
+	name: "alien abduction",
+	collectible: [`🐄`, `🐮`, `😱`],
+	avoidable: [`🕴`, `💥`, `🌠`],
+	ordinary: [`👽`, `🛸`, `👽`, `🛸`, `🌌`, `👾`, `✨`, `🌕`, `🌎`, `🪐`],
+};
+
+export default { humanFaces, animals, fruit, hearts, alienAbduction };
