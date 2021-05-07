@@ -73,7 +73,7 @@ class Scroller extends LitElement {
 		this.collected = [];
 		this.intersected = [];
 		this.isFlashing = false;
-		this.isWinning = true; /* winning by default */
+		this.isWinning = true;
 		this.kindTotals = {};
 		this.rotationPercentage = null;
 		this.sizeVariability = null;
@@ -255,32 +255,37 @@ class Scroller extends LitElement {
 				}
 			</style>
 			<score-board
+				.baddies="${this.badGuyTotals}"
 				.bonus="${this.bonusPoints}"
 				.clicks="${this.clicks}"
 				.score="${this.kindTotals}"
-				.baddies="${this.badGuyTotals}"
 				.timer="${this.timer}"
 				class="${isPlaying ? 'playing' : 'stopped'} ${isStarted ? 'started' : 'notstarted'}"
 			></score-board>
 			${!isStarted || isPlaying
 				? html`<div
-						id="halo"
-						class="${this.isFlashing ? (this.isWinning ? 'winning' : 'losing') : ''}"
-				  >
-						<div class="container" @click="${this.handleClick}">
-							${this.sprites.map(
-								(sprite) =>
-									html`<sprite-comp
-										.columns="${this.numberOfColumns}"
-										.isCollectible="${sprite.isCollectible}"
-										.observer="${this.observer}"
-										.rotatability="${this.rotationPercentage}"
-										.sizeVariability="${this.sizeVariability}"
-										>${sprite.kind}</sprite-comp
-									>`,
-							)}
+							id="halo"
+							class="${this.isFlashing
+								? this.isWinning
+									? 'winning'
+									: 'losing'
+								: ''}"
+						>
+							<div class="container" @click="${this.handleClick}">
+								${this.sprites.map(
+									(sprite) =>
+										html`<sprite-comp
+											.columns="${this.numberOfColumns}"
+											.isCollectible="${sprite.isCollectible}"
+											.observer="${this.observer}"
+											.rotatability="${this.rotationPercentage}"
+											.sizeVariability="${this.sizeVariability}"
+											>${sprite.kind}</sprite-comp
+										>`,
+								)}
+							</div>
 						</div>
-				  </div>`
+						<button>💥</button>`
 				: null}`;
 	}
 }
